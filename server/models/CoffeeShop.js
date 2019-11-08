@@ -7,19 +7,42 @@ const CoffeeShopSchema = new Schema({
     required: true
   },
   founded: {
-    type: String,
+    type: Date,
     required: true
+  },
+  address: {
+    street: {
+      type: String,
+      required: true
+    },
+    city: {
+      type: String,
+      required: true
+    },
+    state: {
+      type: String,
+      required: true,
+      uppercase: true
+    },
+    zip: {
+      type: Number,
+      required: true
+    },
   },
   type: {
     type: String,
     required: true
   },
-  products: [
+  baristaSatisfaction: {
+    type: Number,
+    required: true
+  },
+  coffees: [
     {
       type: Schema.Types.ObjectId,
-      ref: "products"
+      ref: "coffee"
     }
-  ]
+  ],
 });
 
 CoffeeShopSchema.statics.findCoffees = function (coffeeShopId) {
@@ -27,5 +50,6 @@ CoffeeShopSchema.statics.findCoffees = function (coffeeShopId) {
     .populate("coffees")
     .then(coffeeShop => coffeeShop.coffees);
 };
+
 
 module.exports = mongoose.model("coffeeShops", CoffeeShopSchema);
