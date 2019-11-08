@@ -37,4 +37,21 @@ const CoffeeSchema = new Schema({
 
 })
 
+CoffeeSchema.statics.addCoffeeToShop = (coffeeId, coffeeShopId) => {
+    const Coffee = mongoose.model("coffee");
+    const CoffeeShop = mongoose.model("coffeeShop");
+
+    return Coffee.findById(coffeeId).then(coffee => {
+        return CoffeeShop.findById(coffeeShopId).then(shop => {
+            coffee.shops.push(shop);
+            shop.coffees.push(coffee);
+
+            return Promise.all([coffee.save(), shop.save()]).then(
+                ([coffee, shop]) => coffee
+            );
+        });
+    });
+};
+
+
 module.exports = mongoose.model('coffee', CoffeeSchema)
