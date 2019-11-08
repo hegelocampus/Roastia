@@ -1,8 +1,9 @@
 const mongoose = require("mongoose");
 const graphql = require("graphql");
 const { GraphQLObjectType, GraphQLString, GraphQLInt, GraphQLID } = graphql;
-
+const { CoffeeShopType, AddressType } = require("./types/coffee_shop_type");
 const UserType = require("./types/user_type");
+const CoffeeShop = mongoose.model("coffeeShops");
 const AuthService = require("../services/auth");
 
 const mutation = new GraphQLObjectType({
@@ -46,7 +47,23 @@ const mutation = new GraphQLObjectType({
             resolve(_, args) {
                 return AuthService.verifyUser(args);
             }
-        }
+        },
+        newCoffeeShop: {
+            type: CoffeeShopType,
+            args: {
+                name: { type: GraphQLString },
+                founded: { type: GraphQLInt },
+                address: { type: AddressType },
+                type: { type: GraphQLString },
+                baristaSatisfaction: { type: GraphQLInt },
+            },
+            resolve(_, { name }) {
+                return new CoffeeShop({
+                    name, founded, address, type, baristaSatisfaction 
+                }).save();
+            }
+        },
+
     }
 });
 

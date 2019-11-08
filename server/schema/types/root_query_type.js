@@ -5,7 +5,7 @@ const { GraphQLObjectType, GraphQLList, GraphQLID, GraphQLNonNull } = graphql;
 
 const UserType = require("./user_type");
 // const User = mongoose.model("users");
-const CoffeeShopType = require("./coffee_shop_type");
+const { CoffeeShopType } = require("./coffee_shop_type");
 
 const RootQueryType = new GraphQLObjectType({
     name: "RootQueryType",
