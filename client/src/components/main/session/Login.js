@@ -2,7 +2,7 @@ import React from "react";
 import { Formik, Form, Field } from "formik";
 import useSession from "./useSession";
 
-import Mutations from "../../graphql/mutations";
+import Mutations from "../../../graphql/mutations";
 const { LOGIN_USER } = Mutations;
 
 export default props => {
