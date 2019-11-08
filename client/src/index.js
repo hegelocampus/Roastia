@@ -59,7 +59,7 @@ const Root = () => {
   return (
     <ApolloProvider client={client}>
       <HashRouter>
-        <App />
+        <App client />
       </HashRouter>
     </ApolloProvider>
   );
