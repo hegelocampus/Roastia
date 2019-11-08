@@ -22,9 +22,22 @@ mongoose
   .catch(err => console.log(err));
 
 app.use(logger('dev'));
+
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+
+app.use(
+  "/graphql",
+  expressGraphQL(req => ({
+    schema,
+    context: {
+      token: req.headers.authorization
+    },
+    graphiql: true
+  }))
+);
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, '../client/build')));
@@ -50,16 +63,8 @@ app.use(function (err, req, res, next) {
 
   //render the error page
   res.status(err.status || 500);
-  res.render('error');
+  res.send({message: 'error'});
 });
 
-app.use(cors());
-app.use(
-    "/graphql",
-    expressGraphQL({
-        schema,
-        graphiql: true
-    })
-);
 
 module.exports = app;

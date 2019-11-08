@@ -1,13 +1,10 @@
 import React, { Component } from "react";
-import { Query } from "react-apollo";
-import ProductIndex from "./products/ProductIndex";
-import CreateProduct from "./products/CreateProduct";
-import ProductDetail from "./products/ProductDetail";
+
 import { Route, Switch } from "react-router-dom";
-import AuthRoute from "../util/route_util";
+import AuthRoute from "./util/route_util";
 import Login from "./session/Login";
 import Nav from "./session/Nav";
-import Register from './session/Register';
+import Register from "./session/Register";
 
 const App = () => {
   return (
@@ -17,7 +14,7 @@ const App = () => {
       <Switch>
         <AuthRoute exact path="/login" component={Login} routeType="auth" />
         <AuthRoute exact path="/signup" component={Register} routeType="auth" />
-      </ Switch>
+      </Switch>
     </div>
   );
 };

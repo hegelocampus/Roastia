@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import { Query, ApolloConsumer } from "react-apollo";
 import Queries from "../../graphql/queries";
@@ -25,14 +25,13 @@ const Nav = props => {
                   >
                     Logout
                   </button>
-                  <Link to='/new'>Create Product</Link>
                 </div>
               );
             } else {
               return (
                 <div>
-                  <Link to='/login'>Login</Link>
-                  <Link to='/signup'>Sign Up</Link>
+                  <Link to="/login">Login</Link>
+                  <Link to="/signup">Sign Up</Link>
                 </div>
               );
             }
