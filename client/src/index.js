@@ -7,7 +7,7 @@ import ApolloClient from "apollo-client";
 import { InMemoryCache } from "apollo-cache-inmemory";
 import { createHttpLink } from "apollo-link-http";
 import { setContext } from "apollo-link-context"; //add apollo-link-client to client's package.json
-import { onError } from "appollo-link-error";
+import { onError } from "apollo-link-error";
 import Mutations from "./graphql/mutations";
 
 const { VERIFY_USER } = Mutations;
