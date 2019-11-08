@@ -1,12 +1,12 @@
 import React from "react";
 import { ApolloProvider } from "react-apollo";
-import { HashRouter } from "react-router-dom";
+import { BrowserRouter as Router } from "react-router-dom";
 import MainContainer from "./main/MainContainer";
 
 export default ({ client }) => (
   <ApolloProvider client={client}>
-    <HashRouter>
+    <Router>
       <MainContainer />;
-    </HashRouter>
+    </Router>
   </ApolloProvider>
 );
