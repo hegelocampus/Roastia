@@ -5,11 +5,11 @@ const { GraphQLObjectType, GraphQLList, GraphQLID, GraphQLNonNull } = graphql;
 
 const UserType = require("./user_type");
 const CoffeeType = require("./coffee_type");
+const CoffeeShopType = require("./coffee_shop_type").CoffeeShopType;
 
 const User = mongoose.model("users");
 const Coffee = mongoose.model("coffee")
-// const User = mongoose.model("users");
-const { CoffeeShopType } = require("./coffee_shop_type");
+const CoffeeShop = mongoose.model("coffeeShops")
 
 const RootQueryType = new GraphQLObjectType({
     name: "RootQueryType",
@@ -47,7 +47,7 @@ const RootQueryType = new GraphQLObjectType({
             }
         },
         coffeeShop: {
-            type: CoffeeShopType,
+            type: require("./coffee_shop_type").CoffeeShopType,
             args: { _id: { type: new GraphQLNonNull(GraphQLID) } },
             resolve(_, args) {
                 return CoffeeShop.findById(args._id);
