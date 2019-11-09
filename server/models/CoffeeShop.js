@@ -57,6 +57,21 @@ CoffeeShopSchema.statics.findCoffees = function (coffeeShopId) {
     .then(coffeeShop => coffeeShop.coffees);
 };
 
+CoffeeShopSchema.statics.removeCoffeeFromShop = (coffeeShopId, coffeeId) => {
+  const CoffeeShop = mongoose.model("coffeeShops");
+  const Coffee = mongoose.model("coffee");
+
+  return CoffeeShop.findById(coffeeShopId).then(coffeeShop => {
+    return Coffee.findById(coffeeId).then(coffee => {
+      coffeeShop.coffees.pull(coffee);
+      coffee.coffeeShops.pull(coffeeShop);
+
+      return Promise.all([coffeeShop.save(), coffee.save()]).then(
+        ([coffeeShop, coffee]) => coffeeShop
+      );
+    });
+  });
+};
 
 
 

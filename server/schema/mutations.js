@@ -29,8 +29,6 @@ const AddressInput = new GraphQLInputObjectType({
   }
 });
 
-console.log(AddressInput);
-
 const mutation = new GraphQLObjectType({
     name: "Mutation",
     fields: {
@@ -83,6 +81,16 @@ const mutation = new GraphQLObjectType({
                 return Coffee.addCoffeeToShop(args.coffeeId, args.coffeeShopId)
             }
         },
+        removeCoffeeFromShop: {
+            type: CoffeeShopType,
+            args: {
+                coffeeShopId: { type: GraphQLID },
+                coffeeId: { type: GraphQLID }
+            },
+            resolve(parentValue, { coffeeShopId, coffeeId }) {
+                return CoffeeShop.removeCoffeeFromShop(coffeeShopId, coffeeId);
+            }
+        },
         addCoffee: {
             type: CoffeeType,
             args: {
@@ -132,8 +140,44 @@ const mutation = new GraphQLObjectType({
                 return User.removeFavorite(args.userId, args.coffeeShopId)
             }
 
-        }
+        },
+        updateCoffeeShop: {
+            type: CoffeeShopType,
+            args: {
+                id: { type: GraphQLID },
+                name: { type: GraphQLString },
+                founded: { type: GraphQLString },
+                address: { type: AddressInput },
+                type: { type: GraphQLString },
+                baristaSatisfaction: { type: GraphQLInt },
+            },
+            resolve(parentValue, { id, name, founded, address, type, baristaSatisfaction }) {
+                const updateObj = {};
 
+                if (id) updateObj.id = id;
+                if (name) updateObj.name = name;
+                if (founded) updateObj.founded = founded;
+                if (address) updateObj.address = address;
+                if (type) updateObj.type = type;
+                if (baristaSatisfaction) updateObj.baristaSatisfaction = baristaSatisfaction;
+
+                return CoffeeShop.findOneAndUpdate(
+                    { _id: id },
+                    { $set: updateObj },
+                    { new: true },
+                    (err, coffeeShop) => {
+                        return coffeeShop;
+                    }
+                );
+            }
+        },
+        deleteCoffeeShop: {
+            type: CoffeeShopType,
+            args: { id: { type: GraphQLID } },
+            resolve(_, { id }) {
+                return CoffeeShop.remove({ _id: id });
+            }
+        },
     }
 });
 
