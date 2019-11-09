@@ -9,6 +9,7 @@ const {
 } = graphql;
 
 const CoffeeShop = mongoose.model("coffeeShops");
+const UserType = require("./user_type")
 
 const AddressType = new GraphQLObjectType({
   name: 'AddressType',
@@ -42,9 +43,18 @@ const CoffeeShopType = new GraphQLObjectType({
       resolve(parentValue) {
         return CoffeeShop.findCoffees(parentValue.id);
       }
+    },
+    users: {
+      type: new GraphQLList(UserType),
+      resolve(parentValue) {
+        return CoffeeShop.findById(parentValue.id).populate("users").then(coffeeShop => coffeeShop.users)
+      }
+
     }
   })
 });
 
 module.exports = { CoffeeShopType, AddressType };
+
+
 

@@ -17,6 +17,8 @@ const CoffeeShopType = require("./types/coffee_shop_type").CoffeeShopType;
 const Coffee = mongoose.model('coffee')
 const CoffeeShop = mongoose.model("coffeeShops");
 
+const User = mongoose.model('users')
+
 const AddressInput = new GraphQLInputObjectType({
   name: 'Address',
   fields: {
@@ -110,6 +112,27 @@ const mutation = new GraphQLObjectType({
                 }).save();
             }
         },
+        addFavorite: {
+            type: UserType,
+            args: {
+                userId: { type: GraphQLID },
+                coffeeShopId: { type: GraphQLID }
+            },
+            resolve(_, args) {
+                return User.addFavorite(args.userId, args.coffeeShopId)
+            }
+        },
+        removeFavorite: {
+            type: UserType,
+            args: {
+                userId: { type: GraphQLID },
+                coffeeShopId: { type: GraphQLID }
+            },
+            resolve(_, args) {
+                return User.removeFavorite(args.userId, args.coffeeShopId)
+            }
+
+        }
 
     }
 });
