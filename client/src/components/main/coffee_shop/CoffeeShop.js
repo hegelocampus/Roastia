@@ -7,7 +7,7 @@ const { FETCH_SHOP } = Queries;
 
 export default () => {
   const { shopId } = useParams();
-  const { coffeeShop, error, loading } = useQuery(FETCH_SHOP, {
+  const { data, error, loading } = useQuery(FETCH_SHOP, {
     variables: { id: shopId }
   });
 
@@ -15,16 +15,11 @@ export default () => {
   if (error) return <p>Error</p>;
 
   const {
-    name,
-    address,
-    founded,
-    type,
-    baristaSatisfaction,
-    coffees
-  } = coffeeShop;
+    coffeeShop: { name, address, founded, type, baristaSatisfaction, coffees }
+  } = data;
   return (
     <div className="coffee-shop">
-      <img src="#" alt="coffee-shop" />
+      <img src="#" alt={`${name} coffee shop`} />
       <div className="coffe-shop-main-info">
         <h1>{name}</h1>
         <h2>{address.street}</h2>
@@ -49,10 +44,8 @@ export default () => {
           <h3>Coffee:</h3>
           <ul className="shop-coffee-ul">
             {coffees.map(coffee => (
-              <li className="coffee-li">
-                <Link to={`/${shopId}/coffee-${coffee._id}`}>
-                  {coffee.name}
-                </Link>
+              <li className="coffee-li" key={coffee.id}>
+                <Link to={`/${shopId}/coffee-${coffee.id}`}>{coffee.name}</Link>
               </li>
             ))}
           </ul>
