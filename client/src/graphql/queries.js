@@ -12,6 +12,13 @@ export default {
         _id
         name
         address
+        founded
+        type
+        baristaSatisfaction
+        coffees {
+          _id
+          name
+        }
       }
     }
   `
