@@ -8,3 +8,4 @@ module.exports = new GraphQLSchema({
     query,
     mutation
 });
+

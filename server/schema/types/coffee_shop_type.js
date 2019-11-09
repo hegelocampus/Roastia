@@ -1,6 +1,12 @@
 const mongoose = require("mongoose");
 const graphql = require("graphql");
-const { GraphQLObjectType, GraphQLString, GraphQLID, GraphQLList, GraphQLInt } = graphql;
+const {
+  GraphQLObjectType,
+  GraphQLString,
+  GraphQLID,
+  GraphQLList,
+  GraphQLInt
+} = graphql;
 
 const CoffeeShop = mongoose.model("coffeeShops");
 
@@ -40,4 +46,5 @@ const CoffeeShopType = new GraphQLObjectType({
   })
 });
 
-module.exports = CoffeeShopType;
+module.exports = { CoffeeShopType, AddressType };
+

@@ -1,13 +1,33 @@
 const mongoose = require("mongoose");
 const graphql = require("graphql");
-const { GraphQLObjectType, GraphQLString, GraphQLInt, GraphQLID, GraphQLList } = graphql;
-const { CoffeeShopType, AddressType } = require("./types/coffee_shop_type");
-const UserType = require("./types/user_type");
-const CoffeeShop = mongoose.model("coffeeShops");
-const AuthService = require("../services/auth");
+const {
+  GraphQLObjectType,
+  GraphQLInputObjectType,
+  GraphQLString,
+  GraphQLInt,
+  GraphQLID,
+  GraphQLList
+} = graphql;
 
+const AuthService = require("../services/auth");
+const UserType = require("./types/user_type");
 const CoffeeType = require('./types/coffee_type');
+const CoffeeShopType = require("./types/coffee_shop_type").CoffeeShopType;
+
 const Coffee = mongoose.model('coffee')
+const CoffeeShop = mongoose.model("coffeeShops");
+
+const AddressInput = new GraphQLInputObjectType({
+  name: 'Address',
+  fields: {
+    street: { type: GraphQLString },
+    city: { type: GraphQLString },
+    state: { type: GraphQLString },
+    zip: { type: GraphQLInt }
+  }
+});
+
+console.log(AddressInput);
 
 const mutation = new GraphQLObjectType({
     name: "Mutation",
@@ -53,9 +73,9 @@ const mutation = new GraphQLObjectType({
         },
         addCoffeeToShop: {
             type: CoffeeType,
-            args: { 
-                coffeeId: { type: GraphQLID }, 
-                coffeeShopId: { type: GraphQLID }, 
+            args: {
+                coffeeId: { type: GraphQLID },
+                coffeeShopId: { type: GraphQLID },
             },
             resolve(parentValue, args) {
                 return Coffee.addCoffeeToShop(args.coffeeId, args.coffeeShopId)
@@ -80,13 +100,13 @@ const mutation = new GraphQLObjectType({
             args: {
                 name: { type: GraphQLString },
                 founded: { type: GraphQLInt },
-                address: { type: AddressType },
+                address: { type: AddressInput },
                 type: { type: GraphQLString },
                 baristaSatisfaction: { type: GraphQLInt },
             },
-            resolve(_, { name }) {
+            resolve(_, { name, founded, address, type, baristaSatisfaction }) {
                 return new CoffeeShop({
-                    name, founded, address, type, baristaSatisfaction 
+                    name, founded, address, type, baristaSatisfaction
                 }).save();
             }
         },
