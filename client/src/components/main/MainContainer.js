@@ -15,8 +15,8 @@ export default () => {
       <Switch>
         <AuthRoute exact path="/login" component={Login} routeType="auth" />
         <AuthRoute exact path="/signup" component={Register} routeType="auth" />
-        <Route exact path="/:shopId/coffee-:coffeeId" component={Coffee} />
-        <Route exact path="/:shopId" component={CoffeeShop} />
+        <Route path="/:shopId/coffee-:coffeeId" component={Coffee} />
+        <Route path="/:shopId" component={CoffeeShop} />
         <Route exact path="/" component={Splash} />
       </Switch>
     </React.Fragment>

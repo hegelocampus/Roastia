@@ -7,16 +7,21 @@ const { FETCH_SHOP } = Queries;
 
 export default () => {
   const { shopId } = useParams();
-  const {
-    coffeeShop: { name, address, founded, type, baristaSatisfaction, coffees },
-    error,
-    loading
-  } = useQuery(FETCH_SHOP, {
+  const { coffeeShop, error, loading } = useQuery(FETCH_SHOP, {
     variables: { id: shopId }
   });
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error</p>;
+
+  const {
+    name,
+    address,
+    founded,
+    type,
+    baristaSatisfaction,
+    coffees
+  } = coffeeShop;
   return (
     <div className="coffee-shop">
       <img src="#" alt="coffee-shop" />

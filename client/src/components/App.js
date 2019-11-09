@@ -6,7 +6,7 @@ import MainContainer from "./main/MainContainer";
 export default ({ client }) => (
   <ApolloProvider client={client}>
     <Router>
-      <MainContainer />;
+      <MainContainer />
     </Router>
   </ApolloProvider>
 );

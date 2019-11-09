@@ -8,15 +8,20 @@ export default {
   `,
   FETCH_SHOP: gql`
     query coffeeShop($id: ID!) {
-      coffeeShop(id: $id) {
+      coffeeShop(_id: $id) {
         _id
         name
-        address
         founded
         type
         baristaSatisfaction
+        address {
+          city
+          state
+          street
+          zip
+        }
         coffees {
-          _id
+          id
           name
         }
       }
