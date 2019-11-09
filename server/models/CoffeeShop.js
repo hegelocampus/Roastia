@@ -7,7 +7,7 @@ const CoffeeShopSchema = new Schema({
     required: true
   },
   founded: {
-    type: Date,
+    type: Number,
     required: true
   },
   address: {

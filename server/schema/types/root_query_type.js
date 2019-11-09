@@ -34,23 +34,23 @@ const RootQueryType = new GraphQLObjectType({
             }
         },
         coffee: {
-            type: CoffeeType,
+            type: require("./coffee_type"),
             args: { id: { type: new GraphQLNonNull(GraphQLID) } },
             resolve(_, args) {
                 return Coffee.findById(args.id)
             }
         },
         coffeeShops: {
-            type: new GraphQLList(CoffeeShopType),
+            type: new GraphQLList(require("./coffee_shop_type").CoffeeShopType),
             resolve() {
                 return CoffeeShop.find({});
             }
         },
         coffeeShop: {
             type: require("./coffee_shop_type").CoffeeShopType,
-            args: { _id: { type: new GraphQLNonNull(GraphQLID) } },
+            args: { id: { type: new GraphQLNonNull(GraphQLID) } },
             resolve(_, args) {
-                return CoffeeShop.findById(args._id);
+                return CoffeeShop.findById(args.id);
             }
         },
 

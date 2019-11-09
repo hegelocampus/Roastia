@@ -31,7 +31,7 @@ const AddressType = new GraphQLObjectType({
 const CoffeeShopType = new GraphQLObjectType({
   name: "CoffeeShopType",
   fields: () => ({
-    _id: { type: GraphQLID },
+    id: { type: GraphQLID },
     name: { type: GraphQLString },
     founded: { type: GraphQLInt },
     address: { type: AddressType },
@@ -40,7 +40,7 @@ const CoffeeShopType = new GraphQLObjectType({
     coffees: {
       type: new GraphQLList(require("./coffee_type")),
       resolve(parentValue) {
-        return CoffeeShop.findCoffees(parentValue._id);
+        return CoffeeShop.findCoffees(parentValue.id);
       }
     }
   })
