@@ -41,8 +41,8 @@ export default () => {
           </li>
         </ul>
         <section>
-          <h3></h3>
-          <ul>
+          <h3>Coffee:</h3>
+          <ul className="shop-coffee-ul">
             {coffees.map(coffee => (
               <li className="coffee-li">
                 <Link to={`/${shopId}/coffee-${coffee._id}`}>
