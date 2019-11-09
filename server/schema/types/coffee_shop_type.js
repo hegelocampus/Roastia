@@ -33,7 +33,7 @@ const CoffeeShopType = new GraphQLObjectType({
   fields: () => ({
     id: { type: GraphQLID },
     name: { type: GraphQLString },
-    founded: { type: GraphQLInt },
+    founded: { type: GraphQLString },
     address: { type: AddressType },
     type: { type: GraphQLString },
     baristaSatisfaction: { type: GraphQLInt },

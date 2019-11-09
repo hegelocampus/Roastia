@@ -34,7 +34,7 @@ const RootQueryType = new GraphQLObjectType({
             }
         },
         coffee: {
-            type: require("./coffee_type"),
+            type: CoffeeType,
             args: { id: { type: new GraphQLNonNull(GraphQLID) } },
             resolve(_, args) {
                 return Coffee.findById(args.id)

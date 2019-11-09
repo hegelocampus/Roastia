@@ -99,7 +99,7 @@ const mutation = new GraphQLObjectType({
             type: CoffeeShopType,
             args: {
                 name: { type: GraphQLString },
-                founded: { type: GraphQLInt },
+                founded: { type: GraphQLString },
                 address: { type: AddressInput },
                 type: { type: GraphQLString },
                 baristaSatisfaction: { type: GraphQLInt },
