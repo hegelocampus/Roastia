@@ -31,7 +31,7 @@ const CoffeeSchema = new Schema({
     shops: [
         {
         type: Schema.Types.ObjectId,
-        ref: "coffeeShop"
+        ref: "coffeeShops"
         }
     ]
 
@@ -39,7 +39,7 @@ const CoffeeSchema = new Schema({
 
 CoffeeSchema.statics.addCoffeeToShop = (coffeeId, coffeeShopId) => {
     const Coffee = mongoose.model("coffee");
-    const CoffeeShop = mongoose.model("coffeeShop");
+    const CoffeeShop = mongoose.model("coffeeShops");
 
     return Coffee.findById(coffeeId).then(coffee => {
         return CoffeeShop.findById(coffeeShopId).then(shop => {

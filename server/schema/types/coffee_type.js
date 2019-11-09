@@ -2,7 +2,7 @@ const mongoose = require("mongoose")
 const graphql = require("graphql");
 const { GraphQLObjectType, GraphQLString, GraphQLID, GraphQLList, GraphQLInt } = graphql;
 
-const Cofee = mongoose.model("coffee")
+const Coffee = mongoose.model("coffee")
 
 const CoffeeType = new GraphQLObjectType({
     name: "CoffeeType",
@@ -14,13 +14,13 @@ const CoffeeType = new GraphQLObjectType({
         roasting: { type: GraphQLString },
         flavor: { type: new GraphQLList(GraphQLString) },
         price: { type: GraphQLInt },
-        // shops: { 
-        //     type: new GraphQLList(require('./coffee_shop_type')),
-        //     resolve(parentValue) {
-        //         return Coffee.findById(parentValue.id).populate("coffeeShop").then(coffee => coffee.shops)
-        //     }
+        shops: { 
+            type: new GraphQLList(require('./coffee_shop_type')),
+            resolve(parentValue) {
+                return Coffee.findById(parentValue.id).populate("coffeeShop").then(coffee => coffee.shops)
+            }
 
-        // }
+        }
     })
 });
 
