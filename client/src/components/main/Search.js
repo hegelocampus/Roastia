@@ -1,35 +1,16 @@
 import React, { Component } from 'react';
 import { withApollo } from 'react-apollo';
-import gql from 'graphql-tag';
-// import CoffeeShop from './CoffeeShop';
-// import Coffee from './Coffee';
+import { withRouter } from 'react-router-dom';
+import Queries from "../../graphql/queries";
+const { SEARCH_SHOPS } = Queries;
 
-const FEED_SEARCH_QUERY = gql`
-  query FeedSearchQuery($filter: String!) {
-    feed(filter: $filter) {
-      coffeeShops {
-        id
-        name
-        founded
-        address {
-          street
-          city
-          state
-          zip
-        }
-        type
-        baristaSatisfaction
-      }
-    }
-  }
-`
-
-class Search extends React.Component {
+class Search extends Component {
   constructor(props) {
     super(props)
     this.state = {
       shops: [],
-      filter: ''
+      filter: '',
+      referrer: null
     }
   }
 
@@ -38,27 +19,32 @@ class Search extends React.Component {
       <div>
         <div>
           Search
-          <form>
             <input
               type='text'
               onChange={e => this.setState({ filter: e.target.value })}
             />
             <button onClick={() => this._executeSearch()}>
-              OK
+              Find a shop!
             </button>
-          </form>
         </div>
-        {/* Uncomment when component is built */}
-        {/* {this.state.shops.map((shop, idx) => (
-          <CoffeeShop key={shop.id} shop={shop} index={idx} />
-        ))} */}
       </div>
     )
   }
 
   _executeSearch = async () => {
-
+    const { filter } = this.state
+    const result = await this.props.client.query({
+      query: SEARCH_SHOPS,
+      variables: { filter },
+    })
+    const coffeeShops = result.data.searchShops;
+    this.setState({ shops: coffeeShops, referrer: './shops' });
+    const { referrer } = this.state;
+    this.props.history.push({
+      pathname: referrer,
+      state: { coffeeShops: coffeeShops }
+    });
   }
 }
 
-export default withApollo(Search);
+export default withRouter(withApollo(Search));

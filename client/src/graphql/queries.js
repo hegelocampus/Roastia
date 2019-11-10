@@ -41,5 +41,26 @@ export default {
         }
       }
     }
+  `,
+  SEARCH_SHOPS: gql`
+    query searchShops($filter: String!) {
+      searchShops(filter: $filter) {
+          id
+          name
+          founded
+          address {
+            street
+            city
+            state
+            zip
+          }
+          type
+          baristaSatisfaction
+          coffees {
+            id
+            name
+          }
+      }
+    }
   `
 };
