@@ -26,5 +26,20 @@ export default {
         }
       }
     }
+  `,
+  FETCH_SHOPS: gql`
+    query coffeeShops($selectors: Selectors) {
+      coffeeShops(selectors: $selectors) {
+        id
+        type
+        name
+        address {
+          city
+          state
+          street
+          zip
+        }
+      }
+    }
   `
 };
