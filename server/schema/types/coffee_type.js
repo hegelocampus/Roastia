@@ -17,10 +17,10 @@ const CoffeeType = new GraphQLObjectType({
         shops: {
             type: new GraphQLList(require('./coffee_shop_type').CoffeeShopType),
             resolve(parentValue) {
-                return Coffee.findById(parentValue.id).populate("shops").then(coffee=>coffee.shops);
+                return Coffee.findById(parentValue.id).populate("shops").then(coffee => coffee.shops);
             }
-
         }
+        
     })
 });
 

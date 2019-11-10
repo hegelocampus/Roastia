@@ -43,6 +43,12 @@ const CoffeeShopSchema = new Schema({
       ref: "coffee"
     }
   ],
+  users: [
+    {
+    type: Schema.Types.ObjectId,
+    ref: "users"
+    }  
+  ]
 });
 
 CoffeeShopSchema.statics.findCoffees = function (coffeeShopId) {
@@ -66,5 +72,8 @@ CoffeeShopSchema.statics.removeCoffeeFromShop = (coffeeShopId, coffeeId) => {
     });
   });
 };
+
+
+
 
 module.exports = mongoose.model("coffeeShops", CoffeeShopSchema);

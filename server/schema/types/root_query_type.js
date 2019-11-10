@@ -71,7 +71,7 @@ const RootQueryType = new GraphQLObjectType({
             resolve(_, args) {
                 return CoffeeShop.findById(args.id);
             }
-        },
+        }
 
     })
 });
