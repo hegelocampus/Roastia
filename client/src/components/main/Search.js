@@ -38,13 +38,15 @@ class Search extends React.Component {
       <div>
         <div>
           Search
-          <input
-            type='text'
-            onChange={e => this.setState({ filter: e.target.value })}
-          />
-          <button onClick={() => this._executeSearch()}>
-            OK
-          </button>
+          <form>
+            <input
+              type='text'
+              onChange={e => this.setState({ filter: e.target.value })}
+            />
+            <button onClick={() => this._executeSearch()}>
+              OK
+            </button>
+          </form>
         </div>
         {/* Uncomment when component is built */}
         {/* {this.state.shops.map((shop, idx) => (
