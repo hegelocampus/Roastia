@@ -6,6 +6,7 @@ import Register from "./session/Register";
 import TopBar from "./top_bar/TopBar";
 import Splash from "./Splash";
 import CoffeeShop from "./coffee_shop/CoffeeShop";
+import CoffeeShopIndex from "./coffee_shop/CoffeeShopIndex";
 import Coffee from "./coffee_shop/CoffeeShop";
 
 export default () => {
@@ -15,6 +16,7 @@ export default () => {
       <Switch>
         <AuthRoute exact path="/login" component={Login} routeType="auth" />
         <AuthRoute exact path="/signup" component={Register} routeType="auth" />
+        <Route path="/shops" component={CoffeeShopIndex} />
         <Route path="/:shopId/coffee-:coffeeId" component={Coffee} />
         <Route path="/:shopId" component={CoffeeShop} />
         <Route exact path="/" component={Splash} />
