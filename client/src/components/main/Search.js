@@ -9,8 +9,7 @@ class Search extends Component {
     super(props)
     this.state = {
       shops: [],
-      filter: '',
-      referrer: null
+      filter: ''
     }
   }
 
@@ -38,10 +37,9 @@ class Search extends Component {
       variables: { filter },
     })
     const coffeeShops = result.data.searchShops;
-    this.setState({ shops: coffeeShops, referrer: './shops' });
-    const { referrer } = this.state;
+    this.setState({ shops: coffeeShops });
     this.props.history.push({
-      pathname: referrer,
+      pathname: './shops',
       state: { coffeeShops: coffeeShops }
     });
   }
