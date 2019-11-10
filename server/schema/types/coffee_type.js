@@ -19,8 +19,8 @@ const CoffeeType = new GraphQLObjectType({
             resolve(parentValue) {
                 return Coffee.findById(parentValue.id).populate("shops").then(coffee => coffee.shops);
             }
-
         }
+        
     })
 });
 

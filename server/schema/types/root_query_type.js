@@ -1,7 +1,7 @@
 require("../../models/index");
 const mongoose = require("mongoose");
 const graphql = require("graphql");
-const { GraphQLObjectType, GraphQLList, GraphQLID, GraphQLNonNull } = graphql;
+const { GraphQLObjectType, GraphQLList, GraphQLID, GraphQLNonNull, GraphQLString } = graphql;
 
 const UserType = require("./user_type");
 const CoffeeType = require("./coffee_type");
@@ -52,7 +52,7 @@ const RootQueryType = new GraphQLObjectType({
             resolve(_, args) {
                 return CoffeeShop.findById(args.id);
             }
-        },
+        }
 
     })
 });
