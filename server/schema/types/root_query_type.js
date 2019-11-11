@@ -19,12 +19,13 @@ const User = mongoose.model("users");
 const Coffee = mongoose.model("coffee")
 const CoffeeShop = mongoose.model("coffeeShops")
 
-const selectorInput = new  GraphQLInputObjectType({
+const selectorInput = new GraphQLInputObjectType({
   name: 'Selectors',
   fields: {
     name: { type: GraphQLString },
     city: { type: GraphQLString },
-    zip:  { type: GraphQLInt }
+    zip:  { type: GraphQLInt },
+    state: { type: GraphQLString }
   }
 });
 
@@ -111,8 +112,14 @@ const RootQueryType = new GraphQLObjectType({
             resolve(_, args) {
                 return CoffeeShop.findById(args.id);
             }
+        },
+        searchShops: {
+            type: new GraphQLList(require("./coffee_shop_type").CoffeeShopType),
+            args: { filter: { type: GraphQLString }},
+            resolve(_, { filter }) {
+                return CoffeeShop.find({ $text: { $search: filter }});
+            }
         }
-
     })
 });
 

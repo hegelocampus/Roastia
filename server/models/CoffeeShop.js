@@ -51,6 +51,21 @@ const CoffeeShopSchema = new Schema({
   ]
 });
 
+CoffeeShopSchema.index(
+  { 'name': 'text',
+   'address.state': 'text', 
+   'address.city': 'text', 
+   'type': 'text' },
+  {
+    weights: {
+    name: 10,
+    'address.state': 3,
+    'address.city': 5,
+    type: 2  
+    }
+  }
+);
+
 CoffeeShopSchema.statics.findCoffees = function (coffeeShopId) {
   return this.findById(coffeeShopId)
     .populate("coffees")
