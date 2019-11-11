@@ -1,24 +1,12 @@
 import React from "react";
-import { useQuery } from "@apollo/react-hooks";
 
-import Queries from "../../../graphql/queries";
-const { FETCH_SHOPS } = Queries;
-
-export default ({ selectors }) => {
-  selectors = selectors || {};
-  const { data, error, loading } = useQuery(FETCH_SHOPS, {
-    variables: { selectors: selectors }
-  });
-
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error</p>;
-
-  const { coffeeShops } = data;
+export default (props) => {
+  const coffeeShops = props.location.state.coffeeShops;
   return (
     <div className="shops-index-div">
       <ul>
         {coffeeShops.map(shop => (
-          <li className="shops-index-item">
+          <li key={shop.id} className="shops-index-item">
             <h4>{shop.name}</h4>
             <span>{shop.address.street}</span>
             <span>
