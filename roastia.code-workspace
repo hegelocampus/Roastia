@@ -9,5 +9,18 @@
 			80
 		],
 		"editor.tabSize": 2,
+		  "editor.quickSuggestions": {
+        "other": true,
+        "comments": false,
+        "strings": false
+    },
+    "editor.acceptSuggestionOnEnter": "on",
+    "editor.quickSuggestionsDelay": 3,
+    "editor.suggestOnTriggerCharacters": true,
+    "editor.tabCompletion": "on",
+    "editor.suggest.localityBonus": true,
+    "editor.suggestSelection": "recentlyUsed",
+    "editor.wordBasedSuggestions": true
 	}
+	
 }
