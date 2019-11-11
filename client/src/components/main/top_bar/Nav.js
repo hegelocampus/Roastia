@@ -1,8 +1,8 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import { Query, ApolloConsumer } from "react-apollo";
 import Queries from "../../../graphql/queries";
 import { withRouter } from "react-router-dom";
+import AuthModal from "../auth_modal/AuthModal";
 
 const { IS_LOGGED_IN } = Queries;
 
@@ -30,8 +30,7 @@ const Nav = props => {
             } else {
               return (
                 <div className="login-signup">
-                  <Link to="/login">Login</Link>
-                  <Link to="/signup">Sign Up</Link>
+                  <AuthModal />
                 </div>
               );
             }
