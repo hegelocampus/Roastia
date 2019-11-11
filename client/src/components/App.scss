@@ -1,0 +1,24 @@
+@import './variables.scss';
+@import './main/splash.scss';
+@import './main/top_bar/topBar.scss';
+
+@font-face { 
+  font-family: 'Open Sans';
+  src: local('Open Sans'), local('OpenSans'),
+       url('../fonts/Open\ Sans/OpenSans_Regular.woff2') format('woff2'),
+       url('../fonts/Open\ Sans/OpenSans_Regular.woff') format('woff')
+}
+@font-face { 
+  font-family: 'Yanone';
+  src: local('Yanone'), local('OpenSans'),
+       url('../fonts/Yanone/Yanone.woff2') format('woff2'),
+       url('../fonts/Yanone/Yanone.woff') format('woff')
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Yanone';
+}
+
+body {
+  font-family: 'Open Sans';
+}

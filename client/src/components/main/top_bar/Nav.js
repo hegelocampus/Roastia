@@ -14,7 +14,7 @@ const Nav = props => {
           {({ data }) => {
             if (data.isLoggedIn) {
               return (
-                <div>
+                <div className="logout">
                   <button
                     onClick={e => {
                       e.preventDefault();
@@ -29,7 +29,7 @@ const Nav = props => {
               );
             } else {
               return (
-                <div>
+                <div className="login-signup">
                   <Link to="/login">Login</Link>
                   <Link to="/signup">Sign Up</Link>
                 </div>

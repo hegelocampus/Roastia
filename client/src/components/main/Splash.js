@@ -5,8 +5,10 @@ import './splash.scss';
 export default () => (
   <React.Fragment>
     <section className="splash-main">
-      <h1>Discove a coffee shop where you'll love to code</h1>
-      <span><Search /></span>
+      <div className="splash-inner">
+        <h1>Discover a coffee shop where you'll love to code</h1>
+        <span><Search /></span>
+      </div>
     </section>
   </React.Fragment>
 );
