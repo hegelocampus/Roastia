@@ -93,6 +93,7 @@ typings/
 # DynamoDB Local files
 .dynamodb/
 
-config/
-
 # End of https://www.gitignore.io/api/node
+
+config/keys_dev.js
+

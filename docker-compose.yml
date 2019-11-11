@@ -1,0 +1,13 @@
+version: '3'
+services:
+  web:
+    container_name: roastia
+    image: hegelocampus/roastia
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+    volumes:
+      - .:/usr/src/app
+
