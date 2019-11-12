@@ -24,7 +24,7 @@ const AddressType = new GraphQLObjectType({
       type: GraphQLString
     },
     zip: {
-      type: GraphQLInt
+      type: GraphQLString
     }
   }
 });

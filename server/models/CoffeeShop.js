@@ -34,7 +34,7 @@ const CoffeeShopSchema = new Schema({
       uppercase: true
     },
     zip: {
-      type: Number,
+      type: String,
       required: true
     },
   },

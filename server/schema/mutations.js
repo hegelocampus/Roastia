@@ -25,7 +25,7 @@ const AddressInput = new GraphQLInputObjectType({
     street: { type: GraphQLString },
     city: { type: GraphQLString },
     state: { type: GraphQLString },
-    zip: { type: GraphQLInt }
+    zip: { type: GraphQLString }
   }
 });
 

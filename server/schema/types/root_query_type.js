@@ -26,7 +26,7 @@ const selectorInput = new GraphQLInputObjectType({
   fields: {
     type: { type: GraphQLString },
     city: { type: GraphQLString },
-    zip:  { type: GraphQLInt },
+    zip:  { type: GraphQLString },
     state: { type: GraphQLString },
     name: { type: GraphQLString }
   }
