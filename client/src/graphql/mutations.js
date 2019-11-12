@@ -13,6 +13,7 @@ export default {
     mutation VerifyUser($token: String!) {
       verifyUser(token: $token) {
         loggedIn
+        _id
       }
     }
   `,
@@ -21,6 +22,22 @@ export default {
       register(name: $name, email: $email, password: $password) {
         token
         loggedIn
+      }
+    }
+  `,
+  ADD_FAVORITE: gql`
+    mutation AddFavorite($userId: ID!, $coffeeShopId: ID!) {
+      addFavorite(userId: $userId, coffeeShopId: $coffeeShopId) {
+        _id
+        name
+      }
+    }
+  `,
+  REMOVE_FAVORITE: gql`
+    mutation RemoveFavorite($userId: ID!, $coffeeShopId: ID!) {
+      removeFavorite(userId: $userId, coffeeShopId: $coffeeShopId) {
+        _id
+        name
       }
     }
   `

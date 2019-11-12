@@ -6,6 +6,11 @@ export default {
       isLoggedIn @client
     }
   `,
+  CURRENT_USER: gql`
+    query currentUser {
+      id @client
+    }
+  `,
   FETCH_SHOP: gql`
     query coffeeShop($id: ID!) {
       coffeeShop(id: $id) {
@@ -23,6 +28,9 @@ export default {
         coffees {
           id
           name
+        }
+        users {
+          _id
         }
       }
     }
@@ -45,6 +53,27 @@ export default {
   SEARCH_SHOPS: gql`
     query searchShops($filter: String!) {
       searchShops(filter: $filter) {
+        id
+        name
+        founded
+        address {
+          street
+          city
+          state
+          zip
+        }
+        type
+        baristaSatisfaction
+        coffees {
+          id
+          name
+        }
+      }
+    }
+  `,
+  FETCH_FAVORITE_SHOPS: gql`
+    query FetchFavoriteShops($userId: ID!) {
+      fetchFavoriteShops(userId: $userId) {
         id
         name
         founded

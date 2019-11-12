@@ -4,7 +4,7 @@ import { Query, ApolloConsumer } from "react-apollo";
 import Queries from "../../../graphql/queries";
 import { withRouter } from "react-router-dom";
 
-const { IS_LOGGED_IN } = Queries;
+const { IS_LOGGED_IN, CURRENT_USER } = Queries;
 
 const Nav = props => {
   return (
@@ -15,6 +15,7 @@ const Nav = props => {
             if (data.isLoggedIn) {
               return (
                 <div>
+                  <Link to="/favorites">Saved Coffee Shops</Link>
                   <button
                     onClick={e => {
                       e.preventDefault();

@@ -22,10 +22,11 @@ const CoffeeShop = mongoose.model("coffeeShops")
 const selectorInput = new GraphQLInputObjectType({
   name: 'Selectors',
   fields: {
-    name: { type: GraphQLString },
+    type: { type: GraphQLString },
     city: { type: GraphQLString },
     zip:  { type: GraphQLInt },
-    state: { type: GraphQLString }
+    state: { type: GraphQLString },
+    name: { type: GraphQLString }
   }
 });
 
@@ -118,6 +119,13 @@ const RootQueryType = new GraphQLObjectType({
             args: { filter: { type: GraphQLString }},
             resolve(_, { filter }) {
                 return CoffeeShop.find({ $text: { $search: filter }});
+            }
+        },
+        fetchFavoriteShops: {
+            type: new GraphQLList(require("./coffee_shop_type").CoffeeShopType),
+            args: { userId: { type: GraphQLID } },
+            resolve(_, { userId }) {
+                return User.findById(userId).populate('favorites').then(user => user.favorites)
             }
         }
     })
