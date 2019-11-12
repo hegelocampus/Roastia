@@ -109,14 +109,19 @@ const mutation = new GraphQLObjectType({
             type: CoffeeShopType,
             args: {
                 name: { type: GraphQLString },
+                description: { type: GraphQLString },
+                url: { type: GraphQLString },
+                imageURL: { type: GraphQLString },
                 founded: { type: GraphQLString },
                 address: { type: AddressInput },
                 type: { type: GraphQLString },
                 baristaSatisfaction: { type: GraphQLInt },
             },
-            resolve(_, { name, founded, address, type, baristaSatisfaction }) {
+            resolve(_, {
+                name, decription, url, imageURL, founded, address, type, baristaSatisfaction 
+                }) {
                 return new CoffeeShop({
-                    name, founded, address, type, baristaSatisfaction
+                    name, decription, url, imageURL, founded, address, type, baristaSatisfaction 
                 }).save();
             }
         },
@@ -146,16 +151,24 @@ const mutation = new GraphQLObjectType({
             args: {
                 id: { type: GraphQLID },
                 name: { type: GraphQLString },
+                description: { type: GraphQLString },
+                url: { type: GraphQLString },
+                imageURL: { type: GraphQLString },
                 founded: { type: GraphQLString },
                 address: { type: AddressInput },
                 type: { type: GraphQLString },
                 baristaSatisfaction: { type: GraphQLInt },
             },
-            resolve(parentValue, { id, name, founded, address, type, baristaSatisfaction }) {
+            resolve(parentValue, {
+                id, name, decription, url, imageURL, founded, address, type, baristaSatisfaction
+            }) {
                 const updateObj = {};
 
                 if (id) updateObj.id = id;
                 if (name) updateObj.name = name;
+                if (description) updateObj.description = description;
+                if (url) updateObj.url = url;
+                if (imageURL) updateObj.imageURL = imageURL;
                 if (founded) updateObj.founded = founded;
                 if (address) updateObj.address = address;
                 if (type) updateObj.type = type;

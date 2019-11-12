@@ -11,6 +11,9 @@ export default {
       coffeeShop(id: $id) {
         id
         name
+        description
+        url
+        imageURL
         founded
         type
         baristaSatisfaction
@@ -50,6 +53,9 @@ export default {
       searchShops(filter: $filter) {
         id
         name
+        description
+        url
+        imageURL
         founded
         address {
           street
@@ -71,6 +77,9 @@ export default {
       fetchFavoriteShops {
         id
         name
+        description
+        url
+        imageURL
         founded
         address {
           street

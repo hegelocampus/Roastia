@@ -17,6 +17,9 @@ export default () => {
   const {
     coffeeShop: {
       name,
+      description,
+      url,
+      imageURL,
       address,
       founded,
       type,

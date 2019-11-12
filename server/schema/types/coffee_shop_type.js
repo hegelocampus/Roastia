@@ -34,6 +34,9 @@ const CoffeeShopType = new GraphQLObjectType({
   fields: () => ({
     id: { type: GraphQLID },
     name: { type: GraphQLString },
+    description: { type: GraphQLString },
+    url: { type: GraphQLString },
+    imageURL: { type: GraphQLString },
     founded: { type: GraphQLString },
     address: { type: AddressType },
     type: { type: GraphQLString },

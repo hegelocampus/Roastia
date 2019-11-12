@@ -6,6 +6,15 @@ const CoffeeShopSchema = new Schema({
     type: String,
     required: true
   },
+  description: {
+    type: String,
+  },
+  url: {
+    type: String
+  },
+  imageURL: {
+    type: String
+  },
   founded: {
     type: String,
     required: true
