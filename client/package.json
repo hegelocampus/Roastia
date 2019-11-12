@@ -35,7 +35,7 @@
     "yup": "^0.27.0"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "SASS_PATH='node_modules:src/sass' react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
