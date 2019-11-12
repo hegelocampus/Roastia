@@ -1,6 +1,6 @@
 import React from "react";
 
-export default (props) => {
+export default props => {
   const coffeeShops = props.location.state.coffeeShops;
   return (
     <div className="shops-index-div">

@@ -23,5 +23,21 @@ export default {
         loggedIn
       }
     }
+  `,
+  ADD_FAVORITE: gql`
+    mutation AddFavorite($userId: ID!, $coffeeShopId: ID!) {
+      addFavorite(userId: $userId, coffeeShopId: $coffeeShopId) {
+        _id
+        name
+      }
+    }
+  `,
+  REMOVE_FAVORITE: gql`
+    mutation RemoveFavorite($userId: ID!, $coffeeShopId: ID!) {
+      removeFavorite(userId: $userId, coffeeShopId: $coffeeShopId) {
+        _id
+        name
+      }
+    }
   `
 };

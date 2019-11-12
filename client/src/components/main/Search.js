@@ -1,16 +1,16 @@
-import React, { Component } from 'react';
-import { withApollo } from 'react-apollo';
-import { withRouter } from 'react-router-dom';
+import React, { Component } from "react";
+import { withApollo } from "react-apollo";
+import { withRouter } from "react-router-dom";
 import Queries from "../../graphql/queries";
 const { SEARCH_SHOPS } = Queries;
 
 class Search extends Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       shops: [],
-      filter: ''
-    }
+      filter: ""
+    };
   }
 
   render() {
@@ -54,18 +54,18 @@ class Search extends Component {
   }
 
   _executeSearch = async () => {
-    const { filter } = this.state
+    const { filter } = this.state;
     const result = await this.props.client.query({
       query: SEARCH_SHOPS,
-      variables: { filter },
-    })
+      variables: { filter }
+    });
     const coffeeShops = result.data.searchShops;
     this.setState({ shops: coffeeShops });
     this.props.history.push({
-      pathname: './shops',
+      pathname: "./shops",
       state: { coffeeShops: coffeeShops }
     });
-  }
+  };
 }
 
 export default withRouter(withApollo(Search));

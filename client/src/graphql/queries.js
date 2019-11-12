@@ -24,6 +24,9 @@ export default {
           id
           name
         }
+        users {
+          _id
+        }
       }
     }
   `,
@@ -45,21 +48,49 @@ export default {
   SEARCH_SHOPS: gql`
     query searchShops($filter: String!) {
       searchShops(filter: $filter) {
+        id
+        name
+        founded
+        address {
+          street
+          city
+          state
+          zip
+        }
+        type
+        baristaSatisfaction
+        coffees {
           id
           name
-          founded
-          address {
-            street
-            city
-            state
-            zip
-          }
-          type
-          baristaSatisfaction
-          coffees {
-            id
-            name
-          }
+        }
+      }
+    }
+  `,
+  FETCH_FAVORITE_SHOPS: gql`
+    query FetchFavoriteShops {
+      fetchFavoriteShops {
+        id
+        name
+        founded
+        address {
+          street
+          city
+          state
+          zip
+        }
+        type
+        baristaSatisfaction
+        coffees {
+          id
+          name
+        }
+      }
+    }
+  `,
+  FETCH_CURRENT_USER: gql`
+    query FetchCurrentUser {
+      fetchCurrentUser {
+        _id
       }
     }
   `

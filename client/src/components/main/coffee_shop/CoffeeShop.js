@@ -3,6 +3,7 @@ import { useParams, Link } from "react-router-dom";
 import { useQuery } from "@apollo/react-hooks";
 
 import Queries from "../../../graphql/queries";
+import AddShopToFavorite from "../Favorite/AddShopToFavorite";
 const { FETCH_SHOP } = Queries;
 
 export default () => {
@@ -15,7 +16,15 @@ export default () => {
   if (error) return <p>Error</p>;
 
   const {
-    coffeeShop: { name, address, founded, type, baristaSatisfaction, coffees }
+    coffeeShop: {
+      name,
+      address,
+      founded,
+      type,
+      baristaSatisfaction,
+      coffees,
+      users
+    }
   } = data;
   return (
     <div className="coffee-shop">
@@ -24,6 +33,9 @@ export default () => {
         <h1>{name}</h1>
         <h2>{address.street}</h2>
         <h3>{`${address.city}, ${address.state} ${address.zip}`}</h3>
+      </div>
+      <div>
+        <AddShopToFavorite users={users} shopId={shopId} />
       </div>
       <div className="coffe-shop-extra-info">
         <ul>

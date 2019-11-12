@@ -8,6 +8,7 @@ import Splash from "./Splash";
 import CoffeeShop from "./coffee_shop/CoffeeShop";
 import CoffeeShopIndex from "./coffee_shop/CoffeeShopIndex";
 import Coffee from "./coffee_shop/CoffeeShop";
+import FavoriteShops from "./Favorite/FavoriteShops";
 
 export default () => {
   return (
@@ -16,6 +17,7 @@ export default () => {
       <Switch>
         <AuthRoute exact path="/login" component={Login} routeType="auth" />
         <AuthRoute exact path="/signup" component={Register} routeType="auth" />
+        <AuthRoute exact path="/favorites" component={FavoriteShops} />
         <Route path="/shops" component={CoffeeShopIndex} />
         <Route path="/:shopId/coffee-:coffeeId" component={Coffee} />
         <Route path="/:shopId" component={CoffeeShop} />
