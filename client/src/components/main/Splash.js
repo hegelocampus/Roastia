@@ -1,6 +1,6 @@
 import React from "react";
-import Search from './Search';
-import './splash.scss';
+import Search from "./Search";
+import "./splash.scss";
 
 export default () => (
   <React.Fragment>

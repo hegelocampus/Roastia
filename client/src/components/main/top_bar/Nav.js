@@ -16,17 +16,20 @@ export default props => {
           {({ data }) => {
             if (data.isLoggedIn) {
               return (
-                <div className="logout">
-                  <button
-                    onClick={e => {
-                      e.preventDefault();
-                      localStorage.removeItem("auth-token");
-                      client.writeData({ data: { isLoggedIn: false } });
-                      history.push("/");
-                    }}
-                  >
-                    Logout
-                  </button>
+                <div>
+                  <Link to="/favorites">Saved Coffee Shops</Link>
+                  <div className="logout">
+                    <button
+                      onClick={e => {
+                        e.preventDefault();
+                        localStorage.removeItem("auth-token");
+                        client.writeData({ data: { isLoggedIn: false } });
+                        history.push("/");
+                      }}
+                    >
+                      Logout
+                    </button>
+                  </div>
                 </div>
               );
             } else {

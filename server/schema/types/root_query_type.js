@@ -15,6 +15,8 @@ const UserType = require("./user_type");
 const CoffeeType = require("./coffee_type");
 const CoffeeShopType = require("./coffee_shop_type").CoffeeShopType;
 
+const AuthService = require("../../services/auth");
+
 const User = mongoose.model("users");
 const Coffee = mongoose.model("coffee")
 const CoffeeShop = mongoose.model("coffeeShops")
@@ -25,9 +27,12 @@ const selectorInput = new GraphQLInputObjectType({
     type: { type: GraphQLString },
     city: { type: GraphQLString },
     zip:  { type: GraphQLInt },
-    state: { type: GraphQLString }
+    state: { type: GraphQLString },
+    name: { type: GraphQLString }
   }
 });
+
+const FilterInputType = require('./filter_input_type')
 
 
 const RootQueryType = new GraphQLObjectType({
@@ -48,8 +53,31 @@ const RootQueryType = new GraphQLObjectType({
         },
         coffees: {
             type: new GraphQLList(CoffeeType),
-            resolve() {
-                return Coffee.find({})
+            args: { filter: { type: FilterInputType } },
+            resolve(_, {filter}) {
+
+                function buildFilters({ processing, roasting, flavor, price }) {
+                    
+                    const filter = (processing || roasting || flavor || price ) ? {} : null;
+                    
+                    if (processing) {
+                        filter.processing = `${processing}`;
+                    }
+                    if (roasting) {
+                        filter.roasting = `${roasting}`;
+                    }
+                    if (flavor) {
+                        filter.flavor = {$in: flavor};
+                    }
+                    if (price) {
+                        filter.price = {$gt: price[0], $lt: price[1]};
+                    }
+                    let filters = filter ? [filter] : [];
+                    return filters;
+                }
+
+                let query = filter ? {$and: buildFilters(filter)} : {};
+                return Coffee.find(query)
             }
         },
         coffee: {
@@ -62,8 +90,23 @@ const RootQueryType = new GraphQLObjectType({
         coffeeShops: {
             type: new GraphQLList(require("./coffee_shop_type").CoffeeShopType),
             args: { selectors: { type: selectorInput }},
-            resolve() {
-                return CoffeeShop.find({});
+            resolve(_, { selectors }) {
+                    
+                    const { name, city, zip } = selectors;
+                    const selector = (name || city || zip) ? {} : null;
+
+                    if (name) {
+                        selector.name = {$regex: `.*${name}.*`};
+                    }
+                    if (city) {
+                        selector['address.city']= city;
+                    }
+                    if (zip) {
+                        selector['address.zip']= zip;
+                    }
+
+                let query = selector ? selector : {};
+                return CoffeeShop.find(query)
             }
         },
         coffeeShop: {
@@ -79,8 +122,32 @@ const RootQueryType = new GraphQLObjectType({
             resolve(_, { filter }) {
                 return CoffeeShop.find({ $text: { $search: filter }});
             }
+        },
+        fetchFavoriteShops: {
+            type: new GraphQLList(require("./coffee_shop_type").CoffeeShopType),
+            async resolve(parentValue, args, ctx) {
+                const validUser = await AuthService.verifyUser({ token: ctx.token });
+                if (validUser.loggedIn) {
+                    const userId = validUser.id;
+                    return User.findById(userId).populate('favorites').then(user => user.favorites)
+                } else {
+                    throw new Error("Please log in or sign up!")
+                }
+            }
+        },
+        fetchCurrentUser: {
+            type: UserType,
+            async resolve(parentValue, args, ctx) {
+                const validUser = await AuthService.verifyUser({ token: ctx.token });
+                if (validUser.loggedIn) {
+                    const userId = validUser.id;
+                    return User.findById(userId)
+                } else {
+                    throw new Error("No one is logged in!")
+                }
+            }
         }
-    })
+        })
 });
 
 module.exports = RootQueryType;

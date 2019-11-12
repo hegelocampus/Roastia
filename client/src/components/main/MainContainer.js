@@ -7,6 +7,7 @@ import CoffeeShopIndex from "./coffee_shop/CoffeeShopIndex";
 import Coffee from "./coffee_shop/CoffeeShop";
 import AuthRoute from '../util/route_util';
 import Modal from './auth_modal/AuthModal';
+import FavoriteShops from "./Favorite/FavoriteShops";
 
 export default () => {
   let location = useLocation();
@@ -16,6 +17,7 @@ export default () => {
     <React.Fragment>
       <TopBar />
       <Switch location={ background || location }>
+        <AuthRoute exact path="/favorites" component={FavoriteShops} />
         <Route path="/shops" component={CoffeeShopIndex} />
         <Route path="/shop/:shopId/coffee-:coffeeId" component={Coffee} />
         <Route path="/shop/:shopId" component={CoffeeShop} />
