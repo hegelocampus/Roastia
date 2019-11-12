@@ -16,20 +16,18 @@ export default props => {
           {({ data }) => {
             if (data.isLoggedIn) {
               return (
-                <div>
+                <div className="logout">
                   <Link to="/favorites">Saved Coffee Shops</Link>
-                  <div className="logout">
-                    <button
-                      onClick={e => {
-                        e.preventDefault();
-                        localStorage.removeItem("auth-token");
-                        client.writeData({ data: { isLoggedIn: false } });
-                        history.push("/");
-                      }}
-                    >
-                      Logout
-                    </button>
-                  </div>
+                  <button
+                    onClick={e => {
+                      e.preventDefault();
+                      localStorage.removeItem("auth-token");
+                      client.writeData({ data: { isLoggedIn: false } });
+                      history.push("/");
+                    }}
+                  >
+                    Log Out
+                  </button>
                 </div>
               );
             } else {
@@ -42,7 +40,7 @@ export default props => {
                     }}
                     className="nav-menu-auth-anchor"
                   >
-                    Log In
+                    Sign up or Log in
                   </Link>
                 </div>
               );
@@ -53,4 +51,3 @@ export default props => {
     </ApolloConsumer>
   );
 };
-

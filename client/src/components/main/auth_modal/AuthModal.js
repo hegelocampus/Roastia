@@ -2,13 +2,15 @@ import React, { useState, useRef } from "react";
 import { Link, useHistory, useLocation } from "react-router-dom";
 import Login from "./Login";
 import Register from "./Register";
-import useOnOutsideClick from '../../util/useOnOutsideClick';
-import './AuthModal.scss';
+import useOnOutsideClick from "../../util/useOnOutsideClick";
+import "./AuthModal.scss";
 
-export default ({ background })=> {
+export default ({ background }) => {
   const history = useHistory();
   const location = useLocation();
-  const [formType, setFormType] = useState(location.pathname.match(/([^/]+)\/?$/)[0]);
+  const [formType, setFormType] = useState(
+    location.pathname.match(/([^/]+)\/?$/)[0]
+  );
 
   const modalContent = useRef(null);
   useOnOutsideClick(modalContent, e => {
@@ -24,7 +26,17 @@ export default ({ background })=> {
 
   let headerContent, footer, form;
   if (formType === "login") {
-    headerContent = "Sign In";
+    headerContent = (
+      <div className="welcome-message">
+        <img
+          src="https://roastia.s3.us-east-2.amazonaws.com/roastia+logo-01.png"
+          alt="logo"
+          className="roastia-logo"
+        />
+        <h3> Sign in or register </h3>
+        <h3> to save your favorite coffee shops</h3>
+      </div>
+    );
     form = <Login />;
     footer = (
       <span>
@@ -41,7 +53,17 @@ export default ({ background })=> {
       </span>
     );
   } else {
-    headerContent = "Sign up";
+    headerContent = (
+      <div className="welcome-message">
+        <img
+          src="https://roastia.s3.us-east-2.amazonaws.com/roastia+logo-01.png"
+          alt="logo"
+          className="roastia-logo"
+        />
+        <h3> Sign in or register </h3>
+        <h3> to save your favorite coffee shops</h3>
+      </div>
+    );
     form = <Register />;
     footer = (
       <span>
@@ -60,8 +82,8 @@ export default ({ background })=> {
   }
 
   return (
-    <div className="modal-screen" >
-      <div className="modal-content" ref={ modalContent }>
+    <div className="modal-screen">
+      <div className="modal-content" ref={modalContent}>
         <div className="modal-body">
           <div className="modal-header">
             <h3 className="modal-header-title">{headerContent}</h3>
@@ -73,4 +95,3 @@ export default ({ background })=> {
     </div>
   );
 };
-
