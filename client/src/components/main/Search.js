@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { withApollo } from "react-apollo";
 import { withRouter } from "react-router-dom";
+import Autosuggest from "react-autosuggest";
 import Queries from "../../graphql/queries";
 const { SEARCH_SHOPS } = Queries;
 
