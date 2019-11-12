@@ -4,7 +4,7 @@ import { Query, Mutation } from "react-apollo";
 import Queries from "../../../graphql/queries";
 import Mutations from "../../../graphql/mutations";
 
-const { FETCH_CURRENT_USER, FETCH_SHOP } = Queries;
+const { FETCH_CURRENT_USER, FETCH_SHOP, FETCH_FAVORITE_SHOPS } = Queries;
 const { ADD_FAVORITE, REMOVE_FAVORITE } = Mutations;
 
 const AddShopToFavorite = props => {
@@ -26,7 +26,10 @@ const AddShopToFavorite = props => {
             <Mutation
               mutation={REMOVE_FAVORITE}
               refetchQueries={() => {
-                return [{ query: FETCH_SHOP, variables: { id: props.shopId } }];
+                return [
+                  { query: FETCH_SHOP, variables: { id: props.shopId } },
+                  { query: FETCH_FAVORITE_SHOPS }
+                ];
               }}
             >
               {removeFavorite => {
@@ -52,7 +55,10 @@ const AddShopToFavorite = props => {
             <Mutation
               mutation={ADD_FAVORITE}
               refetchQueries={() => {
-                return [{ query: FETCH_SHOP, variables: { id: props.shopId } }];
+                return [
+                  { query: FETCH_SHOP, variables: { id: props.shopId } },
+                  { query: FETCH_FAVORITE_SHOPS }
+                ];
               }}
             >
               {addFavorite => {
