@@ -19,7 +19,7 @@ export default props => {
         loginUser({ variables: values });
       }}
     >
-      <Form>
+      <Form className="login-form">
         <label htmlFor="email">Email</label>
         <Field name="email" autoComplete="email" type="email" />
         <label htmlFor="password">Password</label>

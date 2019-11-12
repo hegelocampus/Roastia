@@ -38,7 +38,7 @@ export default props => {
       validationSchema={SignupSchema}
       onSubmit={values => registerUser({ variables: values })}
     >
-      <Form>
+      <Form className="signup-form">
         <label htmlFor="email">Email:</label>
         <Field name="email" autoComplete="email" type="email" />
         <ErrorMessage name="email" />

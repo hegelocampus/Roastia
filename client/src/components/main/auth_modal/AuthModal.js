@@ -62,11 +62,13 @@ export default ({ background })=> {
   return (
     <div className="modal-screen" >
       <div className="modal-content" ref={ modalContent }>
-        <div className="modal-header">
-          <h3 className="modal-header-title">{headerContent}</h3>
+        <div className="modal-body">
+          <div className="modal-header">
+            <h3 className="modal-header-title">{headerContent}</h3>
+          </div>
+          {form}
+          <div className="modal-content-secondary">{footer}</div>
         </div>
-        {form}
-        <div className="modal-content-secondary">{footer}</div>
       </div>
     </div>
   );
