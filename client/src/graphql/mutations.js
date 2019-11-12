@@ -39,5 +39,40 @@ export default {
         name
       }
     }
+  `,
+  ADD_SHOP: gql`
+    mutation NewCoffeeShop($name: String!, $founded: String, $address: Address, $type: String, $baristaSatisfaction: Int) {
+      newCoffeeShop(name: $name, founded: $founded, address: $address, type: $type, baristaSatisfaction: $baristaSatisfaction) {
+        id
+        name
+        founded
+        type
+        baristaSatisfaction
+        address {
+          city
+          state
+          street
+          zip
+        }
+      }
+    }
+  `,
+  UPDATE_SHOP: gql`
+    mutation UpdateCoffeeShop($id: ID!, $name: String!, $founded: String, $address: Address, $type: String, $baristaSatisfaction: Int) {
+      updateCoffeeShop(id: $id, name: $name, founded: $founded, address: $address, type: $type, baristaSatisfaction: $baristaSatisfaction) {
+        id
+        name
+        founded
+        type
+        baristaSatisfaction
+        address {
+          city
+          state
+          street
+          zip
+        }
+      }
+    }
   `
 };
+
