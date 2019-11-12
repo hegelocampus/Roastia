@@ -16,21 +16,23 @@ const Nav = props => {
               return (
                 <div>
                   <Link to="/favorites">Saved Coffee Shops</Link>
-                  <button
-                    onClick={e => {
-                      e.preventDefault();
-                      localStorage.removeItem("auth-token");
-                      client.writeData({ data: { isLoggedIn: false } });
-                      props.history.push("/");
-                    }}
-                  >
-                    Logout
-                  </button>
+                  <div className="logout">
+                    <button
+                      onClick={e => {
+                        e.preventDefault();
+                        localStorage.removeItem("auth-token");
+                        client.writeData({ data: { isLoggedIn: false } });
+                        props.history.push("/");
+                      }}
+                    >
+                      Logout
+                    </button>
+                  </div>
                 </div>
               );
             } else {
               return (
-                <div>
+                <div className="login-signup">
                   <Link to="/login">Login</Link>
                   <Link to="/signup">Sign Up</Link>
                 </div>

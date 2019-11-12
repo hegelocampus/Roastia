@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "server": "nodemon ./bin/www --ignore client",
+    "server:production": "node ./bin/www",
     "server:debug": "nodemon --ignore client --inspect ./bin/www",
     "frontend-install": "npm install --prefix client",
     "frontend": "npm start --prefix client",
