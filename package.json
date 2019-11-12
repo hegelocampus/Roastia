@@ -7,7 +7,7 @@
     "server:debug": "nodemon --ignore client --inspect ./bin/www",
     "frontend-install": "npm install --prefix client",
     "frontend": "npm start --prefix client",
-    "dev": "concurrently \"npm run server\" \"npm run frontend\""
+    "dev": "concurrently \"npm run server:debug\" \"npm run frontend\""
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
