@@ -25,7 +25,7 @@ const FavoriteShops = () => {
           <ul>
             {data.fetchFavoriteShops.map(shop => (
               <li key={shop.id} className="shops-index-item">
-                <Link to={`/${shop.id}`}>
+                <Link to={`/shop/${shop.id}`}>
                   <h4>{shop.name}</h4>
                 </Link>
                 <span>{shop.address.street}</span>
