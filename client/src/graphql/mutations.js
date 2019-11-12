@@ -25,16 +25,16 @@ export default {
     }
   `,
   ADD_FAVORITE: gql`
-    mutation AddFavorite($userId: ID!, $coffeeShopId: ID!) {
-      addFavorite(userId: $userId, coffeeShopId: $coffeeShopId) {
+    mutation AddFavorite($coffeeShopId: ID!) {
+      addFavorite(coffeeShopId: $coffeeShopId) {
         _id
         name
       }
     }
   `,
   REMOVE_FAVORITE: gql`
-    mutation RemoveFavorite($userId: ID!, $coffeeShopId: ID!) {
-      removeFavorite(userId: $userId, coffeeShopId: $coffeeShopId) {
+    mutation RemoveFavorite($coffeeShopId: ID!) {
+      removeFavorite(coffeeShopId: $coffeeShopId) {
         _id
         name
       }

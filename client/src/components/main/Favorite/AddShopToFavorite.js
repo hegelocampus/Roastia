@@ -28,7 +28,8 @@ const AddShopToFavorite = props => {
               refetchQueries={() => {
                 return [
                   { query: FETCH_SHOP, variables: { id: props.shopId } },
-                  { query: FETCH_FAVORITE_SHOPS }
+                  { query: FETCH_FAVORITE_SHOPS },
+                  { query: FETCH_CURRENT_USER }
                 ];
               }}
             >
@@ -39,7 +40,7 @@ const AddShopToFavorite = props => {
                     onClick={() => {
                       removeFavorite({
                         variables: {
-                          userId: currentUserId,
+                          // userId: currentUserId,
                           coffeeShopId: props.shopId
                         }
                       });
@@ -57,7 +58,8 @@ const AddShopToFavorite = props => {
               refetchQueries={() => {
                 return [
                   { query: FETCH_SHOP, variables: { id: props.shopId } },
-                  { query: FETCH_FAVORITE_SHOPS }
+                  { query: FETCH_FAVORITE_SHOPS },
+                  { query: FETCH_CURRENT_USER }
                 ];
               }}
             >
@@ -68,7 +70,7 @@ const AddShopToFavorite = props => {
                     onClick={() => {
                       addFavorite({
                         variables: {
-                          userId: currentUserId,
+                          // userId: currentUserId,
                           coffeeShopId: props.shopId
                         }
                       });
