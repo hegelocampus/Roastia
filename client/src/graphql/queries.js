@@ -66,6 +66,28 @@ export default {
       }
     }
   `,
+  FETCH_COFFEE: gql`
+    query coffee($id: ID!) {
+      coffee(id: $id) {
+        id
+        name
+        origin
+        processing
+        roasting
+        flavor
+        price
+        shops {
+          id
+          name
+          address {
+            city
+            state
+            zip
+          }
+        }
+      }
+    }
+  `,
   FETCH_FAVORITE_SHOPS: gql`
     query FetchFavoriteShops {
       fetchFavoriteShops {

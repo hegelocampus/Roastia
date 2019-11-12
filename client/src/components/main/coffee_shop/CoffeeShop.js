@@ -27,8 +27,8 @@ export default () => {
   } = data;
   return (
     <div className="coffee-shop">
-      <img src="#" alt={`${name} coffee shop`} />
-      <div className="coffe-shop-main-info">
+      <img src="nope" alt={`${name} coffee shop`} />
+      <div className="coffee-shop-main-info">
         <h1>{name}</h1>
         <h2>{address.street}</h2>
         <h3>{`${address.city}, ${address.state} ${address.zip}`}</h3>
@@ -36,7 +36,7 @@ export default () => {
       <div>
         <AddShopToFavorite users={users} shopId={shopId} />
       </div>
-      <div className="coffe-shop-extra-info">
+      <div className="coffee-shop-extra-info">
         <ul>
           <li>
             <s>Founded:</s>
@@ -56,7 +56,7 @@ export default () => {
           <ul className="shop-coffee-ul">
             {coffees.map(coffee => (
               <li className="coffee-li" key={coffee.id}>
-                <Link to={`/${shopId}/coffee-${coffee.id}`}>{coffee.name}</Link>
+                <Link to={`/shop/${shopId}/coffee-${coffee.id}`}>{coffee.name}</Link>
               </li>
             ))}
           </ul>
