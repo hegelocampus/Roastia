@@ -6,11 +6,6 @@ export default {
       isLoggedIn @client
     }
   `,
-  CURRENT_USER: gql`
-    query currentUser {
-      id @client
-    }
-  `,
   FETCH_SHOP: gql`
     query coffeeShop($id: ID!) {
       coffeeShop(id: $id) {
@@ -72,8 +67,8 @@ export default {
     }
   `,
   FETCH_FAVORITE_SHOPS: gql`
-    query FetchFavoriteShops($userId: ID!) {
-      fetchFavoriteShops(userId: $userId) {
+    query FetchFavoriteShops {
+      fetchFavoriteShops {
         id
         name
         founded
@@ -89,6 +84,13 @@ export default {
           id
           name
         }
+      }
+    }
+  `,
+  FETCH_CURRENT_USER: gql`
+    query FetchCurrentUser {
+      fetchCurrentUser {
+        _id
       }
     }
   `

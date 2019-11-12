@@ -15,6 +15,8 @@ const UserType = require("./user_type");
 const CoffeeType = require("./coffee_type");
 const CoffeeShopType = require("./coffee_shop_type").CoffeeShopType;
 
+const AuthService = require("../../services/auth");
+
 const User = mongoose.model("users");
 const Coffee = mongoose.model("coffee")
 const CoffeeShop = mongoose.model("coffeeShops")
@@ -123,12 +125,29 @@ const RootQueryType = new GraphQLObjectType({
         },
         fetchFavoriteShops: {
             type: new GraphQLList(require("./coffee_shop_type").CoffeeShopType),
-            args: { userId: { type: GraphQLID } },
-            resolve(_, { userId }) {
-                return User.findById(userId).populate('favorites').then(user => user.favorites)
+            async resolve(parentValue, args, ctx) {
+                const validUser = await AuthService.verifyUser({ token: ctx.token });
+                if (validUser.loggedIn) {
+                    const userId = validUser.id;
+                    return User.findById(userId).populate('favorites').then(user => user.favorites)
+                } else {
+                    throw new Error("Please log in or sign up!")
+                }
+            }
+        },
+        fetchCurrentUser: {
+            type: UserType,
+            async resolve(parentValue, args, ctx) {
+                const validUser = await AuthService.verifyUser({ token: ctx.token });
+                if (validUser.loggedIn) {
+                    const userId = validUser.id;
+                    return User.findById(userId)
+                } else {
+                    throw new Error("No one is logged in!")
+                }
             }
         }
-    })
+        })
 });
 
 module.exports = RootQueryType;

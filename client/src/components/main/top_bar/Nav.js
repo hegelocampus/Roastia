@@ -4,7 +4,7 @@ import { Query, ApolloConsumer } from "react-apollo";
 import Queries from "../../../graphql/queries";
 import { withRouter } from "react-router-dom";
 
-const { IS_LOGGED_IN, CURRENT_USER } = Queries;
+const { IS_LOGGED_IN } = Queries;
 
 const Nav = props => {
   return (
