@@ -23,6 +23,8 @@ export default {
         coffees {
           id
           name
+          origin
+          processing
         }
         users {
           _id

@@ -1,8 +1,8 @@
 import React from "react";
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
-export default props => {
-  const coffeeShops = props.location.state.coffeeShops;
+export default ({ coffeeShops })=> {
+  coffeeShops = coffeeShops || useLocation().state.coffeeShops;
   return (
     <div className="shops-index-div">
       <ul>
@@ -22,3 +22,4 @@ export default props => {
     </div>
   );
 };
+

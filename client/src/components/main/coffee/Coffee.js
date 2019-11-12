@@ -3,7 +3,6 @@ import { useParams, Link } from "react-router-dom";
 import { useQuery } from "@apollo/react-hooks";
 
 import Queries from "../../../graphql/queries";
-import AddShopToFavorite from "../Favorite/AddShopToFavorite";
 const { FETCH_COFFEE } = Queries;
 
 export default () => {
@@ -16,7 +15,6 @@ export default () => {
   if (error) return <p>Error</p>;
   const {
     coffee: {
-      id,
       name,
       origin,
       processing,
@@ -46,6 +44,10 @@ export default () => {
           <li>
             <s>Processing Method:</s>
             <span>{processing}</span>
+          </li>
+          <li>
+            <s>Flavor:</s>
+            <span>{ flavor }</span>
           </li>
           <li>
             <s>Price:</s>
