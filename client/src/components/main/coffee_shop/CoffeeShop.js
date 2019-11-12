@@ -1,6 +1,7 @@
 import React from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useQuery } from "@apollo/react-hooks";
+import CoffeeIndex from '../coffee/CoffeeIndex';
 
 import Queries from "../../../graphql/queries";
 import AddShopToFavorite from "../Favorite/AddShopToFavorite";
@@ -54,11 +55,7 @@ export default () => {
         <section>
           <h3>Coffee:</h3>
           <ul className="shop-coffee-ul">
-            {coffees.map(coffee => (
-              <li className="coffee-li" key={coffee.id}>
-                <Link to={`/shop/${shopId}/coffee-${coffee.id}`}>{coffee.name}</Link>
-              </li>
-            ))}
+            <CoffeeIndex coffees={ coffees } />
           </ul>
         </section>
       </div>
