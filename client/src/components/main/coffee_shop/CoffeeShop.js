@@ -3,7 +3,7 @@ import { useParams, Link } from "react-router-dom";
 import { useQuery } from "@apollo/react-hooks";
 
 import Queries from "../../../graphql/queries";
-import AddShopToFavorite from "../Favorite/AddShopToFavorite";
+import AddShopToFavorite from "../favorite/AddShopToFavorite";
 const { FETCH_SHOP } = Queries;
 
 export default () => {

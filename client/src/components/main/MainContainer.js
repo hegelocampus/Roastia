@@ -5,9 +5,9 @@ import Splash from "./Splash";
 import CoffeeShop from "./coffee_shop/CoffeeShop";
 import CoffeeShopIndex from "./coffee_shop/CoffeeShopIndex";
 import Coffee from "./coffee_shop/CoffeeShop";
-import AuthRoute from '../util/route_util';
-import Modal from './auth_modal/AuthModal';
-import FavoriteShops from "./Favorite/FavoriteShops";
+import AuthRoute from "../util/route_util";
+import Modal from "./auth_modal/AuthModal";
+import FavoriteShops from "./favorite/FavoriteShops";
 
 export default () => {
   let location = useLocation();
@@ -16,7 +16,7 @@ export default () => {
   return (
     <React.Fragment>
       <TopBar />
-      <Switch location={ background || location }>
+      <Switch location={background || location}>
         <AuthRoute exact path="/favorites" component={FavoriteShops} />
         <Route path="/shops" component={CoffeeShopIndex} />
         <Route path="/shop/:shopId/coffee-:coffeeId" component={Coffee} />
@@ -25,10 +25,10 @@ export default () => {
       </Switch>
       {background && (
         <AuthRoute
-          path={ ["/login", "/signup"] }
+          path={["/login", "/signup"]}
           routeType="auth"
-          component={ Modal }
-          background={ background }
+          component={Modal}
+          background={background}
         />
       )}
     </React.Fragment>
