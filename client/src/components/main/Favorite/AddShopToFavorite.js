@@ -1,4 +1,5 @@
 import React from "react";
+import { withRouter } from "react-router-dom";
 import { Query, Mutation } from "react-apollo";
 
 import Queries from "../../../graphql/queries";
@@ -12,7 +13,13 @@ const AddShopToFavorite = props => {
     <Query query={FETCH_CURRENT_USER}>
       {({ data, loading, error }) => {
         if (loading) return "Loading...";
-        if (error) return `Error! ${error.message}`;
+        if (error)
+          return (
+            <img
+              src="https://we-camp-seeds.s3.us-east-2.amazonaws.com/unfavorite.png"
+              onClick={() => props.history.push("/")}
+            />
+          );
 
         const currentUserId = data.fetchCurrentUser._id;
 
@@ -87,4 +94,4 @@ const AddShopToFavorite = props => {
   );
 };
 
-export default AddShopToFavorite;
+export default withRouter(AddShopToFavorite);

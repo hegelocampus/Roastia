@@ -53,7 +53,9 @@ const RootQueryType = new GraphQLObjectType({
         },
         coffees: {
             type: new GraphQLList(CoffeeType),
-            args: { filter: { type: FilterInputType } },
+            args: { coffeeShopId: { type: GraphQLID },
+                    filter: { type: FilterInputType } 
+                  },
             resolve(_, {filter}) {
 
                 function buildFilters({ processing, roasting, flavor, price }) {
