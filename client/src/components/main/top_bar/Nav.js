@@ -1,12 +1,14 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import { Query, ApolloConsumer } from "react-apollo";
 import Queries from "../../../graphql/queries";
-import { withRouter } from "react-router-dom";
+import { Link, useLocation, useHistory } from "react-router-dom";
 
 const { IS_LOGGED_IN } = Queries;
 
-const Nav = props => {
+export default props => {
+  let location = useLocation();
+  let history = useHistory();
+
   return (
     <ApolloConsumer>
       {client => (
@@ -22,7 +24,7 @@ const Nav = props => {
                         e.preventDefault();
                         localStorage.removeItem("auth-token");
                         client.writeData({ data: { isLoggedIn: false } });
-                        props.history.push("/");
+                        history.push("/");
                       }}
                     >
                       Logout
@@ -33,8 +35,15 @@ const Nav = props => {
             } else {
               return (
                 <div className="login-signup">
-                  <Link to="/login">Login</Link>
-                  <Link to="/signup">Sign Up</Link>
+                  <Link
+                    to={{
+                      pathname: "/signup",
+                      state: { background: location }
+                    }}
+                    className="nav-menu-auth-anchor"
+                  >
+                    Log In
+                  </Link>
                 </div>
               );
             }
@@ -45,4 +54,3 @@ const Nav = props => {
   );
 };
 
-export default withRouter(Nav);

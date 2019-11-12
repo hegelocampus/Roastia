@@ -7,10 +7,9 @@ export default () => (
     <section className="splash-main">
       <div className="splash-inner">
         <h1>Discover a coffee shop where you'll love to code</h1>
-        <span>
-          <Search />
-        </span>
+        <Search />
       </div>
     </section>
   </React.Fragment>
 );
+
