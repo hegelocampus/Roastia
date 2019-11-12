@@ -26,7 +26,7 @@ const selectorInput = new GraphQLInputObjectType({
   fields: {
     type: { type: GraphQLString },
     city: { type: GraphQLString },
-    zip:  { type: GraphQLInt },
+    zip:  { type: GraphQLString },
     state: { type: GraphQLString },
     name: { type: GraphQLString }
   }
@@ -89,23 +89,8 @@ const RootQueryType = new GraphQLObjectType({
         },
         coffeeShops: {
             type: new GraphQLList(require("./coffee_shop_type").CoffeeShopType),
-            args: { selectors: { type: selectorInput }},
-            resolve(_, { selectors }) {
-                    const { name, city, zip } = selectors;
-                    const selector = (name || city || zip) ? {} : null;
-
-                    if (name) {
-                        selector.name = {$regex: `.*${name}.*`};
-                    }
-                    if (city) {
-                        selector['address.city']= city;
-                    }
-                    if (zip) {
-                        selector['address.zip']= zip;
-                    }
-
-                let query = selector ? selector : {};
-                return CoffeeShop.find(query)
+            resolve() {
+                return CoffeeShop.find({});
             }
         },
         coffeeShop: {
