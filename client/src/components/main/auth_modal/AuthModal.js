@@ -42,6 +42,7 @@ export default ({ background }) => {
       <span>
         Don't have an account?
         <Link
+          replace
           onClick={changeForm("signup")}
           to={{
             pathname: "/signup",
@@ -69,6 +70,7 @@ export default ({ background }) => {
       <span>
         Already have an account?
         <Link
+          replace
           onClick={changeForm("login")}
           to={{
             pathname: "/login",

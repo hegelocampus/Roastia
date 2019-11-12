@@ -19,7 +19,7 @@ export default () => {
       <Switch location={background || location}>
         <AuthRoute exact path="/favorites" component={FavoriteShops} />
         <Route path="/shops" component={CoffeeShopIndex} />
-        <Route path="/shop/:shopId/coffee-:coffeeId" component={Coffee} />
+        <Route path="/coffee/:coffeeId" component={Coffee} />
         <Route path="/shop/:shopId" component={CoffeeShop} />
         <Route exact path="/" component={Splash} />
       </Switch>

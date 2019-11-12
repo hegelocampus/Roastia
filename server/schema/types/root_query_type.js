@@ -93,7 +93,6 @@ const RootQueryType = new GraphQLObjectType({
             type: new GraphQLList(require("./coffee_shop_type").CoffeeShopType),
             args: { selectors: { type: selectorInput }},
             resolve(_, { selectors }) {
-                    
                     const { name, city, zip } = selectors;
                     const selector = (name || city || zip) ? {} : null;
 

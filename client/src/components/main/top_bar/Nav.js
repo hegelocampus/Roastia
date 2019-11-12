@@ -1,12 +1,12 @@
 import React from "react";
 import { Query, ApolloConsumer } from "react-apollo";
-import Queries from "../../../graphql/queries";
-import { Link, useLocation, useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
+import AuthLink from "../../util/AuthLink";
 
+import Queries from "../../../graphql/queries";
 const { IS_LOGGED_IN } = Queries;
 
 export default props => {
-  let location = useLocation();
   let history = useHistory();
 
   return (
@@ -33,6 +33,8 @@ export default props => {
             } else {
               return (
                 <div className="login-signup">
+                  <AuthLink className="nav-auth-anchor" content="Login" />
+                  {/*
                   <Link
                     to={{
                       pathname: "/signup",
@@ -42,6 +44,7 @@ export default props => {
                   >
                     Sign up or Log in
                   </Link>
+                  */}
                 </div>
               );
             }

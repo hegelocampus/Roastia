@@ -23,6 +23,8 @@ export default {
         coffees {
           id
           name
+          origin
+          processing
         }
         users {
           _id
@@ -62,6 +64,28 @@ export default {
         coffees {
           id
           name
+        }
+      }
+    }
+  `,
+  FETCH_COFFEE: gql`
+    query coffee($id: ID!) {
+      coffee(id: $id) {
+        id
+        name
+        origin
+        processing
+        roasting
+        flavor
+        price
+        shops {
+          id
+          name
+          address {
+            city
+            state
+            zip
+          }
         }
       }
     }
