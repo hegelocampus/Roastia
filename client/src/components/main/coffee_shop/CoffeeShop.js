@@ -13,7 +13,6 @@ export default () => {
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error</p>;
-
   const {
     coffeeShop: { name, address, founded, type, baristaSatisfaction, coffees }
   } = data;

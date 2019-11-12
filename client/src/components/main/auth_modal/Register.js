@@ -1,7 +1,8 @@
 import React from "react";
-import { Formik, Form, Field } from "formik";
+import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import useSession from "./useSession";
+import RenderErrors from "../../util/RenderErrors";
 
 import Mutations from "../../../graphql/mutations";
 const { REGISTER_USER } = Mutations;
@@ -13,9 +14,9 @@ let SignupSchema = Yup.object({
   name: Yup.string().required("Name is required"),
   password: Yup.string()
     .required()
-    .min(5, "Password must be at least 5 characters long")
+    .min(6, "Password must be at least 6 characters long")
     .max(32, "Password must be shorted than 32 characters long"),
-  confirmPassword: Yup.string()
+  password2: Yup.string()
     .required()
     .label("Confirm password")
     .test("passwords-match", "Passwords must match", function(value) {
@@ -24,7 +25,7 @@ let SignupSchema = Yup.object({
 });
 
 export default props => {
-  const [registerUser] = useSession(REGISTER_USER);
+  const [registerUser, { error }] = useSession(REGISTER_USER);
 
   return (
     <Formik
@@ -32,7 +33,7 @@ export default props => {
         email: "",
         name: "",
         password: "",
-        passwordConfirm: ""
+        password2: ""
       }}
       validationSchema={SignupSchema}
       onSubmit={values => registerUser({ variables: values })}
@@ -40,18 +41,20 @@ export default props => {
       <Form>
         <label htmlFor="email">Email:</label>
         <Field name="email" autoComplete="email" type="email" />
+        <ErrorMessage name="email" />
         <label htmlFor="Name">Name:</label>
         <Field name="name" autoComplete="username" type="text" />
+        <ErrorMessage name="name" />
         <label htmlFor="password">Password:</label>
         <Field name="password" autoComplete="new-password" type="password" />
-        <label htmlFor="passwordConfirm">Re-enter password:</label>
-        <Field
-          name="passwordConfirm"
-          autoComplete="new-password"
-          type="password"
-        />
+        <ErrorMessage name="password" />
+        <label htmlFor="password2">Re-enter password:</label>
+        <Field name="password2" autoComplete="new-password" type="password" />
+        <ErrorMessage name="password2" />
         <button type="submit">Sign up</button>
+        <RenderErrors errors={ error } />
       </Form>
     </Formik>
   );
 };
+

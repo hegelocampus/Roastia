@@ -1,21 +1,34 @@
 import React from "react";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, useLocation } from "react-router-dom";
 import TopBar from "./top_bar/TopBar";
 import Splash from "./Splash";
 import CoffeeShop from "./coffee_shop/CoffeeShop";
 import CoffeeShopIndex from "./coffee_shop/CoffeeShopIndex";
 import Coffee from "./coffee_shop/CoffeeShop";
+import AuthRoute from '../util/route_util';
+import Modal from './auth_modal/AuthModal';
 
 export default () => {
+  let location = useLocation();
+  let background = location.state && location.state.background;
+
   return (
     <React.Fragment>
       <TopBar />
-      <Switch>
+      <Switch location={ background || location }>
         <Route path="/shops" component={CoffeeShopIndex} />
-        <Route path="/:shopId/coffee-:coffeeId" component={Coffee} />
-        <Route path="/:shopId" component={CoffeeShop} />
+        <Route path="/shop/:shopId/coffee-:coffeeId" component={Coffee} />
+        <Route path="/shop/:shopId" component={CoffeeShop} />
         <Route exact path="/" component={Splash} />
       </Switch>
+      {background && (
+        <AuthRoute
+          path={ ["/login", "/signup"] }
+          routeType="auth"
+          component={ Modal }
+          background={ background }
+        />
+      )}
     </React.Fragment>
   );
 };
