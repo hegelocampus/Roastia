@@ -32,7 +32,7 @@ class CoffeeFilter extends React.Component {
     } else {
       flavors = flavors.concat([e.target.name]);
     }
-    // debugger
+
     this.setState({
       filter: {
         flavor: flavors
@@ -43,11 +43,12 @@ class CoffeeFilter extends React.Component {
 
   updateProcess(e) {
     let newProcess;
-    if (this.state.filter["processing"] === e.target.name) {
+    if (e.target.checked) {
       newProcess = "";
     } else {
       newProcess = e.target.name;
     }
+
     this.setState({
       filter: {
         processing: newProcess
@@ -90,14 +91,14 @@ class CoffeeFilter extends React.Component {
   }
 
   async fetchShopCoffees(e) {
-    // const { filter } = this.state;
-    // debugger;
+    const { filter } = this.state;
+    debugger;
     const res = await this.props.client.query({
       query: FETCH_SHOP_COFFEES,
 
       variables: {
-        coffeeShopId: this.props.shopId
-        // filter: filter
+        coffeeShopId: this.props.shopId,
+        filter: filter
       }
     });
 
@@ -229,7 +230,7 @@ class CoffeeFilter extends React.Component {
               name="Dark"
               onClick={this.updateRoast}
               checked={this.state.filter.roasting === "Dark"}
-              onChange={e => this.fetchShopCoffees(e)}
+              onChange={() => {}}
             />
           </label>
         </div>

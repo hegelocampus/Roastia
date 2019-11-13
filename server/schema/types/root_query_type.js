@@ -132,26 +132,28 @@ const RootQueryType = new GraphQLObjectType({
         filter: { type: FilterInputType }
       },
       resolve(_, { coffeeShopId, filter }) {
+
         function buildFilters({ processing, roasting, flavor, price }) {
-          const filter = processing || roasting || flavor || price ? {} : null;
+
+          let filters = {}
 
           if (processing) {
-            filter.processing = `${processing}`;
+            filters.processing = processing
           }
           if (roasting) {
-            filter.roasting = `${roasting}`;
+            filters.roasting = roasting
           }
-          if (flavor) {
-            filter.flavor = { $in: flavor };
+          if (flavor && flavor.length !== 0) {
+            filters.flavor = { $in: flavor };
           }
-          if (price) {
-            filter.price = { $gt: price[0], $lt: price[1] };
+          if (price && price.length !== 0) {
+            filters.price = { $gt: price[0], $lt: price[1] };
           }
-          let filters = filter ? [filter] : [];
-          return filters;
+          let updatedFilter = Object.keys(filters).length === 0 ? [] : [filters];
+          return updatedFilter;
         }
-
-        let query = filter ? { $and: buildFilters(filter) } : {};
+        
+        let query = buildFilters(filter).length === 0 ? {} : { $and: buildFilters(filter) };
         return Coffee.findShopCoffees(coffeeShopId, query);
         
       }
