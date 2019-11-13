@@ -12,7 +12,6 @@ export default () => {
   const { data, error, loading } = useQuery(FETCH_SHOP, {
     variables: { id: shopId }
   });
-  console.log(data);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error</p>;
