@@ -6,18 +6,19 @@ const { FETCH_FAVORITE_SHOPS } = Queries;
 
 const FavoriteShops = () => {
   return (
-    <Query query={FETCH_FAVORITE_SHOPS} notifyOnNetworkStatusChange>
-      {({ loading, error, data, refetch }) => {
+    <Query query={FETCH_FAVORITE_SHOPS}>
+      {({ loading, error, data }) => {
         if (loading) return "Loading...";
         if (error) return `Error! ${error.message}`;
-
-        // refetch();
 
         if (data.fetchFavoriteShops.length === 0) {
           return (
             <div>
-              You haven't added any coffee shops yet. Start searching for coffee
-              shops to add now.
+              <p>
+                You haven't added any coffee shops yet. Start searching for
+                coffee shops to add now.
+              </p>
+              <Link to="/">Find Coffee Shops</Link>
             </div>
           );
         }

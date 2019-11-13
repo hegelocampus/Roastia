@@ -21,6 +21,7 @@ class CoffeeFilter extends React.Component {
     this.updateProcess = this.updateProcess.bind(this);
     this.updateRoast = this.updateRoast.bind(this);
     this.updatePrice = this.updatePrice.bind(this);
+    this.renderCoffees = this.renderCoffees.bind(this);
     this.fetchShopCoffees();
   }
 
@@ -34,7 +35,6 @@ class CoffeeFilter extends React.Component {
     }
     let newState = Object.assign({}, this.state);
     newState.filter["flavor"] = flavors;
-    debugger;
     this.setState(newState);
     this.fetchShopCoffees(e);
   }
@@ -93,6 +93,20 @@ class CoffeeFilter extends React.Component {
     });
     const selectedCoffees = res.data.fetchShopCoffees;
     this.setState({ coffees: selectedCoffees });
+  }
+
+  renderCoffees() {
+    if (this.state.coffees.length === 0) {
+      return <div>No coffees match your search!</div>;
+    }
+    const coffees = this.state.coffees.map(coffee => {
+      return (
+        <li key={coffee.id}>
+          <Link to={`/coffee/${coffee.id}`}>{coffee.name}</Link>;
+        </li>
+      );
+    });
+    return coffees;
   }
 
   render() {
@@ -266,15 +280,7 @@ class CoffeeFilter extends React.Component {
             />
           </label>
         </div>
-        <ul>
-          {this.state.coffees.map(coffee => {
-            return (
-              <li key={coffee.id}>
-                <Link to={`/coffee/${coffee.id}`}>{coffee.name}</Link>;
-              </li>
-            );
-          })}
-        </ul>
+        <ul>{this.renderCoffees()}</ul>
       </div>
     );
   }

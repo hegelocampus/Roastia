@@ -33,7 +33,7 @@ export default ({ background }) => {
           alt="logo"
           className="roastia-logo"
         />
-        <h3> Sign in or register </h3>
+        <h3> Sign in </h3>
         <h3> to save your favorite coffee shops</h3>
       </div>
     );
@@ -61,7 +61,7 @@ export default ({ background }) => {
           alt="logo"
           className="roastia-logo"
         />
-        <h3> Sign in or register </h3>
+        <h3> Register </h3>
         <h3> to save your favorite coffee shops</h3>
       </div>
     );

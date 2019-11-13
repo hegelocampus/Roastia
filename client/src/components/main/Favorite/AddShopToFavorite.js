@@ -1,5 +1,4 @@
 import React from "react";
-import { withRouter } from "react-router-dom";
 import { Query, Mutation } from "react-apollo";
 
 import Queries from "../../../graphql/queries";
@@ -18,7 +17,7 @@ const AddShopToFavorite = props => {
         if (error)
           return (
             <AuthLink
-              to="/signup"
+              to={`/shop/${props.shopId}`}
               content={
                 <img
                   src="https://we-camp-seeds.s3.us-east-2.amazonaws.com/unfavorite.png"
@@ -101,4 +100,4 @@ const AddShopToFavorite = props => {
   );
 };
 
-export default withRouter(AddShopToFavorite);
+export default AddShopToFavorite;
