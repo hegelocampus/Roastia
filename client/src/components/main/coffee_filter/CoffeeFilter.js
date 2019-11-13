@@ -92,7 +92,7 @@ class CoffeeFilter extends React.Component {
 
   async fetchShopCoffees(e) {
     const { filter } = this.state;
-    debugger;
+    // debugger;
     const res = await this.props.client.query({
       query: FETCH_SHOP_COFFEES,
 

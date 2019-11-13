@@ -136,7 +136,7 @@ const RootQueryType = new GraphQLObjectType({
             return updatedFilter;
           }
 
-            let query = fbuildFilters(filter).length === 0 ? {} : { $and: buildFilters(filters) }
+            let query = buildFilters(filter).length === 0 ? {} : { $and: buildFilters(filter) }
             return Coffee.findShopCoffees(coffeeShopId, query);
           }
         }
