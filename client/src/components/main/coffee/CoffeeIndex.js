@@ -3,7 +3,6 @@ import { Link, useLocation } from "react-router-dom";
 
 export default ({ coffees }) => {
   coffees = coffees || useLocation().state.coffees;
-  console.log(coffees);
   return (
     <div className="coffees-index-div">
       <ul>

@@ -6,6 +6,18 @@ const CoffeeShopSchema = new Schema({
     type: String,
     required: true
   },
+  description: {
+    type: String,
+    required: true
+  },
+  url: {
+    type: String,
+    required: true
+  },
+  imageURL: {
+    type: String,
+    required: true
+  },
   founded: {
     type: String,
     required: true
@@ -25,7 +37,7 @@ const CoffeeShopSchema = new Schema({
       uppercase: true
     },
     zip: {
-      type: Number,
+      type: String,
       required: true
     },
   },

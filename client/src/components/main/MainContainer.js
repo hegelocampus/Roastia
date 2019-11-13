@@ -4,10 +4,11 @@ import TopBar from "./top_bar/TopBar";
 import Splash from "./Splash";
 import CoffeeShop from "./coffee_shop/CoffeeShop";
 import CoffeeShopIndex from "./coffee_shop/CoffeeShopIndex";
-import Coffee from "./coffee_shop/CoffeeShop";
+import Coffee from "./coffee/Coffee";
 import AuthRoute from "../util/route_util";
 import Modal from "./auth_modal/AuthModal";
 import FavoriteShops from "./favorite/FavoriteShops";
+import CoffeeShopForm from "./coffee_shop/CoffeeShopForm";
 
 export default () => {
   let location = useLocation();
@@ -19,8 +20,11 @@ export default () => {
       <Switch location={background || location}>
         <AuthRoute exact path="/favorites" component={FavoriteShops} />
         <Route path="/shops" component={CoffeeShopIndex} />
+        <Route path="/shop/:shopId/edit" component={CoffeeShopForm} />
+        <Route path="/coffee/:coffeeId/edit" component={CoffeeShopForm} />
         <Route path="/coffee/:coffeeId" component={Coffee} />
         <Route path="/shop/:shopId" component={CoffeeShop} />
+        <Route path="/new/shop" component={CoffeeShopForm} />
         <Route exact path="/" component={Splash} />
       </Switch>
       {background && (

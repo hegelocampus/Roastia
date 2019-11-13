@@ -26,7 +26,7 @@ const selectorInput = new GraphQLInputObjectType({
   fields: {
     type: { type: GraphQLString },
     city: { type: GraphQLString },
-    zip:  { type: GraphQLInt },
+    zip:  { type: GraphQLString },
     state: { type: GraphQLString },
     name: { type: GraphQLString }
   }
@@ -58,106 +58,88 @@ const RootQueryType = new GraphQLObjectType({
       }
     },
     coffee: {
-      type: CoffeeType,
-      args: { id: { type: new GraphQLNonNull(GraphQLID) } },
-      resolve(_, args) {
-        return Coffee.findById(args.id);
-      }
+        type: CoffeeType,
+        args: { id: { type: new GraphQLNonNull(GraphQLID) } },
+        resolve(_, args) {
+            return Coffee.findById(args.id)
+        }
     },
     coffeeShops: {
-      type: new GraphQLList(require("./coffee_shop_type").CoffeeShopType),
-      args: { selectors: { type: selectorInput } },
-      resolve(_, { selectors }) {
-        const { name, city, zip } = selectors;
-        const selector = name || city || zip ? {} : null;
-
-        if (name) {
-          selector.name = { $regex: `.*${name}.*` };
+        type: new GraphQLList(require("./coffee_shop_type").CoffeeShopType),
+        resolve() {
+            return CoffeeShop.find({});
         }
-        if (city) {
-          selector["address.city"] = city;
-        }
-        if (zip) {
-          selector["address.zip"] = zip;
-        }
-
-        let query = selector ? selector : {};
-        return CoffeeShop.find(query);
-      }
     },
     coffeeShop: {
-      type: require("./coffee_shop_type").CoffeeShopType,
-      args: { id: { type: new GraphQLNonNull(GraphQLID) } },
-      resolve(_, args) {
-        return CoffeeShop.findById(args.id);
-      }
+        type: require("./coffee_shop_type").CoffeeShopType,
+        args: { id: { type: new GraphQLNonNull(GraphQLID) }},
+        resolve(_, args) {
+            return CoffeeShop.findById(args.id);
+        }
     },
     searchShops: {
-      type: new GraphQLList(require("./coffee_shop_type").CoffeeShopType),
-      args: { filter: { type: GraphQLString } },
-      resolve(_, { filter }) {
-        return CoffeeShop.find({ $text: { $search: filter } });
-      }
+        type: new GraphQLList(require("./coffee_shop_type").CoffeeShopType),
+        args: { filter: { type: GraphQLString }},
+        resolve(_, { filter }) {
+            return CoffeeShop.find({ $text: { $search: filter }});
+        }
     },
     fetchFavoriteShops: {
-      type: new GraphQLList(require("./coffee_shop_type").CoffeeShopType),
-      async resolve(parentValue, args, ctx) {
-        const validUser = await AuthService.verifyUser({ token: ctx.token });
-        if (validUser.loggedIn) {
-          const userId = validUser.id;
-          return User.findById(userId)
-            .populate("favorites")
-            .then(user => user.favorites);
-        } else {
-          throw new Error("Please log in or sign up!");
+        type: new GraphQLList(require("./coffee_shop_type").CoffeeShopType),
+        async resolve(parentValue, args, ctx) {
+            const validUser = await AuthService.verifyUser({ token: ctx.token });
+            if (validUser.loggedIn) {
+                const userId = validUser.id;
+                return User.findById(userId).populate('favorites').then(user => user.favorites)
+            } else {
+                throw new Error("Please log in or sign up!")
+            }
         }
-      }
     },
     fetchCurrentUser: {
-      type: UserType,
-      async resolve(parentValue, args, ctx) {
-        const validUser = await AuthService.verifyUser({ token: ctx.token });
-        if (validUser.loggedIn) {
-          const userId = validUser.id;
-          return User.findById(userId);
-        } else {
-          throw new Error("No one is logged in!");
+        type: UserType,
+        async resolve(parentValue, args, ctx) {
+            const validUser = await AuthService.verifyUser({ token: ctx.token });
+            if (validUser.loggedIn) {
+                const userId = validUser.id;
+                return User.findById(userId)
+            } else {
+                throw new Error("No one is logged in!")
+            }
         }
-      }
     },
     fetchShopCoffees: {
-      type: new GraphQLList(CoffeeType),
-      args: {
-        coffeeShopId: { type: GraphQLID },
-        filter: { type: FilterInputType }
-      },
-      resolve(_, { coffeeShopId, filter }) {
+        type: new GraphQLList(CoffeeType),
+        args: {
+          coffeeShopId: { type: GraphQLID },
+          filter: { type: FilterInputType }
+        },
+        resolve(_, { coffeeShopId, filter }) {
 
-        function buildFilters({ processing, roasting, flavor, price }) {
+            function buildFilters({ processing, roasting, flavor, price }) {
+            
+            let filters = {}
 
-          let filters = {}
+            if (processing) {
+              filters.processing = processing
+            }
+            if (roasting) {
+              filters.roasting = roasting
+            }
+            if (flavor && flavor.length !== 0) {
+              filters.flavor = { $in: flavor };
+            }
+            if (price && price.length !== 0) {
+              filters.price = { $gt: price[0], $lt: price[1] };
+            }
+            let updatedFilter = Object.keys(filters).length === 0 ? [] : [filters];
+            return updatedFilter;
+          }
 
-          if (processing) {
-            filters.processing = processing
+            let query = fbuildFilters(filter).length === 0 ? {} : { $and: buildFilters(filters) }
+            return Coffee.findShopCoffees(coffeeShopId, query);
           }
-          if (roasting) {
-            filters.roasting = roasting
-          }
-          if (flavor && flavor.length !== 0) {
-            filters.flavor = { $in: flavor };
-          }
-          if (price && price.length !== 0) {
-            filters.price = { $gt: price[0], $lt: price[1] };
-          }
-          let updatedFilter = Object.keys(filters).length === 0 ? [] : [filters];
-          return updatedFilter;
         }
-        
-        let query = buildFilters(filter).length === 0 ? {} : { $and: buildFilters(filter) };
-        return Coffee.findShopCoffees(coffeeShopId, query);
-        
-      }
-    }
   })
 });
 

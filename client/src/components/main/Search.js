@@ -5,16 +5,77 @@ import Autosuggest from "react-autosuggest";
 import Queries from "../../graphql/queries";
 const { SEARCH_SHOPS } = Queries;
 
+const getSuggestions = (filter, shops) => {
+  const inputValue = filter.trim().toLowerCase();
+  const inputLength = inputValue.length;
+
+  return inputLength === 0
+    ? []
+    : shops.filter(
+        shop =>
+          shop.name.toLowerCase().slice(0, inputLength) === inputValue ||
+          shop.address.state.toLowerCase().slice(0, inputLength) ===
+            inputValue ||
+          shop.address.city.toLowerCase().slice(0, inputLength) === inputValue
+      );
+};
+
+const getSuggestionValue = suggestedShop => suggestedShop.name;
+
+const renderSuggestion = suggestedShop => (
+  <div className="home-search">{suggestedShop.name}</div>
+);
+
 class Search extends Component {
   constructor(props) {
     super(props);
     this.state = {
       shops: [],
-      filter: ""
+      filter: "",
+      suggestions: []
     };
   }
 
+  onChange = (event, { newValue }) => {
+    this.setState({
+      filter: newValue
+    });
+  };
+
+  onSuggestionsFetchRequested = async ({ value }) => {
+    if (!value) {
+      this.setState({ suggestions: [] });
+      return;
+    }
+    try {
+      const { filter } = this.state;
+      const result = await this.props.client.query({
+        query: SEARCH_SHOPS,
+        variables: { filter }
+      });
+      const coffeeShops = result.data.searchShops;
+      this.setState({ suggestions: getSuggestions(value, coffeeShops) });
+    } catch (e) {
+      this.setState({ suggestions: [] });
+    }
+  };
+
+  onSuggestionsClearRequested = () => {
+    this.setState({
+      suggestions: []
+    });
+  };
+
   render() {
+    const { filter, suggestions } = this.state;
+
+    const inputProps = {
+      placeholder: "Enter a city, state or name...",
+      value: filter,
+      onChange: this.onChange,
+      autoComplete: "off"
+    };
+
     return (
       <div>
         <div>
@@ -22,12 +83,23 @@ class Search extends Component {
             className="search-bar-container"
             onSubmit={e => this._executeSearch(e)}
           >
-            <input
+            {/* <input
               type="text"
               className="home-search"
               placeholder="Enter a city, state or name..."
               onChange={e => this.setState({ filter: e.target.value })}
             />
+          */}
+            <div className="home-search">
+              <Autosuggest
+                inputProps={inputProps}
+                suggestions={suggestions}
+                onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
+                onSuggestionsClearRequested={this.onSuggestionsClearRequested}
+                getSuggestionValue={getSuggestionValue}
+                renderSuggestion={renderSuggestion}
+              />
+            </div>
             <button type="submit">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36.47 36.58">
                 <title>barista-icons_espresso-doppio</title>
