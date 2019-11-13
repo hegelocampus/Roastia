@@ -160,7 +160,7 @@ const mutation = new GraphQLObjectType({
                 baristaSatisfaction: { type: GraphQLInt },
             },
             resolve(parentValue, {
-                id, name, decription, url, imageURL, founded, address, type, baristaSatisfaction
+                id, name, description, url, imageURL, founded, address, type, baristaSatisfaction
             }) {
                 const updateObj = {};
 
