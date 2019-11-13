@@ -8,6 +8,7 @@ import Coffee from "./coffee/Coffee";
 import AuthRoute from '../util/route_util';
 import Modal from './auth_modal/AuthModal';
 import FavoriteShops from "./Favorite/FavoriteShops";
+import CoffeeForm from "./coffee/CoffeeForm";
 import CoffeeShopForm from "./coffee_shop/CoffeeShopForm";
 
 export default () => {
@@ -20,11 +21,12 @@ export default () => {
       <Switch location={ background || location }>
         <AuthRoute exact path="/favorites" component={FavoriteShops} />
         <Route path="/shops" component={CoffeeShopIndex} />
-        <Route path="/shop/:shopId/edit" component={CoffeeShopForm} />
+        <Route path="/shop/:shopId/edit" component={CoffeeForm} />
         <Route path="/coffee/:coffeeId/edit" component={CoffeeShopForm} />
         <Route path="/coffee/:coffeeId" component={Coffee} />
         <Route path="/shop/:shopId" component={CoffeeShop} />
         <Route path="/new/shop" component={CoffeeShopForm} />
+        <Route path="/new/coffee" component={CoffeeForm} />
         <Route exact path="/" component={Splash} />
       </Switch>
       {background && (

@@ -24,3 +24,4 @@ const CoffeeType = new GraphQLObjectType({
 });
 
 module.exports = CoffeeType;
+
