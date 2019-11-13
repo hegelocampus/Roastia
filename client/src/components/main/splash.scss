@@ -1,11 +1,14 @@
 .home-search {
   line-height: 2;
-  width: 200px;
+  width: 360px;
   font-size: 15px;
   border-bottom-left-radius: 4px;
   border-top-left-radius: 4px;
   padding: 0 10px;
   background: white;
+  input {
+    width: 100%;
+  }
 }
 
 .search-bar-container {
@@ -58,4 +61,9 @@
     text-align: center;
     margin-bottom: 30px;
   }
+}
+
+.suggestion {
+  display: flex;
+  justify-content: space-between;
 }

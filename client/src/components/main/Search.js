@@ -7,8 +7,18 @@ const { SEARCH_SHOPS } = Queries;
 
 const getSuggestionValue = suggestedShop => suggestedShop.name;
 
-const renderSuggestion = suggestedShop => <div className="home-search">
-  {suggestedShop.name}</div>;
+const renderSuggestion = suggestion => (
+<div className="home-search">
+  {suggestion.founded && (<div className="suggestion">
+    <span>{suggestion.name}</span>
+    <span>{suggestion.address.city + ", " + suggestion.address.state}</span>
+  </div>)}
+  {suggestion.origin && (<div className="suggestion">
+    <span>{suggestion.name}</span>
+    <span>Name: {suggestion.name}</span>
+    <span>Origin: {suggestion.origin}</span>
+  </div>)}
+</div>)
 
 class Search extends Component {
   constructor(props) {
@@ -38,7 +48,18 @@ class Search extends Component {
         variables: { filter }
       }).then(result => {
         const coffeeShops = result.data.searchShops;
-        this.setState({ suggestions: coffeeShops });
+        const suggestions = [
+          { 
+            title: 'Coffee Shops', 
+            coffeeShops: coffeeShops
+          },
+          {
+            title: 'Coffee',
+            coffees: coffeeShops.coffees
+          }
+        ];
+        console.log(coffeeShops);
+        this.setState({ suggestions: suggestions });
       })
     } catch (e) {
       this.setState({ suggestions: [] });
@@ -50,6 +71,17 @@ class Search extends Component {
       suggestions: []
     });
   };
+
+  renderSectionTitle = (section) => {
+    return (
+      <strong>{section.title}</strong>
+    );
+  }
+
+  getSectionSuggestions = (section) => {
+    return section.suggestions;
+  }
+
 
   render() {
     const { filter, suggestions } = this.state;
@@ -70,12 +102,15 @@ class Search extends Component {
           >
             <div className="home-search">
               <Autosuggest
+                getSuggestionValue={getSuggestionValue}
                 inputProps={inputProps}
-                suggestions={suggestions}
+                multiSection={true}
                 onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
                 onSuggestionsClearRequested={this.onSuggestionsClearRequested}
-                getSuggestionValue={getSuggestionValue}
+                renderSectionTitle={this.renderSectionTitle}
+                getSectionSuggestions={this.getSectionSuggestions}
                 renderSuggestion={renderSuggestion}
+                suggestions={suggestions}
               />
             </div>
             <button type="submit">
