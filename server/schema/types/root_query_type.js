@@ -103,8 +103,26 @@ const RootQueryType = new GraphQLObjectType({
         searchShops: {
             type: new GraphQLList(require("./coffee_shop_type").CoffeeShopType),
             args: { filter: { type: GraphQLString }},
-            resolve(_, { filter }) {
-                return CoffeeShop.find({ $text: { $search: filter }});
+            async resolve(_, { filter }) {
+                const coffees = await Coffee.find({
+                    "$or": [
+                        { "origin": { '$regex': filter, '$options': 'i' } },
+                        { "processing": { '$regex': filter, '$options': 'i' } },
+                        { "roasting": { '$regex': filter, '$options': 'i' } },
+                        { "flavor": { '$regex': filter, '$options': 'i' } },
+                    ]
+                })
+
+                const coffeeShops = await CoffeeShop.find({
+                    "$or": [
+                        { "name": { '$regex': filter, '$options': 'i' } },
+                        { "address.state": { '$regex': filter, '$options': 'i' } },
+                        { "address.city": { '$regex': filter, '$options': 'i' } },
+                        { "address.zip": { '$regex': filter, '$options': 'i' } },
+                         { "coffees": { $in: coffees.map(coffee=> coffee.id) } }
+                    ]
+                });
+                return coffeeShops;
             }
         },
         fetchFavoriteShops: {
@@ -131,7 +149,7 @@ const RootQueryType = new GraphQLObjectType({
                 }
             }
         }
-        })
+    })
 });
 
 module.exports = RootQueryType;
