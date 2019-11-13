@@ -6,14 +6,16 @@ import "./topBar.scss";
 export default () => {
   return (
     <header className="top-bar-container">
-      <Link to="/">
-        <img
-          src="https://roastia.s3.us-east-2.amazonaws.com/roastia+logo-01.png"
-          alt="logo"
-          className="roastia-logo"
-        />
-      </Link>
-      <Nav />
+      <nav>
+        <Link to="/">
+          <img
+            src="https://roastia.s3.us-east-2.amazonaws.com/roastia+logo-01.png"
+            alt="logo"
+            className="roastia-logo"
+          />
+        </Link>
+        <Nav />
+      </nav>
     </header>
   );
 };
