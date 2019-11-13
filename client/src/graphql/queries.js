@@ -70,6 +70,10 @@ export default {
         coffees {
           id
           name
+          origin
+          roasting
+          flavor
+          processing
         }
       }
     }
