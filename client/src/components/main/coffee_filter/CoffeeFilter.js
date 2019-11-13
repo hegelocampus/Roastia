@@ -13,8 +13,8 @@ class CoffeeFilter extends React.Component {
       filter: {
         processing: "",
         roasting: "",
-        flavor: [],
-        price: []
+        price: [],
+        flavor: []
       }
     };
     this.updateFlavor = this.updateFlavor.bind(this);
@@ -25,35 +25,31 @@ class CoffeeFilter extends React.Component {
   }
 
   updateFlavor(e) {
-    let flavors = this.state.filter["flavor"];
+    let flavors = [...this.state.filter["flavor"]];
     const idx = flavors.indexOf(e.target.name);
     if (idx !== -1) {
       flavors.splice(idx, 1);
     } else {
       flavors = flavors.concat([e.target.name]);
     }
-
-    this.setState({
-      filter: {
-        flavor: flavors
-      }
-    });
+    let newState = Object.assign({}, this.state);
+    newState.filter["flavor"] = flavors;
+    debugger;
+    this.setState(newState);
     this.fetchShopCoffees(e);
   }
 
   updateProcess(e) {
     let newProcess;
-    if (e.target.checked) {
+    if (this.state.filter["processing"] === e.target.name) {
       newProcess = "";
     } else {
       newProcess = e.target.name;
     }
 
-    this.setState({
-      filter: {
-        processing: newProcess
-      }
-    });
+    let newState = Object.assign({}, this.state);
+    newState.filter["processing"] = newProcess;
+    this.setState(newState);
     this.fetchShopCoffees(e);
   }
 
@@ -64,35 +60,29 @@ class CoffeeFilter extends React.Component {
     } else {
       newRoast = e.target.name;
     }
-    this.setState({
-      filter: {
-        roasting: newRoast
-      }
-    });
+    let newState = Object.assign({}, this.state);
+    newState.filter["roasting"] = newRoast;
+    this.setState(newState);
     this.fetchShopCoffees(e);
   }
 
   updatePrice(e) {
     let newPrice;
-    if (
-      JSON.stringify(this.state.filter["price"]) ===
-      JSON.stringify(e.target.name)
-    ) {
+    const str = e.target.name;
+    const parsed = str.split(",").map(Number);
+    if (JSON.stringify(this.state.filter["price"]) === JSON.stringify(parsed)) {
       newPrice = [];
     } else {
-      newPrice = e.target.name;
+      newPrice = parsed;
     }
-    this.setState({
-      filter: {
-        price: newPrice
-      }
-    });
+    let newState = Object.assign({}, this.state);
+    newState.filter["price"] = newPrice;
+    this.setState(newState);
     this.fetchShopCoffees(e);
   }
 
   async fetchShopCoffees(e) {
     const { filter } = this.state;
-    // debugger;
     const res = await this.props.client.query({
       query: FETCH_SHOP_COFFEES,
 
@@ -101,7 +91,6 @@ class CoffeeFilter extends React.Component {
         filter: filter
       }
     });
-
     const selectedCoffees = res.data.fetchShopCoffees;
     this.setState({ coffees: selectedCoffees });
   }
@@ -143,7 +132,7 @@ class CoffeeFilter extends React.Component {
             Nut
             <input
               type="checkbox"
-              name="nut"
+              name="nuts"
               onClick={this.updateFlavor}
               onChange={() => {}}
             />
