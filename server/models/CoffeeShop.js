@@ -8,12 +8,15 @@ const CoffeeShopSchema = new Schema({
   },
   description: {
     type: String,
+    required: true
   },
   url: {
-    type: String
+    type: String,
+    required: true
   },
   imageURL: {
-    type: String
+    type: String,
+    required: true
   },
   founded: {
     type: String,
