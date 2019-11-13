@@ -13,7 +13,6 @@ export default (props) => {
   const history = useHistory();
   const [createShop, { error }] = useMutation(ADD_SHOP, {
     onCompleted: data => {
-      console.log(data);
       history.push(`/shop/${ data.newCoffeeShop.id }`);
     },
     onError: error => {
