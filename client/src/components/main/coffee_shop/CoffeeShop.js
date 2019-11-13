@@ -15,6 +15,8 @@ export default () => {
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error</p>;
+  if (data.coffeeShop === null) return <p>Coffee Shop not found!</p>;
+
   const {
     coffeeShop: {
       name,
@@ -31,7 +33,7 @@ export default () => {
   } = data;
   return (
     <div className="coffee-shop">
-      <img src="nope" alt={`${name} coffee shop`} />
+      <img src={ imageURL } alt={`${name} coffee shop`} />
       <div className="coffee-shop-main-info">
         <h1>{name}</h1>
         <h2>{address.street}</h2>
@@ -49,6 +51,10 @@ export default () => {
           <li>
             <s>Type:</s>
             <span>{type}</span>
+          </li>
+          <li>
+            <s>Website:</s>
+            <span>{url}</span>
           </li>
           <li>
             <s>Barista Satisfaction:</s>

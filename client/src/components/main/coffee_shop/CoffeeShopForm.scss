@@ -1,0 +1,24 @@
+.shop-form {
+  margin: auto;
+  width: 700px;
+  display: flex;
+  flex-direction: column;
+  label {
+    margin-top: 5px;
+  }
+  input, button {
+    margin-top: 10px;
+    margin-bottom: 3px;
+    height: 26px;
+    background-color: darken(#ffffff, 10%);
+  }
+  button {
+    margin-top: 5px;
+    background-color: darken(#ffffff, 20%);
+    font-weight: 600;
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
+
