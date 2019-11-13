@@ -5,6 +5,8 @@ import { Query, Mutation } from "react-apollo";
 import Queries from "../../../graphql/queries";
 import Mutations from "../../../graphql/mutations";
 
+import AuthLink from "../../util/AuthLink";
+
 const { FETCH_CURRENT_USER, FETCH_SHOP, FETCH_FAVORITE_SHOPS } = Queries;
 const { ADD_FAVORITE, REMOVE_FAVORITE } = Mutations;
 
@@ -15,10 +17,15 @@ const AddShopToFavorite = props => {
         if (loading) return "Loading...";
         if (error)
           return (
-            <img
-              src="https://we-camp-seeds.s3.us-east-2.amazonaws.com/unfavorite.png"
-              onClick={() => props.history.push("/")}
-            />
+            <AuthLink
+              to="/signup"
+              content={
+                <img
+                  src="https://we-camp-seeds.s3.us-east-2.amazonaws.com/unfavorite.png"
+                  alt=""
+                />
+              }
+            ></AuthLink>
           );
 
         const currentUserId = data.fetchCurrentUser._id;

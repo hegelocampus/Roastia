@@ -5,6 +5,7 @@ import CoffeeIndex from "../coffee/CoffeeIndex";
 
 import Queries from "../../../graphql/queries";
 import AddShopToFavorite from "../favorite/AddShopToFavorite";
+import CoffeeFilter from "../coffee_filter/CoffeeFilter";
 const { FETCH_SHOP } = Queries;
 
 export default () => {
@@ -54,9 +55,10 @@ export default () => {
         </ul>
         <section>
           <h3>Coffee:</h3>
-          <ul className="shop-coffee-ul">
+          {/* <ul className="shop-coffee-ul">
             <CoffeeIndex coffees={coffees} />
-          </ul>
+          </ul> */}
+          <CoffeeFilter shopId={shopId} />
         </section>
       </div>
     </div>
