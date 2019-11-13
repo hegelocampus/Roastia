@@ -1,6 +1,7 @@
 import React from 'react';
 import { useMutation } from "@apollo/react-hooks";
 import { Formik, Form, Field, ErrorMessage } from "formik";
+import { useHistory } from "react-router-dom";
 import { object, string, number } from "yup";
 import RenderErrors from "../../util/RenderErrors";
 import './CoffeeShopForm.scss'
@@ -10,22 +11,37 @@ const { ADD_SHOP } = Mutations;
 
 let ShopSchema = object({
   name: string()
-    .required(),
+    .required("Please enter the name of the cafe"),
   founded: string()
-    .required()
-    .length(4,"Please enter a valid year"),
+    .required("Please enter a year")
+    .matches(/^\d{4}$/ ,"Please enter a valid year"),
+  type: string()
+    .required("Please enter the shop type"),
+  description: string()
+    .required("Please enter description of the cafe"),
   baristaSatisfaction: number()
     .required("Barista satisfaction score is required (it's OK to guess)"),
   address: object({
-    street: string().required(),
-    city: string().required(),
-    state: string().required(),
-    zip: number().required()
+    street: string().required("Please enter a street address"),
+    city: string().required("Please enter a city"),
+    state: string().required("Please enter a state"),
+    zip: string()
+      .required("Please enter a ZIP code")
+      .matches(/^[0-9]{5}(?:-[0-9]{4})?$/, "Please enter a valid ZIP code")
   }).required()
 });
 
 export default (props) => {
-  const [createShop, { error }] = useMutation(ADD_SHOP);
+  const history = useHistory();
+  const [createShop, { error }] = useMutation(ADD_SHOP, {
+    onCompleted: data => {
+      console.log(data);
+      history.push(`/shop/${ data.newCoffeeShop.id }`);
+    },
+    onError: error => {
+      console.log(error);
+    }
+  });
 
   return (
     <Formik
@@ -33,6 +49,10 @@ export default (props) => {
         name: "",
         founded: "",
         baristaSatisfaction: "",
+        type: "",
+        description: "",
+        url: "",
+        imageURL: "",
         address: {
           street: "",
           city: "",
@@ -44,26 +64,37 @@ export default (props) => {
       onSubmit={values => createShop({ variables: values })}
     >
       <Form className="shop-form">
-        <label htmlFor="Name">Name:</label>
-        <Field name="name" type="text"/>
+        <Field name="name" type="text" placeholder="Cafe Name"/>
         <ErrorMessage name="name"/>
-        <label htmlFor="founded">Year Founded:</label>
-        <Field name="founded" type="text"/>
+        <Field name="description" as="textarea" placeholder="Write a brief description of the cafe"/>
+        <ErrorMessage name="description"/>
+        <Field name="founded" type="text" placeholder="Year Founded"/>
         <ErrorMessage name="founded"/>
-        <label htmlFor="baristaSatisfaction">Barista Satisfaction Rating:</label>
-        <Field name="baristaSatisfaction" type="number"/>
+        <Field
+          name="baristaSatisfaction"
+          type="number"
+          placeholder="Barista Satisfaction Rating"
+        />
         <ErrorMessage name="baristaSatisfaction"/>
-        <label htmlFor="address.street">Street:</label>
-        <Field name="address.street" type="text"/>
+        <Field name="url" type="url" placeholder="Cafe URL"/>
+        <ErrorMessage name="url"/>
+        <Field name="imageURL" type="url" placeholder="Cafe Image URL"/>
+        <ErrorMessage name="imageURL"/>
+        <label htmlFor="type">Cafe type:</label>
+        <Field name="type" as="select">
+          <option value="roaster">Roaster</option>
+          <option value="coffee bar">Coffee Bar</option>
+          <option value="coffee bar">Espresso Bar</option>
+          <option value="brewer">Coffee Stand</option>
+        </Field>
+        <ErrorMessage name="type"/>
+        <Field name="address.street" type="text" placeholder="Street Address"/>
         <ErrorMessage name="address.street"/>
-        <label htmlFor="address.city">City:</label>
-        <Field name="address.city" type="text"/>
+        <Field name="address.city" type="text" placeholder="City"/>
         <ErrorMessage name="address.city"/>
-        <label htmlFor="address.state">State:</label>
-        <Field name="address.state" type="text"/>
+        <Field name="address.state" type="text" placeholder="State"/>
         <ErrorMessage name="address.state"/>
-        <label htmlFor="address.zip">Zip:</label>
-        <Field name="address.zip" type="text"/>
+        <Field name="address.zip" type="text" placeholder="ZIP"/>
         <ErrorMessage name="address.zip"/>
         <button type="submit">Submit</button>
         <RenderErrors errors={ error }/>

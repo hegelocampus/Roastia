@@ -45,6 +45,9 @@ export default {
       newCoffeeShop(name: $name, founded: $founded, address: $address, type: $type, baristaSatisfaction: $baristaSatisfaction) {
         id
         name
+        description
+        url
+        imageURL
         founded
         type
         baristaSatisfaction
@@ -53,6 +56,15 @@ export default {
           state
           street
           zip
+        }
+        coffees {
+          id
+          name
+          origin
+          processing
+        }
+        users {
+          _id
         }
       }
     }
