@@ -1,7 +1,7 @@
 import React from "react";
 import { Query, ApolloConsumer } from "react-apollo";
 import { Link, useHistory } from "react-router-dom";
-import AuthLink from '../../util/AuthLink';
+import AuthLink from "../../util/AuthLink";
 
 import Queries from "../../../graphql/queries";
 const { IS_LOGGED_IN } = Queries;
@@ -16,26 +16,27 @@ export default props => {
           {({ data }) => {
             if (data.isLoggedIn) {
               return (
-                <div>
+                <div className="logout">
                   <Link to="/favorites">Saved Coffee Shops</Link>
-                  <div className="logout">
-                    <button
-                      onClick={e => {
-                        e.preventDefault();
-                        localStorage.removeItem("auth-token");
-                        client.writeData({ data: { isLoggedIn: false } });
-                        history.push("/");
-                      }}
-                    >
-                      Logout
-                    </button>
-                  </div>
+                  <button
+                    onClick={e => {
+                      e.preventDefault();
+                      localStorage.removeItem("auth-token");
+                      client.writeData({ data: { isLoggedIn: false } });
+                      history.push("/");
+                    }}
+                  >
+                    Log Out
+                  </button>
                 </div>
               );
             } else {
               return (
                 <div className="login-signup">
-                  <AuthLink className="nav-auth-anchor" content="Login" />
+                  <AuthLink
+                    className="nav-auth-anchor"
+                    content="Sign up or Log in"
+                  />
                   {/*
                   <Link
                     to={{
@@ -44,7 +45,7 @@ export default props => {
                     }}
                     className="nav-menu-auth-anchor"
                   >
-                    Log In
+                    Sign up or Log in
                   </Link>
                   */}
                 </div>
@@ -56,4 +57,3 @@ export default props => {
     </ApolloConsumer>
   );
 };
-

@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation } from "react-router-dom";
 
 export default ({ coffees }) => {
   coffees = coffees || useLocation().state.coffees;
@@ -8,7 +8,7 @@ export default ({ coffees }) => {
       <ul>
         {coffees.map(({ id, name, origin, processing, shop }) => (
           <li key={id} className="coffee-index-item">
-            <Link to={ `/coffee/${ id }` }>
+            <Link to={`/coffee/${id}`}>
               <h4>{name}</h4>
             </Link>
             <span>{origin}</span>
@@ -24,4 +24,3 @@ export default ({ coffees }) => {
     </div>
   );
 };
-

@@ -126,25 +126,30 @@ const mutation = new GraphQLObjectType({
             }
         },
         addFavorite: {
-            type: UserType,
-            args: {
-                userId: { type: GraphQLID },
-                coffeeShopId: { type: GraphQLID }
-            },
-            resolve(_, args) {
-                return User.addFavorite(args.userId, args.coffeeShopId)
+          type: UserType,
+          args: {
+            coffeeShopId: { type: GraphQLID }
+          },
+          async resolve(parentValue, args, ctx) {
+            const validUser = await AuthService.verifyUser({ token: ctx.token });
+            if (validUser.loggedIn) {
+              const userId = validUser.id;
+              return User.addFavorite(userId, args.coffeeShopId);
             }
+          }
         },
         removeFavorite: {
-            type: UserType,
-            args: {
-                userId: { type: GraphQLID },
-                coffeeShopId: { type: GraphQLID }
-            },
-            resolve(_, args) {
-                return User.removeFavorite(args.userId, args.coffeeShopId)
+          type: UserType,
+          args: {
+            coffeeShopId: { type: GraphQLID }
+          },
+          async resolve(parentValue, args, ctx) {
+            const validUser = await AuthService.verifyUser({ token: ctx.token });
+            if (validUser.loggedIn) {
+              const userId = validUser.id;
+              return User.removeFavorite(userId, args.coffeeShopId);
             }
-
+          }
         },
         updateCoffeeShop: {
             type: CoffeeShopType,
@@ -175,23 +180,23 @@ const mutation = new GraphQLObjectType({
                 if (baristaSatisfaction) updateObj.baristaSatisfaction = baristaSatisfaction;
 
                 return CoffeeShop.findOneAndUpdate(
-                    { _id: id },
-                    { $set: updateObj },
-                    { new: true },
-                    (err, coffeeShop) => {
-                        return coffeeShop;
-                    }
+                  { _id: id },
+                  { $set: updateObj },
+                  { new: true },
+                  (err, coffeeShop) => {
+                    return coffeeShop;
+                  }
                 );
-            }
-        },
-        deleteCoffeeShop: {
-            type: CoffeeShopType,
-            args: { id: { type: GraphQLID } },
-            resolve(_, { id }) {
-                return CoffeeShop.remove({ _id: id });
-            }
-        },
+      }
+    },
+    deleteCoffeeShop: {
+      type: CoffeeShopType,
+      args: { id: { type: GraphQLID } },
+      resolve(_, { id }) {
+        return CoffeeShop.remove({ _id: id });
+      }
     }
+  }
 });
 
 module.exports = mutation;

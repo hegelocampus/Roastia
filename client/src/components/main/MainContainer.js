@@ -1,15 +1,15 @@
-import React from "react";
-import { Switch, Route, useLocation } from "react-router-dom";
-import TopBar from "./top_bar/TopBar";
-import Splash from "./Splash";
-import CoffeeShop from "./coffee_shop/CoffeeShop";
-import CoffeeShopIndex from "./coffee_shop/CoffeeShopIndex";
-import Coffee from "./coffee/Coffee";
+import React from 'react';
+import { Switch, Route, useLocation } from 'react-router-dom';
+import TopBar from './top_bar/TopBar';
+import Splash from './Splash';
+import CoffeeShop from './coffee_shop/CoffeeShop';
+import CoffeeShopIndex from './coffee_shop/CoffeeShopIndex';
+import Coffee from './coffee/Coffee';
 import AuthRoute from '../util/route_util';
 import Modal from './auth_modal/AuthModal';
-import FavoriteShops from "./Favorite/FavoriteShops";
-import CoffeeForm from "./coffee/CoffeeForm";
-import CoffeeShopForm from "./coffee_shop/CoffeeShopForm";
+import FavoriteShops from './favorite/FavoriteShops';
+import CoffeeForm from './coffee/CoffeeForm';
+import CoffeeShopForm from './coffee_shop/CoffeeShopForm';
 import './MainContainer.scss';
 
 export default () => {
@@ -20,7 +20,7 @@ export default () => {
     <React.Fragment>
       <TopBar />
       <main className="main-container">
-        <Switch location={ background || location }>
+        <Switch location={background || location}>
           <AuthRoute exact path="/favorites" component={FavoriteShops} />
           <Route path="/shops" component={CoffeeShopIndex} />
           <Route path="/shop/:shopId/edit" component={CoffeeForm} />
@@ -34,10 +34,10 @@ export default () => {
       </main>
       {background && (
         <AuthRoute
-          path={ ["/login", "/signup"] }
+          path={['/login', '/signup']}
           routeType="auth"
-          component={ Modal }
-          background={ background }
+          component={Modal}
+          background={background}
         />
       )}
     </React.Fragment>

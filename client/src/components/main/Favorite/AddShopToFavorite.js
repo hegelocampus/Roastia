@@ -4,6 +4,8 @@ import { Query, Mutation } from "react-apollo";
 import Queries from "../../../graphql/queries";
 import Mutations from "../../../graphql/mutations";
 
+import AuthLink from "../../util/AuthLink";
+
 const { FETCH_CURRENT_USER, FETCH_SHOP, FETCH_FAVORITE_SHOPS } = Queries;
 const { ADD_FAVORITE, REMOVE_FAVORITE } = Mutations;
 
@@ -12,7 +14,18 @@ const AddShopToFavorite = props => {
     <Query query={FETCH_CURRENT_USER}>
       {({ data, loading, error }) => {
         if (loading) return "Loading...";
-        if (error) return `Error! ${error.message}`;
+        if (error)
+          return (
+            <AuthLink
+              to={`/shop/${props.shopId}`}
+              content={
+                <img
+                  src="https://we-camp-seeds.s3.us-east-2.amazonaws.com/unfavorite.png"
+                  alt=""
+                />
+              }
+            ></AuthLink>
+          );
 
         const currentUserId = data.fetchCurrentUser._id;
 
@@ -28,7 +41,8 @@ const AddShopToFavorite = props => {
               refetchQueries={() => {
                 return [
                   { query: FETCH_SHOP, variables: { id: props.shopId } },
-                  { query: FETCH_FAVORITE_SHOPS }
+                  { query: FETCH_FAVORITE_SHOPS },
+                  { query: FETCH_CURRENT_USER }
                 ];
               }}
             >
@@ -39,7 +53,7 @@ const AddShopToFavorite = props => {
                     onClick={() => {
                       removeFavorite({
                         variables: {
-                          userId: currentUserId,
+                          // userId: currentUserId,
                           coffeeShopId: props.shopId
                         }
                       });
@@ -57,7 +71,8 @@ const AddShopToFavorite = props => {
               refetchQueries={() => {
                 return [
                   { query: FETCH_SHOP, variables: { id: props.shopId } },
-                  { query: FETCH_FAVORITE_SHOPS }
+                  { query: FETCH_FAVORITE_SHOPS },
+                  { query: FETCH_CURRENT_USER }
                 ];
               }}
             >
@@ -68,7 +83,7 @@ const AddShopToFavorite = props => {
                     onClick={() => {
                       addFavorite({
                         variables: {
-                          userId: currentUserId,
+                          // userId: currentUserId,
                           coffeeShopId: props.shopId
                         }
                       });

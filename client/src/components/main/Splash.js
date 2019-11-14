@@ -1,6 +1,6 @@
-import React from "react";
-import Search from "./Search";
-import "./splash.scss";
+import React from 'react';
+import Search from './Search';
+import './splash.scss';
 
 export default () => (
   <React.Fragment>
@@ -16,4 +16,3 @@ export default () => (
     </section>
   </React.Fragment>
 );
-

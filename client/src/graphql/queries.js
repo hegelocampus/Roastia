@@ -130,5 +130,13 @@ export default {
         _id
       }
     }
+  `,
+  FETCH_SHOP_COFFEES: gql`
+    query FetchShopCoffees($coffeeShopId: ID!, $filter: FilterInputType) {
+      fetchShopCoffees(coffeeShopId: $coffeeShopId, filter: $filter) {
+        id
+        name
+      }
+    }
   `
 };

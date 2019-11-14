@@ -20,11 +20,15 @@
   label {
     margin-top: 5px;
   }
-  input, select {
+  input,
+  select {
     border: none;
     border-bottom: 1px solid $background-dark;
   }
-  input, textarea, select, button {
+  input,
+  textarea,
+  select,
+  button {
     margin-top: 10px;
     margin-bottom: 3px;
     height: 26px;
@@ -44,4 +48,3 @@
     }
   }
 }
-

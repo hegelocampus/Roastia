@@ -1,10 +1,11 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import { useQuery } from "@apollo/react-hooks";
-import CoffeeIndex from '../coffee/CoffeeIndex';
+import CoffeeIndex from "../coffee/CoffeeIndex";
 
 import Queries from "../../../graphql/queries";
-import AddShopToFavorite from "../Favorite/AddShopToFavorite";
+import AddShopToFavorite from "../favorite/AddShopToFavorite";
+import CoffeeFilter from "../coffee_filter/CoffeeFilter";
 const { FETCH_SHOP } = Queries;
 
 export default () => {
@@ -33,7 +34,7 @@ export default () => {
   } = data;
   return (
     <div className="coffee-shop">
-      <img src={ imageURL } alt={`${name} coffee shop`} />
+      <img src={imageURL} alt={`${name} coffee shop`} />
       <div className="coffee-shop-main-info">
         <h1>{name}</h1>
         <h2>{address.street}</h2>
@@ -63,9 +64,10 @@ export default () => {
         </ul>
         <section>
           <h3>Coffee:</h3>
-          <ul className="shop-coffee-ul">
-            <CoffeeIndex coffees={ coffees } />
-          </ul>
+          {/* <ul className="shop-coffee-ul">
+            <CoffeeIndex coffees={coffees} />
+          </ul> */}
+          <CoffeeFilter shopId={shopId} />
         </section>
       </div>
     </div>

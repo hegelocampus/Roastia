@@ -39,22 +39,21 @@ export default props => {
       onSubmit={values => registerUser({ variables: values })}
     >
       <Form className="signup-form">
-        <label htmlFor="email">Email:</label>
+        <label htmlFor="email">Email</label>
         <Field name="email" autoComplete="email" type="email" />
         <ErrorMessage name="email" />
-        <label htmlFor="Name">Name:</label>
+        <label htmlFor="Name">Name</label>
         <Field name="name" autoComplete="username" type="text" />
         <ErrorMessage name="name" />
-        <label htmlFor="password">Password:</label>
+        <label htmlFor="password">Password</label>
         <Field name="password" autoComplete="new-password" type="password" />
         <ErrorMessage name="password" />
-        <label htmlFor="password2">Re-enter password:</label>
+        <label htmlFor="password2">Re-enter password</label>
         <Field name="password2" autoComplete="new-password" type="password" />
         <ErrorMessage name="password2" />
         <button type="submit">Sign up</button>
-        <RenderErrors errors={ error } />
+        <RenderErrors errors={error} />
       </Form>
     </Formik>
   );
 };
-

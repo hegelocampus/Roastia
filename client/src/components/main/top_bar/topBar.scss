@@ -35,6 +35,27 @@
   }
 }
 
+.logout {
+  button {
+    text-decoration: none;
+    color: black;
+    font-family: inherit;
+    font-weight: 600;
+    padding: 5px 10px;
+    margin: 5px;
+    cursor: pointer;
+  }
+  button:hover {
+    background: #eae9e9;
+    border: darkgray;
+    border-radius: 4px;
+  }
+}
+
+.logout {
+  display: flex;
+}
+
 .roastia-logo {
   height: 60px;
 }
@@ -50,4 +71,3 @@
     margin: 0 auto;
   }
 }
-

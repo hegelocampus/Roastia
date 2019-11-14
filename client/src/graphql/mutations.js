@@ -1,4 +1,4 @@
-import gql from "graphql-tag";
+import gql from 'graphql-tag';
 
 export default {
   LOGIN_USER: gql`
@@ -25,24 +25,42 @@ export default {
     }
   `,
   ADD_FAVORITE: gql`
-    mutation AddFavorite($userId: ID!, $coffeeShopId: ID!) {
-      addFavorite(userId: $userId, coffeeShopId: $coffeeShopId) {
+    mutation AddFavorite($coffeeShopId: ID!) {
+      addFavorite(coffeeShopId: $coffeeShopId) {
         _id
         name
       }
     }
   `,
   REMOVE_FAVORITE: gql`
-    mutation RemoveFavorite($userId: ID!, $coffeeShopId: ID!) {
-      removeFavorite(userId: $userId, coffeeShopId: $coffeeShopId) {
+    mutation RemoveFavorite($coffeeShopId: ID!) {
+      removeFavorite(coffeeShopId: $coffeeShopId) {
         _id
         name
       }
     }
   `,
   ADD_SHOP: gql`
-    mutation NewCoffeeShop($name: String!, $url: String!, $imageURL: String!, $description: String!, $founded: String, $address: Address, $type: String, $baristaSatisfaction: Int) {
-      newCoffeeShop(name: $name, url: $url, imageURL: $imageURL, description: $description,founded: $founded, address: $address, type: $type, baristaSatisfaction: $baristaSatisfaction) {
+    mutation NewCoffeeShop(
+      $name: String!
+      $url: String!
+      $imageURL: String!
+      $description: String!
+      $founded: String
+      $address: Address
+      $type: String
+      $baristaSatisfaction: Int
+    ) {
+      newCoffeeShop(
+        name: $name
+        url: $url
+        imageURL: $imageURL
+        description: $description
+        founded: $founded
+        address: $address
+        type: $type
+        baristaSatisfaction: $baristaSatisfaction
+      ) {
         id
         name
         description
@@ -70,8 +88,28 @@ export default {
     }
   `,
   UPDATE_SHOP: gql`
-    mutation UpdateCoffeeShop($id: ID!, $name: String!, $url: String!, $imageURL: String!, $description: String!, $founded: String, $address: Address, $type: String, $baristaSatisfaction: Int) {
-      updateCoffeeShop(id: $id, name: $name, url: $url, imageURL: $imageURL, description: $description,founded: $founded, address: $address, type: $type, baristaSatisfaction: $baristaSatisfaction) {
+    mutation UpdateCoffeeShop(
+      $id: ID!
+      $name: String!
+      $url: String!
+      $imageURL: String!
+      $description: String!
+      $founded: String
+      $address: Address
+      $type: String
+      $baristaSatisfaction: Int
+    ) {
+      updateCoffeeShop(
+        id: $id
+        name: $name
+        url: $url
+        imageURL: $imageURL
+        description: $description
+        founded: $founded
+        address: $address
+        type: $type
+        baristaSatisfaction: $baristaSatisfaction
+      ) {
         id
         name
         founded
@@ -87,8 +125,22 @@ export default {
     }
   `,
   ADD_COFFEE: gql`
-    mutation AddCoffee($name: String!, $origin: String!, $processing: String!, $roasting: String!, $flavor: [String], $price: Int!) {
-      addCoffee(name: $name, origin: $origin, processing: $processing, roasting: $roasting, flavor: $flavor, price: $price) {
+    mutation AddCoffee(
+      $name: String!
+      $origin: String!
+      $processing: String!
+      $roasting: String!
+      $flavor: [String]
+      $price: Int!
+    ) {
+      addCoffee(
+        name: $name
+        origin: $origin
+        processing: $processing
+        roasting: $roasting
+        flavor: $flavor
+        price: $price
+      ) {
         id
         name
         origin
@@ -100,4 +152,3 @@ export default {
     }
   `,
 };
-

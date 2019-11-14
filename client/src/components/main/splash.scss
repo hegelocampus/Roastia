@@ -1,6 +1,6 @@
 @import 'variables';
 
-$background-image: "https://roastia.s3.us-east-2.amazonaws.com/roastia-home.jpeg";
+$background-image: 'https://roastia.s3.us-east-2.amazonaws.com/roastia-home.jpeg';
 
 .splash-main-container {
   width: 100%;
@@ -30,6 +30,8 @@ $background-image: "https://roastia.s3.us-east-2.amazonaws.com/roastia-home.jpeg
   justify-content: center;
   align-items: center;
   border-radius: 6px;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
 }
 .splash-backdrop-blur {
   z-index: 1;
@@ -63,4 +65,3 @@ $background-image: "https://roastia.s3.us-east-2.amazonaws.com/roastia-home.jpeg
     border-radius: 20px;
   }
 }
-
