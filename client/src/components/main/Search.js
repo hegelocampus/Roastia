@@ -32,10 +32,7 @@ class Search extends Component {
       shops: [],
       filter: '',
       suggestions: [],
-<<<<<<< HEAD
-=======
       isSearching: false,
->>>>>>> af1308c... Troubleshoot async search
     };
     this.lastRequest = null;
   }
