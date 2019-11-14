@@ -1,5 +1,7 @@
 @import 'variables';
 
+$background-image: "https://roastia.s3.us-east-2.amazonaws.com/roastia-home.jpeg";
+
 .splash-main-container {
   width: 100%;
   height: 500px;
@@ -7,10 +9,10 @@
 }
 .splash-backdrop {
   position: absolute;
-  background-image: url("https://roastia.s3.us-east-2.amazonaws.com/daan-evers-tKN1WXrzQ3s-unsplash.jpg");
+  background-image: url($background-image);
   background-position: center;
   background-repeat: no-repeat;
-  background-size: 1200px 500px;
+  background-size: 1930px auto;
   margin: 0 0 0 0;
   padding: 0 0 0 0;
   height: 100%;
@@ -32,16 +34,16 @@
 .splash-backdrop-blur {
   z-index: 1;
   position: absolute;
-  background-image: url("https://roastia.s3.us-east-2.amazonaws.com/daan-evers-tKN1WXrzQ3s-unsplash.jpg");
+  background-image: url($background-image);
   background-position: center;
   background-repeat: no-repeat;
   filter: blur(2px);
-  background-size: 1200px 500px;
+  background-size: 1930px auto;
   height: 200px;
-  width: 75%;
+  width: 60%;
   max-width: 75%;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  border-radius: 25px;
+  box-shadow: 0 4px 8px 2px rgba(0, 0, 0, 0.3), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  border-radius: 40px;
 }
 
 .splash-inner {
