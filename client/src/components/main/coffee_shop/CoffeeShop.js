@@ -1,14 +1,16 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import { useQuery } from "@apollo/react-hooks";
-import CoffeeIndex from "../coffee/CoffeeIndex";
+import CoffeeIndex from '../coffee/CoffeeIndex';
+import AuthLink from '../../util/AuthLink';
 
 import Queries from "../../../graphql/queries";
-import AddShopToFavorite from "../favorite/AddShopToFavorite";
+import AddShopToFavorite from "../Favorite/AddShopToFavorite";
 import CoffeeFilter from "../coffee_filter/CoffeeFilter";
 const { FETCH_SHOP } = Queries;
 
 export default () => {
+  const location = useLocation();
   const { shopId } = useParams();
   const { data, error, loading } = useQuery(FETCH_SHOP, {
     variables: { id: shopId }
@@ -42,6 +44,16 @@ export default () => {
       </div>
       <div>
         <AddShopToFavorite users={users} shopId={shopId} />
+        <AuthLink
+          content='Update shop information'
+          to={{
+            pathname: `/shop/${ shopId }/edit`,
+            state: {
+              background: location,
+              shop: data.coffeeShop
+            }
+          }}
+        />
       </div>
       <div className="coffee-shop-extra-info">
         <ul>
