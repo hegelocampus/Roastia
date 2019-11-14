@@ -3,6 +3,7 @@ import { withApollo } from "react-apollo";
 import { withRouter } from "react-router-dom";
 import Autosuggest from "react-autosuggest";
 import Queries from "../../graphql/queries";
+import "./search.scss";
 const { SEARCH_SHOPS } = Queries;
 
 const getSuggestionValue = suggestedShop => suggestedShop.name;
@@ -15,7 +16,6 @@ const renderSuggestion = suggestion => (
   </div>)}
   {suggestion.origin && (<div className="suggestion">
     <span>{suggestion.name}</span>
-    <span>Name: {suggestion.name}</span>
     <span>Origin: {suggestion.origin}</span>
   </div>)}
 </div>)
@@ -32,7 +32,7 @@ class Search extends Component {
 
   onChange = (event, { newValue }) => {
     this.setState({
-      filter: event.target.value
+      filter: newValue
     });
   };
 
@@ -48,17 +48,20 @@ class Search extends Component {
         variables: { filter }
       }).then(result => {
         const coffeeShops = result.data.searchShops;
+        let coffees = []
+        coffeeShops.forEach(shop => {
+          coffees = coffees.concat(shop.coffees)
+        })
         const suggestions = [
           { 
             title: 'Coffee Shops', 
-            coffeeShops: coffeeShops
+            shopSuggestions: coffeeShops
           },
           {
             title: 'Coffee',
-            coffees: coffeeShops.coffees
+            shopSuggestions: coffees
           }
         ];
-        console.log(coffeeShops);
         this.setState({ suggestions: suggestions });
       })
     } catch (e) {
@@ -79,7 +82,7 @@ class Search extends Component {
   }
 
   getSectionSuggestions = (section) => {
-    return section.suggestions;
+    return section.shopSuggestions;
   }
 
 
@@ -100,7 +103,8 @@ class Search extends Component {
             className="search-bar-container"
             onSubmit={e => this._executeSearch(e)}
           >
-            <div className="home-search">
+            {/* <div className="home-search"> */}
+            <div>
               <Autosuggest
                 getSuggestionValue={getSuggestionValue}
                 inputProps={inputProps}
