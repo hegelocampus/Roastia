@@ -1,17 +1,17 @@
-import React from "react";
-import { useParams } from "react-router-dom";
-import { useQuery } from "@apollo/react-hooks";
-import CoffeeIndex from "../coffee/CoffeeIndex";
+import './CoffeeShop.scss';
+import React from 'react';
+import { useParams } from 'react-router-dom';
+import { useQuery } from '@apollo/react-hooks';
 
-import Queries from "../../../graphql/queries";
-import AddShopToFavorite from "../favorite/AddShopToFavorite";
-import CoffeeFilter from "../coffee_filter/CoffeeFilter";
+import Queries from '../../../graphql/queries';
+import AddShopToFavorite from '../favorite/AddShopToFavorite';
+import CoffeeFilter from '../coffee_filter/CoffeeFilter';
 const { FETCH_SHOP } = Queries;
 
 export default () => {
   const { shopId } = useParams();
   const { data, error, loading } = useQuery(FETCH_SHOP, {
-    variables: { id: shopId }
+    variables: { id: shopId },
   });
 
   if (loading) return <p>Loading...</p>;
@@ -29,47 +29,42 @@ export default () => {
       type,
       baristaSatisfaction,
       coffees,
-      users
-    }
+      users,
+    },
   } = data;
   return (
-    <div className="coffee-shop">
-      <img src={imageURL} alt={`${name} coffee shop`} />
-      <div className="coffee-shop-main-info">
-        <h1>{name}</h1>
-        <h2>{address.street}</h2>
-        <h3>{`${address.city}, ${address.state} ${address.zip}`}</h3>
+    <div className="coffee-shop-container">
+      <div className="coffee-shop">
+        <img src={imageURL} alt={`${name} coffee shop`} />
+        <div className="coffee-shop-info">
+          <div className="coffee-shop-main-info">
+            <h1>{name}</h1>
+            <h3>{address.street}</h3>
+            <h3>{`${address.city}, ${address.state} ${address.zip}`}</h3>
+          </div>
+          <div className="favorite-icon">
+            <AddShopToFavorite users={users} shopId={shopId} />
+          </div>
+        </div>
+        <div className="coffee-shop-description">
+          <h1>Description</h1>
+          <p>{description}</p>
+        </div>
+        <div className="coffee-shop-details">
+          <h1>Coffee Shop details for {name}</h1>
+          <ul>
+            <li>Founded in {founded}</li>
+            <li>{type}</li>
+            <li>{url}</li>
+            <li>Barista Satisfaction: {baristaSatisfaction}</li>
+          </ul>
+        </div>
       </div>
-      <div>
-        <AddShopToFavorite users={users} shopId={shopId} />
-      </div>
-      <div className="coffee-shop-extra-info">
-        <ul>
-          <li>
-            <s>Founded:</s>
-            <span>{founded}</span>
-          </li>
-          <li>
-            <s>Type:</s>
-            <span>{type}</span>
-          </li>
-          <li>
-            <s>Website:</s>
-            <span>{url}</span>
-          </li>
-          <li>
-            <s>Barista Satisfaction:</s>
-            <span>{baristaSatisfaction}</span>
-          </li>
-        </ul>
-        <section>
-          <h3>Coffee:</h3>
-          {/* <ul className="shop-coffee-ul">
-            <CoffeeIndex coffees={coffees} />
-          </ul> */}
+      <section className="coffee-section-container">
+        <div className="coffee-section">
           <CoffeeFilter shopId={shopId} />
-        </section>
-      </div>
+        </div>
+      </section>
     </div>
   );
 };
