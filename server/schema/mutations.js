@@ -179,14 +179,14 @@ const mutation = new GraphQLObjectType({
                 if (type) updateObj.type = type;
                 if (baristaSatisfaction) updateObj.baristaSatisfaction = baristaSatisfaction;
 
-        return CoffeeShop.findOneAndUpdate(
-          { _id: id },
-          { $set: updateObj },
-          { new: true },
-          (err, coffeeShop) => {
-            return coffeeShop;
-          }
-        );
+                return CoffeeShop.findOneAndUpdate(
+                  { _id: id },
+                  { $set: updateObj },
+                  { new: true },
+                  (err, coffeeShop) => {
+                    return coffeeShop;
+                  }
+                );
       }
     },
     deleteCoffeeShop: {
