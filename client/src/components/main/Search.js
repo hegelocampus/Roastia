@@ -1,29 +1,28 @@
-import React, { Component } from "react";
-import { withApollo } from "react-apollo";
-import { withRouter } from "react-router-dom";
-import Autosuggest from "react-autosuggest";
-import Queries from "../../graphql/queries";
+import React, { Component } from 'react';
+import { withApollo } from 'react-apollo';
+import { withRouter } from 'react-router-dom';
+import Autosuggest from 'react-autosuggest';
+import Queries from '../../graphql/queries';
+import './search.scss';
 const { SEARCH_SHOPS } = Queries;
-
-const getSuggestions = (filter, shops) => {
-  const inputValue = filter.trim().toLowerCase();
-  const inputLength = inputValue.length;
-
-  return inputLength === 0
-    ? []
-    : shops.filter(
-        shop =>
-          shop.name.toLowerCase().slice(0, inputLength) === inputValue ||
-          shop.address.state.toLowerCase().slice(0, inputLength) ===
-            inputValue ||
-          shop.address.city.toLowerCase().slice(0, inputLength) === inputValue
-      );
-};
 
 const getSuggestionValue = suggestedShop => suggestedShop.name;
 
-const renderSuggestion = suggestedShop => (
-  <div className="home-search">{suggestedShop.name}</div>
+const renderSuggestion = suggestion => (
+  <div className="home-search">
+    {suggestion.founded && (
+      <div className="suggestion">
+        <span>{suggestion.name}</span>
+        <span>{suggestion.address.city + ', ' + suggestion.address.state}</span>
+      </div>
+    )}
+    {suggestion.origin && (
+      <div className="suggestion">
+        <span>{suggestion.name}</span>
+        <span>Origin: {suggestion.origin}</span>
+      </div>
+    )}
+  </div>
 );
 
 class Search extends Component {
@@ -31,30 +30,47 @@ class Search extends Component {
     super(props);
     this.state = {
       shops: [],
-      filter: "",
-      suggestions: []
+      filter: '',
+      suggestions: [],
     };
   }
 
   onChange = (event, { newValue }) => {
     this.setState({
-      filter: newValue
+      filter: newValue,
     });
   };
 
-  onSuggestionsFetchRequested = async ({ value }) => {
+  onSuggestionsFetchRequested = ({ value }) => {
     if (!value) {
       this.setState({ suggestions: [] });
       return;
     }
     try {
       const { filter } = this.state;
-      const result = await this.props.client.query({
-        query: SEARCH_SHOPS,
-        variables: { filter }
-      });
-      const coffeeShops = result.data.searchShops;
-      this.setState({ suggestions: getSuggestions(value, coffeeShops) });
+      this.props.client
+        .query({
+          query: SEARCH_SHOPS,
+          variables: { filter },
+        })
+        .then(result => {
+          const coffeeShops = result.data.searchShops;
+          let coffees = [];
+          coffeeShops.forEach(shop => {
+            coffees = coffees.concat(shop.coffees);
+          });
+          const suggestions = [
+            {
+              title: 'Coffee Shops',
+              shopSuggestions: coffeeShops,
+            },
+            {
+              title: 'Coffee',
+              shopSuggestions: coffees,
+            },
+          ];
+          this.setState({ suggestions: suggestions });
+        });
     } catch (e) {
       this.setState({ suggestions: [] });
     }
@@ -62,18 +78,26 @@ class Search extends Component {
 
   onSuggestionsClearRequested = () => {
     this.setState({
-      suggestions: []
+      suggestions: [],
     });
+  };
+
+  renderSectionTitle = section => {
+    return <strong>{section.title}</strong>;
+  };
+
+  getSectionSuggestions = section => {
+    return section.shopSuggestions;
   };
 
   render() {
     const { filter, suggestions } = this.state;
 
     const inputProps = {
-      placeholder: "Enter a city, state or name...",
+      placeholder: 'Enter a city, state or name...',
       value: filter,
       onChange: this.onChange,
-      autoComplete: "off"
+      autoComplete: 'off',
     };
 
     return (
@@ -83,21 +107,18 @@ class Search extends Component {
             className="search-bar-container"
             onSubmit={e => this._executeSearch(e)}
           >
-            {/* <input
-              type="text"
-              className="home-search"
-              placeholder="Enter a city, state or name..."
-              onChange={e => this.setState({ filter: e.target.value })}
-            />
-          */}
-            <div className="home-search">
+            {/* <div className="home-search"> */}
+            <div>
               <Autosuggest
+                getSuggestionValue={getSuggestionValue}
                 inputProps={inputProps}
-                suggestions={suggestions}
+                multiSection={true}
                 onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
                 onSuggestionsClearRequested={this.onSuggestionsClearRequested}
-                getSuggestionValue={getSuggestionValue}
+                renderSectionTitle={this.renderSectionTitle}
+                getSectionSuggestions={this.getSectionSuggestions}
                 renderSuggestion={renderSuggestion}
+                suggestions={suggestions}
               />
             </div>
             <button type="submit">
@@ -136,13 +157,13 @@ class Search extends Component {
     const { filter } = this.state;
     const result = await this.props.client.query({
       query: SEARCH_SHOPS,
-      variables: { filter }
+      variables: { filter },
     });
     const coffeeShops = result.data.searchShops;
     this.setState({ shops: coffeeShops });
     this.props.history.push({
-      pathname: "./shops",
-      state: { coffeeShops: coffeeShops }
+      pathname: './shops',
+      state: { coffeeShops: coffeeShops },
     });
   };
 }

@@ -1,4 +1,4 @@
-import gql from "graphql-tag";
+import gql from 'graphql-tag';
 
 export default {
   LOGIN_USER: gql`
@@ -123,5 +123,32 @@ export default {
         }
       }
     }
-  `
+  `,
+  ADD_COFFEE: gql`
+    mutation AddCoffee(
+      $name: String!
+      $origin: String!
+      $processing: String!
+      $roasting: String!
+      $flavor: [String]
+      $price: Int!
+    ) {
+      addCoffee(
+        name: $name
+        origin: $origin
+        processing: $processing
+        roasting: $roasting
+        flavor: $flavor
+        price: $price
+      ) {
+        id
+        name
+        origin
+        processing
+        roasting
+        flavor
+        price
+      }
+    }
+  `,
 };

@@ -71,18 +71,36 @@ const RootQueryType = new GraphQLObjectType({
         }
     },
     coffeeShop: {
-        type: require("./coffee_shop_type").CoffeeShopType,
-        args: { id: { type: new GraphQLNonNull(GraphQLID) }},
-        resolve(_, args) {
-            return CoffeeShop.findById(args.id);
-        }
+      type: require("./coffee_shop_type").CoffeeShopType,
+      args: { id: { type: new GraphQLNonNull(GraphQLID) } },
+      resolve(_, args) {
+        return CoffeeShop.findById(args.id);
+      }
     },
     searchShops: {
-        type: new GraphQLList(require("./coffee_shop_type").CoffeeShopType),
-        args: { filter: { type: GraphQLString }},
-        resolve(_, { filter }) {
-            return CoffeeShop.find({ $text: { $search: filter }});
-        }
+      type: new GraphQLList(require("./coffee_shop_type").CoffeeShopType),
+      args: { filter: { type: GraphQLString } },
+      async resolve(_, { filter }) {
+        const coffees = await Coffee.find({
+          "$or": [
+            { "origin": { '$regex': filter, '$options': 'i' } },
+            { "processing": { '$regex': filter, '$options': 'i' } },
+            { "roasting": { '$regex': filter, '$options': 'i' } },
+            { "flavor": { '$regex': filter, '$options': 'i' } },
+          ]
+        })
+
+        const coffeeShops = await CoffeeShop.find({
+          "$or": [
+            { "name": { '$regex': filter, '$options': 'i' } },
+            { "address.state": { '$regex': filter, '$options': 'i' } },
+            { "address.city": { '$regex': filter, '$options': 'i' } },
+            { "address.zip": { '$regex': filter, '$options': 'i' } },
+            { "coffees": { $in: coffees.map(coffee => coffee.id) } }
+          ]
+        });
+        return coffeeShops;
+      }
     },
     fetchFavoriteShops: {
         type: new GraphQLList(require("./coffee_shop_type").CoffeeShopType),
@@ -117,30 +135,30 @@ const RootQueryType = new GraphQLObjectType({
         resolve(_, { coffeeShopId, filter }) {
 
             function buildFilters({ processing, roasting, flavor, price }) {
-            
-            let filters = {}
+              let filters = {}
 
-            if (processing) {
-              filters.processing = processing
+              if (processing) {
+                filters.processing = processing
+              }
+              if (roasting) {
+                filters.roasting = roasting
+              }
+              if (flavor && flavor.length !== 0) {
+                filters.flavor = { $in: flavor };
+              }
+              if (price && price.length !== 0) {
+                filters.price = { $gt: price[0], $lt: price[1] };
+              }  
+        
+              let updatedFilter = Object.keys(filters).length === 0 ? [] : [filters];
+              return updatedFilter;
             }
-            if (roasting) {
-              filters.roasting = roasting
-            }
-            if (flavor && flavor.length !== 0) {
-              filters.flavor = { $in: flavor };
-            }
-            if (price && price.length !== 0) {
-              filters.price = { $gt: price[0], $lt: price[1] };
-            }
-            let updatedFilter = Object.keys(filters).length === 0 ? [] : [filters];
-            return updatedFilter;
-          }
 
             let query = buildFilters(filter).length === 0 ? {} : { $and: buildFilters(filter) }
             return Coffee.findShopCoffees(coffeeShopId, query);
           }
         }
-  })
+    })
 });
 
 module.exports = RootQueryType;
