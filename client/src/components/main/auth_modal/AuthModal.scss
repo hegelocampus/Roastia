@@ -16,7 +16,7 @@
   display: block;
   position: relative;
   width: 70%;
-  height: 640px;;
+  height: 640px;
 }
 
 .modal-body {
@@ -29,14 +29,16 @@
   padding: 8px 0 10px 0;
 }
 
-.login-form, .signup-form {
+.login-form,
+.signup-form {
   width: 100%;
   display: flex;
   flex-direction: column;
   label {
     margin-top: 5px;
   }
-  input, button {
+  input,
+  button {
     margin-top: 10px;
     margin-bottom: 3px;
     height: 26px;
@@ -51,4 +53,3 @@
     }
   }
 }
-

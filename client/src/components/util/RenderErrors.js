@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default ({errors}) => (
+export default ({ errors }) => (
   <React.Fragment>
     {errors ? (
       <div>
@@ -8,9 +8,6 @@ export default ({errors}) => (
           <span key={i}>{message}</span>
         ))}
       </div>
-    ) : (
-      null
-    )}
+    ) : null}
   </React.Fragment>
-)
-
+);

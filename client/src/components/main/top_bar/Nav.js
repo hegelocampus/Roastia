@@ -1,9 +1,9 @@
-import React from "react";
-import { Query, ApolloConsumer } from "react-apollo";
-import { Link, useHistory } from "react-router-dom";
+import React from 'react';
+import { Query, ApolloConsumer } from 'react-apollo';
+import { Link, useHistory } from 'react-router-dom';
 import AuthLink from '../../util/AuthLink';
 
-import Queries from "../../../graphql/queries";
+import Queries from '../../../graphql/queries';
 const { IS_LOGGED_IN } = Queries;
 
 export default props => {
@@ -22,9 +22,9 @@ export default props => {
                     <button
                       onClick={e => {
                         e.preventDefault();
-                        localStorage.removeItem("auth-token");
+                        localStorage.removeItem('auth-token');
                         client.writeData({ data: { isLoggedIn: false } });
-                        history.push("/");
+                        history.push('/');
                       }}
                     >
                       Logout
@@ -56,4 +56,3 @@ export default props => {
     </ApolloConsumer>
   );
 };
-

@@ -1,14 +1,14 @@
-import React from "react";
-import { Query } from "react-apollo";
-import { Link } from "react-router-dom";
-import Queries from "../../../graphql/queries";
+import React from 'react';
+import { Query } from 'react-apollo';
+import { Link } from 'react-router-dom';
+import Queries from '../../../graphql/queries';
 const { FETCH_FAVORITE_SHOPS } = Queries;
 
 const FavoriteShops = () => {
   return (
     <Query query={FETCH_FAVORITE_SHOPS} notifyOnNetworkStatusChange>
       {({ loading, error, data, refetch }) => {
-        if (loading) return "Loading...";
+        if (loading) return 'Loading...';
         if (error) return `Error! ${error.message}`;
 
         // refetch();

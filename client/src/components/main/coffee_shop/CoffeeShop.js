@@ -1,16 +1,16 @@
-import React from "react";
-import { useParams } from "react-router-dom";
-import { useQuery } from "@apollo/react-hooks";
+import React from 'react';
+import { useParams } from 'react-router-dom';
+import { useQuery } from '@apollo/react-hooks';
 import CoffeeIndex from '../coffee/CoffeeIndex';
 
-import Queries from "../../../graphql/queries";
-import AddShopToFavorite from "../Favorite/AddShopToFavorite";
+import Queries from '../../../graphql/queries';
+import AddShopToFavorite from '../Favorite/AddShopToFavorite';
 const { FETCH_SHOP } = Queries;
 
 export default () => {
   const { shopId } = useParams();
   const { data, error, loading } = useQuery(FETCH_SHOP, {
-    variables: { id: shopId }
+    variables: { id: shopId },
   });
 
   if (loading) return <p>Loading...</p>;
@@ -28,12 +28,12 @@ export default () => {
       type,
       baristaSatisfaction,
       coffees,
-      users
-    }
+      users,
+    },
   } = data;
   return (
     <div className="coffee-shop">
-      <img src={ imageURL } alt={`${name} coffee shop`} />
+      <img src={imageURL} alt={`${name} coffee shop`} />
       <div className="coffee-shop-main-info">
         <h1>{name}</h1>
         <h2>{address.street}</h2>
@@ -64,7 +64,7 @@ export default () => {
         <section>
           <h3>Coffee:</h3>
           <ul className="shop-coffee-ul">
-            <CoffeeIndex coffees={ coffees } />
+            <CoffeeIndex coffees={coffees} />
           </ul>
         </section>
       </div>

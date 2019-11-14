@@ -1,8 +1,8 @@
-import React from "react";
-import { Query, Mutation } from "react-apollo";
+import React from 'react';
+import { Query, Mutation } from 'react-apollo';
 
-import Queries from "../../../graphql/queries";
-import Mutations from "../../../graphql/mutations";
+import Queries from '../../../graphql/queries';
+import Mutations from '../../../graphql/mutations';
 
 const { FETCH_CURRENT_USER, FETCH_SHOP, FETCH_FAVORITE_SHOPS } = Queries;
 const { ADD_FAVORITE, REMOVE_FAVORITE } = Mutations;
@@ -11,7 +11,7 @@ const AddShopToFavorite = props => {
   return (
     <Query query={FETCH_CURRENT_USER}>
       {({ data, loading, error }) => {
-        if (loading) return "Loading...";
+        if (loading) return 'Loading...';
         if (error) return `Error! ${error.message}`;
 
         const currentUserId = data.fetchCurrentUser._id;
@@ -28,7 +28,7 @@ const AddShopToFavorite = props => {
               refetchQueries={() => {
                 return [
                   { query: FETCH_SHOP, variables: { id: props.shopId } },
-                  { query: FETCH_FAVORITE_SHOPS }
+                  { query: FETCH_FAVORITE_SHOPS },
                 ];
               }}
             >
@@ -40,8 +40,8 @@ const AddShopToFavorite = props => {
                       removeFavorite({
                         variables: {
                           userId: currentUserId,
-                          coffeeShopId: props.shopId
-                        }
+                          coffeeShopId: props.shopId,
+                        },
                       });
                     }}
                     alt=""
@@ -57,7 +57,7 @@ const AddShopToFavorite = props => {
               refetchQueries={() => {
                 return [
                   { query: FETCH_SHOP, variables: { id: props.shopId } },
-                  { query: FETCH_FAVORITE_SHOPS }
+                  { query: FETCH_FAVORITE_SHOPS },
                 ];
               }}
             >
@@ -69,8 +69,8 @@ const AddShopToFavorite = props => {
                       addFavorite({
                         variables: {
                           userId: currentUserId,
-                          coffeeShopId: props.shopId
-                        }
+                          coffeeShopId: props.shopId,
+                        },
                       });
                     }}
                     alt=""

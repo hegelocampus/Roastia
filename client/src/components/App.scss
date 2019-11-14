@@ -1,22 +1,22 @@
 @import-normalize;
-@import "variables.scss";
-@import "./variables.scss";
-@import "./main/splash.scss";
-@import "./main/coffee_shop/CoffeeShopIndex.scss";
-@import "./main/top_bar/topBar.scss";
+@import 'variables.scss';
+@import './variables.scss';
+@import './main/splash.scss';
+@import './main/coffee_shop/CoffeeShopIndex.scss';
+@import './main/top_bar/topBar.scss';
 
 @font-face {
-  font-family: "Open Sans";
-  src: local("Open Sans"), local("OpenSans"),
-    url("../fonts/Open\ Sans/OpenSans_Regular.woff2") format("woff2"),
-    url("../fonts/Open\ Sans/OpenSans_Regular.woff") format("woff");
+  font-family: 'Open Sans';
+  src: local('Open Sans'), local('OpenSans'),
+    url('../fonts/Open\ Sans/OpenSans_Regular.woff2') format('woff2'),
+    url('../fonts/Open\ Sans/OpenSans_Regular.woff') format('woff');
 }
 
 @font-face {
-  font-family: "Yanone";
-  src: local("Yanone"), local("OpenSans"),
-    url("../fonts/Yanone/Yanone.woff2") format("woff2"),
-    url("../fonts/Yanone/Yanone.woff") format("woff");
+  font-family: 'Yanone';
+  src: local('Yanone'), local('OpenSans'),
+    url('../fonts/Yanone/Yanone.woff2') format('woff2'),
+    url('../fonts/Yanone/Yanone.woff') format('woff');
 }
 
 h1,
@@ -25,7 +25,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: "Yanone";
+  font-family: 'Yanone';
 }
 
 html,
@@ -132,7 +132,7 @@ section {
 }
 body {
   line-height: 1;
-  font-family: "Open Sans";
+  font-family: 'Open Sans';
 }
 ol,
 ul {

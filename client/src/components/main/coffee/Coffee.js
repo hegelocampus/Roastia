@@ -1,28 +1,20 @@
-import React from "react";
-import { useParams, Link } from "react-router-dom";
-import { useQuery } from "@apollo/react-hooks";
+import React from 'react';
+import { useParams, Link } from 'react-router-dom';
+import { useQuery } from '@apollo/react-hooks';
 
-import Queries from "../../../graphql/queries";
+import Queries from '../../../graphql/queries';
 const { FETCH_COFFEE } = Queries;
 
 export default () => {
   const { coffeeId } = useParams();
   const { data, error, loading } = useQuery(FETCH_COFFEE, {
-    variables: { id: coffeeId }
+    variables: { id: coffeeId },
   });
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error</p>;
   const {
-    coffee: {
-      name,
-      origin,
-      processing,
-      roasting,
-      flavor,
-      price,
-      shops = []
-    }
+    coffee: { name, origin, processing, roasting, flavor, price, shops = [] },
   } = data;
   return (
     <div className="coffee-detail">
@@ -35,7 +27,7 @@ export default () => {
         <ul>
           <li>
             <s>Origin:</s>
-            <span>{ origin }</span>
+            <span>{origin}</span>
           </li>
           <li>
             <s>Roast:</s>
@@ -47,7 +39,7 @@ export default () => {
           </li>
           <li>
             <s>Flavor:</s>
-            <span>{ flavor }</span>
+            <span>{flavor}</span>
           </li>
           <li>
             <s>Price:</s>
@@ -61,9 +53,7 @@ export default () => {
               <li className="shop-li" key={shop.id}>
                 <Link to={`/shop/${shop.id}`}>
                   <h6>{shop.name}</h6>
-                  <span>{
-                    `${shop.address.city}, ${shop.address.state} ${shop.address.zip}`
-                  }</span>
+                  <span>{`${shop.address.city}, ${shop.address.state} ${shop.address.zip}`}</span>
                 </Link>
               </li>
             ))}
@@ -72,5 +62,4 @@ export default () => {
       </div>
     </div>
   );
-}
-
+};

@@ -1,7 +1,7 @@
-import React from "react";
-import { Route, Redirect } from "react-router-dom";
-import { Query } from "react-apollo";
-import Queries from "../../graphql/queries";
+import React from 'react';
+import { Route, Redirect } from 'react-router-dom';
+import { Query } from 'react-apollo';
+import Queries from '../../graphql/queries';
 
 const { IS_LOGGED_IN } = Queries;
 
@@ -14,7 +14,7 @@ const AuthRoute = ({
 }) => (
   <Query query={IS_LOGGED_IN}>
     {({ data }) => {
-      if (routeType === "auth") {
+      if (routeType === 'auth') {
         return (
           <Route
             path={path}
@@ -42,4 +42,3 @@ const AuthRoute = ({
 );
 
 export default AuthRoute;
-

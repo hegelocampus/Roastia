@@ -1,9 +1,9 @@
-import React from "react";
+import React from 'react';
 import { useLocation } from 'react-router-dom';
 import CoffeeShopPanel from './CoffeeShopPanel';
 import './CoffeeShopIndex.scss';
 
-export default ({ coffeeShops })=> {
+export default ({ coffeeShops }) => {
   coffeeShops = coffeeShops || useLocation().state.coffeeShops;
   return (
     <div className="shops-index-div">
@@ -15,4 +15,3 @@ export default ({ coffeeShops })=> {
     </div>
   );
 };
-
