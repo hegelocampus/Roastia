@@ -33,29 +33,28 @@ export default () => {
           <Route exact path="/" component={Splash} />
         </Switch>
       </main>
-      { background && (
+      {background && (
         <Switch>
           <AuthRoute
-            path={ ["/login", "/signup"] }
+            path={['/login', '/signup']}
             routeType="auth"
-            component={ Modal }
-            background={ background }
+            component={Modal}
+            background={background}
           />
           <Route
             exact
-            path={ ["/shop/:shopId/edit", "/new/shop"] }
-            component={ ShopFormModal }
-            background={ background }
+            path={['/shop/:shopId/edit', '/new/shop']}
+            component={ShopFormModal}
+            background={background}
           />
           <Route
             exact
-            path={ ["/coffee/:coffeeId/edit", "/new/coffee"] }
-            component={ CoffeeForm }
-            background={ background }
+            path={['/coffee/:coffeeId/edit', '/new/coffee']}
+            component={CoffeeForm}
+            background={background}
           />
         </Switch>
       )}
     </React.Fragment>
   );
 };
-

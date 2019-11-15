@@ -1,0 +1,83 @@
+.cofee-filter-container {
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+}
+
+.coffee-filter-section {
+  display: flex;
+}
+
+.coffee-filter-section span {
+  margin-right: 20px;
+  font-weight: bold;
+  font-size: 15px;
+  margin-bottom: 10px;
+}
+
+.coffee-filter-options {
+  font-size: 15px;
+  display: flex;
+}
+
+.option input {
+  margin-right: 10px;
+}
+
+.option label {
+  margin-right: 10px
+}
+
+.coffee-info-pan {
+  width: 200px;
+  height: 250px;
+  background: white;
+  border-radius: 10px;
+  margin-right: 25px;
+  margin-top: 25px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 1px 2px 5px gray;
+}
+
+.coffee-info-pan img {
+  width: 100%;
+  height: 130px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  
+}
+
+.filtered-coffee-container {
+  padding-left: 20px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.coffee-detail {
+  list-style: none;
+  font-size: 15px;
+  padding: 10px
+}
+
+.coffee-detail li:first-of-type {
+  font-weight: bold;
+}
+
+.coffee-detail li {
+  line-height: 1.5;
+}
+
+.coffee-info-pan a {
+  font-size: 13px;
+  margin-left:13px;
+  font-weight: bold;
+  text-decoration: none;
+  color:#654321;
+  margin-bottom:15px;
+}
+
+.coffee-info-pan a:hover {
+  color: black;
+}

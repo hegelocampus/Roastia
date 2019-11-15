@@ -42,23 +42,23 @@ export default {
   `,
   ADD_SHOP: gql`
     mutation NewCoffeeShop(
-      $name: String!,
-      $url: String!,
-      $imageURL: String!,
-      $description: String!,
-      $founded: String,
-      $address: Address,
-      $type: String,
+      $name: String!
+      $url: String!
+      $imageURL: String!
+      $description: String!
+      $founded: String
+      $address: Address
+      $type: String
       $baristaSatisfaction: Int
     ) {
       newCoffeeShop(
-        name: $name,
-        url: $url,
-        imageURL: $imageURL,
-        description: $description,
-        founded: $founded,
-        address: $address,
-        type: $type,
+        name: $name
+        url: $url
+        imageURL: $imageURL
+        description: $description
+        founded: $founded
+        address: $address
+        type: $type
         baristaSatisfaction: $baristaSatisfaction
       ) {
         id
@@ -89,25 +89,25 @@ export default {
   `,
   UPDATE_SHOP: gql`
     mutation UpdateCoffeeShop(
-      $id: ID!,
-      $name: String!,
-      $url: String!,
-      $imageURL: String!,
-      $description: String!,
-      $founded: String!,
-      $address: Address!,
-      $type: String!,
+      $id: ID!
+      $name: String!
+      $url: String!
+      $imageURL: String!
+      $description: String!
+      $founded: String!
+      $address: Address!
+      $type: String!
       $baristaSatisfaction: Int!
     ) {
       updateCoffeeShop(
-        id: $id,
-        name: $name,
-        url: $url,
-        imageURL: $imageURL,
-        description: $description,
-        founded: $founded,
-        address: $address,
-        type: $type,
+        id: $id
+        name: $name
+        url: $url
+        imageURL: $imageURL
+        description: $description
+        founded: $founded
+        address: $address
+        type: $type
         baristaSatisfaction: $baristaSatisfaction
       ) {
         id
@@ -152,4 +152,3 @@ export default {
     }
   `,
 };
-

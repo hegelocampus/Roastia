@@ -21,28 +21,30 @@ export default ({ formType, shop }) => {
   } else {
     mutation = ADD_SHOP;
     shop = {
-      name: "",
-      founded: "",
-      baristaSatisfaction: "",
-      type: "",
-      description: "",
-      url: "",
-      imageURL: "",
+      name: '',
+      founded: '',
+      baristaSatisfaction: '',
+      type: '',
+      description: '',
+      url: '',
+      imageURL: '',
       address: {
-        street: "",
-        city: "",
-        state: "",
-        zip: ""
+        street: '',
+        city: '',
+        state: '',
+        zip: '',
       },
-    }
+    };
   }
 
   const history = useHistory();
   const [createShop, { error }] = useMutation(mutation, {
-    onCompleted: ({ updateCoffeeShop, newCoffeeShop })=> {
+    onCompleted: ({ updateCoffeeShop, newCoffeeShop }) => {
       console.log(updateCoffeeShop);
       console.log(newCoffeeShop);
-      history.push(`/shop/${ newCoffeeShop ? newCoffeeShop.id : updateCoffeeShop.id }`);
+      history.push(
+        `/shop/${newCoffeeShop ? newCoffeeShop.id : updateCoffeeShop.id}`
+      );
     },
     onError: error => {
       console.log(error);
@@ -54,24 +56,28 @@ export default ({ formType, shop }) => {
       <Formik
         initialValues={shop}
         validationSchema={ShopSchema}
-        onSubmit={values => ShopSchema.validate(values).then(val => {
-          console.log(val);
-          createShop({ variables: val }
-        )})}
+        onSubmit={values =>
+          ShopSchema.validate(values).then(val => {
+            console.log(val);
+            createShop({ variables: val });
+          })
+        }
       >
         <Form className="shop-form">
           <Field name="id" type="hidden" />
-          <h1 className="modal-header-title">{formType === 'edit' ? (
-              "Edit Coffee Shop"
-            ) : (
-              "Add New Coffee Shop"
-          )}</h1>
-          <Field name="name" type="text" placeholder="Cafe Name"/>
-          <ErrorMessage name="name"/>
-          <Field name="description" as="textarea" placeholder="Write a brief description of the cafe"/>
-          <ErrorMessage name="description"/>
-          <Field name="founded" type="text" placeholder="Year Founded"/>
-          <ErrorMessage name="founded"/>
+          <h1 className="modal-header-title">
+            {formType === 'edit' ? 'Edit Coffee Shop' : 'Add New Coffee Shop'}
+          </h1>
+          <Field name="name" type="text" placeholder="Cafe Name" />
+          <ErrorMessage name="name" />
+          <Field
+            name="description"
+            as="textarea"
+            placeholder="Write a brief description of the cafe"
+          />
+          <ErrorMessage name="description" />
+          <Field name="founded" type="text" placeholder="Year Founded" />
+          <ErrorMessage name="founded" />
           <Field
             name="baristaSatisfaction"
             type="number"
@@ -109,4 +115,3 @@ export default ({ formType, shop }) => {
     </div>
   );
 };
-

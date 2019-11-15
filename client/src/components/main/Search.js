@@ -13,7 +13,13 @@ const renderSuggestion = suggestion => (
     {suggestion.founded && (
       <div className="suggestion">
         <span>{suggestion.name}</span>
-        <span>{suggestion.address.city + ', ' + suggestion.address.state + ' ' + suggestion.address.zip}</span>
+        <span>
+          {suggestion.address.city +
+            ', ' +
+            suggestion.address.state +
+            ' ' +
+            suggestion.address.zip}
+        </span>
       </div>
     )}
     {suggestion.origin && (
@@ -56,10 +62,13 @@ class Search extends Component {
           const coffeeShops = result.data.searchShops;
           let coffees = [];
           coffeeShops.forEach(shop => {
-            coffees = coffees.concat(shop.coffees).filter(coffee => (
-              coffee.name.toLowerCase().includes(value.toLowerCase()) ||
-                coffee.origin.toLowerCase().includes(value.toLowerCase())
-            ));
+            coffees = coffees
+              .concat(shop.coffees)
+              .filter(
+                coffee =>
+                  coffee.name.toLowerCase().includes(value.toLowerCase()) ||
+                  coffee.origin.toLowerCase().includes(value.toLowerCase())
+              );
           });
           const suggestions = [
             {

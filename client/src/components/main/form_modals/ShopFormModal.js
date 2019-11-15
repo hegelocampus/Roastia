@@ -1,10 +1,10 @@
-import React, { useRef } from "react";
-import { useHistory, useLocation } from "react-router-dom";
-import CoffeeShopForm from "../coffee_shop/CoffeeShopForm";
+import React, { useRef } from 'react';
+import { useHistory, useLocation } from 'react-router-dom';
+import CoffeeShopForm from '../coffee_shop/CoffeeShopForm';
 import useOnOutsideClick from '../../util/useOnOutsideClick';
 import './ShopFormModal.scss';
 
-export default ({ background })=> {
+export default ({ background }) => {
   const history = useHistory();
   const location = useLocation();
   const formType = location.pathname.match(/([^/]+)\/?$/)[0];
@@ -17,13 +17,12 @@ export default ({ background })=> {
   });
 
   return (
-    <div className="modal-screen" >
-      <div className="modal-content" ref={ modalContent }>
+    <div className="modal-screen">
+      <div className="modal-content" ref={modalContent}>
         <div className="modal-body">
-          <CoffeeShopForm shop={ shop } formType={ formType } />
+          <CoffeeShopForm shop={shop} formType={formType} />
         </div>
       </div>
     </div>
   );
 };
-
