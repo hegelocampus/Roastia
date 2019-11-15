@@ -23,6 +23,7 @@ class CoffeeFilter extends React.Component {
     this.updateRoast = this.updateRoast.bind(this);
     this.updatePrice = this.updatePrice.bind(this);
     this.renderCoffees = this.renderCoffees.bind(this);
+    this.fetchCoffeeIds = this.fetchCoffeeIds.bind(this);
     this.fetchShopCoffees();
   }
 
@@ -82,16 +83,22 @@ class CoffeeFilter extends React.Component {
     this.fetchShopCoffees(e);
   }
 
+  fetchCoffeeIds() {
+    return this.props.coffees.map(coffee => coffee.id);
+  }
+
   async fetchShopCoffees(e) {
     const { filter } = this.state;
+    debugger;
     const res = await this.props.client.query({
       query: FETCH_SHOP_COFFEES,
 
       variables: {
-        coffeeShopId: this.props.shopId,
+        coffeeIds: this.fetchCoffeeIds(),
         filter: filter,
       },
     });
+
     const selectedCoffees = res.data.fetchShopCoffees;
     this.setState({ coffees: selectedCoffees });
   }
