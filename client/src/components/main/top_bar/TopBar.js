@@ -1,9 +1,11 @@
 import React from 'react';
 import Nav from './Nav';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
+import AuthLink from '../../util/AuthLink';
 import './topBar.scss';
 
 export default () => {
+  const location = useLocation();
   return (
     <header className="top-bar-container">
       <nav>
@@ -14,7 +16,27 @@ export default () => {
             className="roastia-logo"
           />
         </Link>
-        <Nav />
+        <div>
+          <AuthLink
+            content='Add Shop'
+            to={{
+              pathname: '/new/shop',
+              state: {
+                background: location
+              }
+            }}
+          />
+          <AuthLink
+            content='Add Coffee'
+            to={{
+              pathname: '/new/coffee',
+              state: {
+                background: location
+              }
+            }}
+          />
+          <Nav />
+        </div>
       </nav>
     </header>
   );
