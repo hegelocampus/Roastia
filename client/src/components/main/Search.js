@@ -13,7 +13,7 @@ const renderSuggestion = suggestion => (
     {suggestion.founded && (
       <div className="suggestion">
         <span>{suggestion.name}</span>
-        <span>{suggestion.address.city + ', ' + suggestion.address.state}</span>
+        <span>{suggestion.address.city + ', ' + suggestion.address.state + ' ' + suggestion.address.zip}</span>
       </div>
     )}
     {suggestion.origin && (
@@ -32,9 +32,7 @@ class Search extends Component {
       shops: [],
       filter: '',
       suggestions: [],
-      isSearching: false,
     };
-    this.lastRequest = null;
   }
 
   onChange = (event, { newValue }) => {
@@ -49,11 +47,10 @@ class Search extends Component {
       return;
     }
     try {
-      const { filter } = this.state;
       this.props.client
         .query({
           query: SEARCH_SHOPS,
-          variables: { filter },
+          variables: { filter: value },
         })
         .then(result => {
           const coffeeShops = result.data.searchShops;
@@ -94,9 +91,8 @@ class Search extends Component {
 
   render() {
     const { filter, suggestions } = this.state;
-
     const inputProps = {
-      placeholder: 'Enter a city, state or name...',
+      placeholder: 'Enter a city, state, name or origin...',
       value: filter,
       onChange: this.onChange,
       autoComplete: 'off',

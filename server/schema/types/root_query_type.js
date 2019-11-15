@@ -34,7 +34,6 @@ const selectorInput = new GraphQLInputObjectType({
 
 const FilterInputType = require('./filter_input_type')
 
-
 const RootQueryType = new GraphQLObjectType({
     name: "RootQueryType",
     fields: () => ({
@@ -84,9 +83,7 @@ const RootQueryType = new GraphQLObjectType({
           const coffees = await Coffee.find({
             "$or": [
               { "origin": { '$regex': filter, '$options': 'i' } },
-              { "processing": { '$regex': filter, '$options': 'i' } },
-              { "roasting": { '$regex': filter, '$options': 'i' } },
-              { "flavor": { '$regex': filter, '$options': 'i' } },
+              { "name": { '$regex': filter, '$options': 'i' } }
             ]
           })
 
@@ -100,6 +97,30 @@ const RootQueryType = new GraphQLObjectType({
             ]
           });
           return coffeeShops;
+          // return Promise.all([
+          //   Coffee.find({
+          //     "$or": [
+          //       { "origin": { '$regex': filter, '$options': 'i' } },
+          //       { "name": { '$regex': filter, '$options': 'i' } },
+          //       // { "processing": { '$regex': filter, '$options': 'i' } },
+          //       // { "roasting": { '$regex': filter, '$options': 'i' } },
+          //       // { "flavor": { '$regex': filter, '$options': 'i' } },
+          //     ],
+          //   }),
+          //   CoffeeShop.find({
+          //     "$or": [
+          //       { "name": { '$regex': filter, '$options': 'i' } },
+          //       { "address.state": { '$regex': filter, '$options': 'i' } },
+          //       { "address.city": { '$regex': filter, '$options': 'i' } },
+          //       { "address.zip": { '$regex': filter, '$options': 'i' } },
+          //       // { "coffees": { $in: coffees.map(coffee => coffee.id) } }
+          //     ]
+          //   }),
+          // ]).then(results=>{
+          //   console.log(results)
+
+          //   return results;
+          // });
         }
       },
       fetchFavoriteShops: {
