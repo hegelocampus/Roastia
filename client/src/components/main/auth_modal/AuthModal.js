@@ -11,6 +11,7 @@ export default ({ background }) => {
   const [formType, setFormType] = useState(
     location.pathname.match(/([^/]+)\/?$/)[0]
   );
+  const notice = location.state && location.state.notice;
 
   const modalContent = useRef(null);
   useOnOutsideClick(modalContent, e => {
@@ -26,17 +27,7 @@ export default ({ background }) => {
 
   let headerContent, footer, form;
   if (formType === "login") {
-    headerContent = (
-      <div className="welcome-message">
-        <img
-          src="https://roastia.s3.us-east-2.amazonaws.com/roastia+logo-01.png"
-          alt="logo"
-          className="roastia-logo"
-        />
-        <h3> Sign in </h3>
-        <h3> to save your favorite coffee shops</h3>
-      </div>
-    );
+    headerContent = "Sign in";
     form = <Login />;
     footer = (
       <span>
@@ -54,17 +45,7 @@ export default ({ background }) => {
       </span>
     );
   } else {
-    headerContent = (
-      <div className="welcome-message">
-        <img
-          src="https://roastia.s3.us-east-2.amazonaws.com/roastia+logo-01.png"
-          alt="logo"
-          className="roastia-logo"
-        />
-        <h3> Register </h3>
-        <h3> to save your favorite coffee shops</h3>
-      </div>
-    );
+    headerContent = "Register";
     form = <Register />;
     footer = (
       <span>
@@ -88,7 +69,15 @@ export default ({ background }) => {
       <div className="modal-content" ref={modalContent}>
         <div className="modal-body">
           <div className="modal-header">
+            <div className="welcome-message">
+              <img
+                src="https://roastia.s3.us-east-2.amazonaws.com/roastia+logo-01.png"
+                alt="logo"
+                className="roastia-logo"
+              />
             <h3 className="modal-header-title">{headerContent}</h3>
+            <h3>{notice || "to save your favorite coffee shops" }</h3>
+            </div>
           </div>
           {form}
           <div className="modal-content-secondary">{footer}</div>

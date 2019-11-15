@@ -16,6 +16,7 @@ import './MainContainer.scss';
 export default () => {
   const location = useLocation();
   const background = location.state && location.state.background;
+  const notice = location.state && location.state.notice;
 
   return (
     <React.Fragment>
@@ -41,13 +42,13 @@ export default () => {
             component={Modal}
             background={background}
           />
-          <Route
+          <AuthRoute
             exact
             path={['/shop/:shopId/edit', '/new/shop']}
             component={ShopFormModal}
             background={background}
           />
-          <Route
+          <AuthRoute
             exact
             path={['/coffee/:coffeeId/edit', '/new/coffee']}
             component={CoffeeForm}
