@@ -94,7 +94,7 @@ class Search extends Component {
   };
 
   renderSectionTitle = section => {
-    return <strong>{section.title}</strong>;
+    return section.shopSuggestions.length > 1 && <strong>{section.title}</strong>;
   };
 
   getSectionSuggestions = section => {
