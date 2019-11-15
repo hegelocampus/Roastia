@@ -39,14 +39,16 @@ export default () => {
     <div className="coffee-shop-container">
       <div className="coffee-shop">
         <img src={imageURL} alt={`${name} coffee shop`} />
+        <div className="favorite-icon">
+          <AddShopToFavorite users={users} shopId={shopId} />
+        </div>
         <div className="coffee-shop-info">
           <div className="coffee-shop-main-info">
             <h1>{name}</h1>
             <h3>{address.street}</h3>
             <h3>{`${address.city}, ${address.state} ${address.zip}`}</h3>
           </div>
-          <div className="favorite-icon">
-            <AddShopToFavorite users={users} shopId={shopId} />
+          <div className="shop-edit">
             <AuthLink
               content="Update shop information"
               to={{
