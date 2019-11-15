@@ -40,10 +40,10 @@ export default props => {
     >
       <Form className="signup-form">
         <label htmlFor="email">Email</label>
-        <Field name="email" autoComplete="email" type="email" />
+        <Field name="email" autoComplete="username email" type="email" />
         <ErrorMessage name="email" />
         <label htmlFor="Name">Name</label>
-        <Field name="name" autoComplete="username" type="text" />
+        <Field name="name" autoComplete="name" type="text" />
         <ErrorMessage name="name" />
         <label htmlFor="password">Password</label>
         <Field name="password" autoComplete="new-password" type="password" />

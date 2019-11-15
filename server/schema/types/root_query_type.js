@@ -168,7 +168,10 @@ const RootQueryType = new GraphQLObjectType({
                   filters.roasting = roasting
                 }
                 if (flavor && flavor.length !== 0) {
-                  filters.flavor = { $in: flavor };
+                  const filterStr = flavor.map(flavor => `.*${flavor}.*`)
+                  const flavorFilter = filterStr.map(str => new RegExp(str))
+
+                  filters.flavor = { $in: flavorFilter };
                 }
                 if (price && price.length !== 0) {
                   filters.price = { $gt: price[0], $lt: price[1] };
