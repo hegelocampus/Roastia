@@ -53,20 +53,5 @@ CoffeeSchema.statics.addCoffeeToShop = (coffeeId, coffeeShopId) => {
     });
 };
 
-CoffeeSchema.statics.findShopCoffees = (coffeeShopId, query) => {
-    const Coffee = mongoose.model("coffee");
-    const CoffeeShop = mongoose.model("coffeeShops");
-
-    let coffeeIds = [];
-    return CoffeeShop.findById(coffeeShopId).then(shop => {
-        shop.coffees.forEach(coffee => {
-            coffeeIds.push(coffee.id)
-        })
-        return Coffee.find(query).then(coffees => {
-            return coffees.filter(coffee => !coffeeIds.includes(coffee.id))
-        })
-    })
-}
-
 
 module.exports = mongoose.model('coffee', CoffeeSchema)

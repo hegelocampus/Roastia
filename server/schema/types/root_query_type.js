@@ -153,10 +153,10 @@ const RootQueryType = new GraphQLObjectType({
       fetchShopCoffees: {
           type: new GraphQLList(CoffeeType),
           args: {
-            coffeeShopId: { type: GraphQLID },
+            coffeeIds: { type: new GraphQLList(GraphQLID) },
             filter: { type: FilterInputType }
           },
-          resolve(_, { coffeeShopId, filter }) {
+          resolve(_, { coffeeIds, filter }) {
 
               function buildFilters({ processing, roasting, flavor, price }) {
                 let filters = {}
@@ -172,14 +172,16 @@ const RootQueryType = new GraphQLObjectType({
                 }
                 if (price && price.length !== 0) {
                   filters.price = { $gt: price[0], $lt: price[1] };
-                }  
+                }
+                const coffeeIdList = coffeeIds.map(id => new mongoose.Types.ObjectId(id))
+                filters._id = { $in: coffeeIdList }  
           
-                let updatedFilter = Object.keys(filters).length === 0 ? [] : [filters];
+                let updatedFilter = [filters];
                 return updatedFilter;
               }
 
-              let query = buildFilters(filter).length === 0 ? {} : { $and: buildFilters(filter) }
-              return Coffee.findShopCoffees(coffeeShopId, query);
+              let query = { $and: buildFilters(filter) }
+              return Coffee.find(query);
             }
           }
       })
