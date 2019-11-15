@@ -118,10 +118,10 @@ const mutation = new GraphQLObjectType({
                 baristaSatisfaction: { type: GraphQLInt },
             },
             resolve(_, {
-                name, decription, url, imageURL, founded, address, type, baristaSatisfaction 
+                name, description, url, imageURL, founded, address, type, baristaSatisfaction 
                 }) {
                 return new CoffeeShop({
-                    name, decription, url, imageURL, founded, address, type, baristaSatisfaction 
+                    name, description, url, imageURL, founded, address, type, baristaSatisfaction 
                 }).save();
             }
         },
