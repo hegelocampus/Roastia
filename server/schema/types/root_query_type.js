@@ -97,6 +97,9 @@ const RootQueryType = new GraphQLObjectType({
             ]
           });
           return coffeeShops;
+          // This code should stay preserved if we have time to revisit
+          // the coffee search query. Will remove before production.
+          // --------------------------------------------------------------
           // return Promise.all([
           //   Coffee.find({
           //     "$or": [

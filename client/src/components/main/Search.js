@@ -56,7 +56,10 @@ class Search extends Component {
           const coffeeShops = result.data.searchShops;
           let coffees = [];
           coffeeShops.forEach(shop => {
-            coffees = coffees.concat(shop.coffees);
+            coffees = coffees.concat(shop.coffees).filter(coffee => (
+              coffee.name.toLowerCase().includes(value.toLowerCase()) ||
+                coffee.origin.toLowerCase().includes(value.toLowerCase())
+            ));
           });
           const suggestions = [
             {

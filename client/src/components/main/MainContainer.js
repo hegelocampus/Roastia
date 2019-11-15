@@ -7,7 +7,7 @@ import CoffeeShopIndex from './coffee_shop/CoffeeShopIndex';
 import Coffee from './coffee/Coffee';
 import AuthRoute from '../util/route_util';
 import Modal from './auth_modal/AuthModal';
-import FavoriteShops from './Favorite/FavoriteShops';
+import FavoriteShops from './favorite/FavoriteShops';
 import CoffeeForm from './coffee/CoffeeForm';
 import CoffeeShopForm from './coffee_shop/CoffeeShopForm';
 import ShopFormModal from './form_modals/ShopFormModal';

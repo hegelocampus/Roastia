@@ -5,7 +5,7 @@ import CoffeeIndex from '../coffee/CoffeeIndex';
 import AuthLink from '../../util/AuthLink';
 
 import Queries from "../../../graphql/queries";
-import AddShopToFavorite from "../Favorite/AddShopToFavorite";
+import AddShopToFavorite from "../favorite/AddShopToFavorite";
 import CoffeeFilter from "../coffee_filter/CoffeeFilter";
 const { FETCH_SHOP } = Queries;
 
