@@ -20,5 +20,6 @@ code {
 
 #root {
   position: relative;
+  overflow: hidden;
 }
 
