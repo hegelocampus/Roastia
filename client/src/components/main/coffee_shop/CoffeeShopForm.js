@@ -1,19 +1,50 @@
 import React from 'react';
-import { useMutation } from '@apollo/react-hooks';
+import { useMutation, useQuery } from '@apollo/react-hooks';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import RenderErrors from '../../util/RenderErrors';
 import { ShopSchema } from './CoffeeShopSchema.js';
 import './CoffeeShopForm.scss';
 
+import Queries from '../../../graphql/queries';
 import Mutations from '../../../graphql/mutations';
-const { ADD_SHOP } = Mutations;
+const { FETCH_SHOP } = Queries;
+const { ADD_SHOP, UPDATE_SHOP } = Mutations;
 
-export default props => {
+export default ({ formType, shop }) => {
+  const { shopId } = useParams();
+
+  let mutation;
+  if (shopId) {
+    mutation = UPDATE_SHOP;
+    shop = shop || useQuery(FETCH_SHOP).then(data => data['coffeeShop']);
+  } else {
+    mutation = ADD_SHOP;
+    shop = {
+      name: '',
+      founded: '',
+      baristaSatisfaction: '',
+      type: '',
+      description: '',
+      url: '',
+      imageURL: '',
+      address: {
+        street: '',
+        city: '',
+        state: '',
+        zip: '',
+      },
+    };
+  }
+
   const history = useHistory();
-  const [createShop, { error }] = useMutation(ADD_SHOP, {
-    onCompleted: data => {
-      history.push(`/shop/${data.newCoffeeShop.id}`);
+  const [createShop, { error }] = useMutation(mutation, {
+    onCompleted: ({ updateCoffeeShop, newCoffeeShop }) => {
+      console.log(updateCoffeeShop);
+      console.log(newCoffeeShop);
+      history.push(
+        `/shop/${newCoffeeShop ? newCoffeeShop.id : updateCoffeeShop.id}`
+      );
     },
     onError: error => {
       console.log(error);
@@ -23,26 +54,20 @@ export default props => {
   return (
     <div className="shop-form-container">
       <Formik
-        initialValues={{
-          name: '',
-          founded: '',
-          baristaSatisfaction: '',
-          type: '',
-          description: '',
-          url: '',
-          imageURL: '',
-          address: {
-            street: '',
-            city: '',
-            state: '',
-            zip: '',
-          },
-        }}
+        initialValues={shop}
         validationSchema={ShopSchema}
-        onSubmit={values => createShop({ variables: values })}
+        onSubmit={values =>
+          ShopSchema.validate(values).then(val => {
+            console.log(val);
+            createShop({ variables: val });
+          })
+        }
       >
         <Form className="shop-form">
-          <h1>Add a New Coffee Shop</h1>
+          <Field name="id" type="hidden" />
+          <h1 className="modal-header-title">
+            {formType === 'edit' ? 'Edit Coffee Shop' : 'Add New Coffee Shop'}
+          </h1>
           <Field name="name" type="text" placeholder="Cafe Name" />
           <ErrorMessage name="name" />
           <Field

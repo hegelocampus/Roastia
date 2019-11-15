@@ -67,12 +67,14 @@ CoffeeShopSchema.index(
   { 'name': 'text',
    'address.state': 'text', 
    'address.city': 'text', 
+   'address.zip': 'text', 
    'type': 'text' },
   {
     weights: {
     name: 10,
     'address.state': 3,
     'address.city': 5,
+    'address.zip': 4,
     type: 2  
     }
   }

@@ -94,10 +94,10 @@ export default {
       $url: String!
       $imageURL: String!
       $description: String!
-      $founded: String
-      $address: Address
-      $type: String
-      $baristaSatisfaction: Int
+      $founded: String!
+      $address: Address!
+      $type: String!
+      $baristaSatisfaction: Int!
     ) {
       updateCoffeeShop(
         id: $id
