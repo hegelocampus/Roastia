@@ -14,7 +14,6 @@ const AddShopToFavorite = props => {
     <Query query={FETCH_CURRENT_USER}>
       {({ data, loading, error }) => {
         if (loading) return 'Loading...';
-        debugger;
         if (error)
           return (
             <AuthLink
@@ -57,7 +56,6 @@ const AddShopToFavorite = props => {
                         onClick={() => {
                           removeFavorite({
                             variables: {
-                              // userId: currentUserId,
                               coffeeShopId: props.shopId,
                             },
                           });
@@ -92,7 +90,6 @@ const AddShopToFavorite = props => {
                         onClick={() => {
                           addFavorite({
                             variables: {
-                              // userId: currentUserId,
                               coffeeShopId: props.shopId,
                             },
                           });
