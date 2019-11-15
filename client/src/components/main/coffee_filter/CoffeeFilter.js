@@ -188,7 +188,7 @@ class CoffeeFilter extends React.Component {
               <div className="option">
                 <input
                   type="checkbox"
-                  name="sugary"
+                  name="sugar"
                   onClick={this.updateFlavor}
                   onChange={() => {}}
                 />
@@ -197,24 +197,44 @@ class CoffeeFilter extends React.Component {
             </div>
           </div>
           <div className="coffee-filter-section">
-            <span>Process Method</span>
+            <span>Processing Method</span>
             <div className="coffee-filter-options">
               <div className="option">
                 <input
                   type="checkbox"
-                  name="Wet"
+                  name="unknown"
                   onClick={this.updateProcess}
-                  checked={this.state.filter.processing === 'Wet'}
+                  checked={this.state.filter.processing === 'unknown'}
                   onChange={() => {}}
                 />
-                <label>Wet</label>
+                <label>Unknown</label>
               </div>
               <div className="option">
                 <input
                   type="checkbox"
-                  name="Dry"
+                  name="washed/Wet"
                   onClick={this.updateProcess}
-                  checked={this.state.filter.processing === 'Dry'}
+                  checked={this.state.filter.processing === 'washed/Wet'}
+                  onChange={() => {}}
+                />
+                <label>Washed</label>
+              </div>
+              <div className="option">
+                <input
+                  type="checkbox"
+                  name="honey"
+                  onClick={this.updateProcess}
+                  checked={this.state.filter.processing === 'honey'}
+                  onChange={() => {}}
+                />
+                <label>Semi-washed</label>
+              </div>
+              <div className="option">
+                <input
+                  type="checkbox"
+                  name="natural"
+                  onClick={this.updateProcess}
+                  checked={this.state.filter.processing === 'natural'}
                   onChange={() => {}}
                 />
                 <label>Dry</label>
@@ -227,9 +247,19 @@ class CoffeeFilter extends React.Component {
               <div className="option">
                 <input
                   type="checkbox"
-                  name="Light"
+                  name="unknown"
                   onClick={this.updateRoast}
-                  checked={this.state.filter.roasting === 'Light'}
+                  checked={this.state.filter.roasting === 'unknown'}
+                  onChange={() => {}}
+                />
+                <label>Unknown</label>
+              </div>
+              <div className="option">
+                <input
+                  type="checkbox"
+                  name="light"
+                  onClick={this.updateRoast}
+                  checked={this.state.filter.roasting === 'light'}
                   onChange={() => {}}
                 />
                 <label>Light</label>
@@ -237,9 +267,19 @@ class CoffeeFilter extends React.Component {
               <div className="option">
                 <input
                   type="checkbox"
-                  name="Medium"
+                  name="medium-light"
                   onClick={this.updateRoast}
-                  checked={this.state.filter.roasting === 'Medium'}
+                  checked={this.state.filter.roasting === 'medium-light'}
+                  onChange={() => {}}
+                />
+                <label>Medium-light</label>
+              </div>
+              <div className="option">
+                <input
+                  type="checkbox"
+                  name="medium"
+                  onClick={this.updateRoast}
+                  checked={this.state.filter.roasting === 'medium'}
                   onChange={() => {}}
                 />
                 <label>Medium</label>
@@ -247,9 +287,19 @@ class CoffeeFilter extends React.Component {
               <div className="option">
                 <input
                   type="checkbox"
-                  name="Dark"
+                  name="medium-dark"
                   onClick={this.updateRoast}
-                  checked={this.state.filter.roasting === 'Dark'}
+                  checked={this.state.filter.roasting === 'medium-dark'}
+                  onChange={() => {}}
+                />
+                <label>Medium-dark</label>
+              </div>
+              <div className="option">
+                <input
+                  type="checkbox"
+                  name="dark"
+                  onClick={this.updateRoast}
+                  checked={this.state.filter.roasting === 'dark'}
                   onChange={() => {}}
                 />
                 <label>Dark</label>
