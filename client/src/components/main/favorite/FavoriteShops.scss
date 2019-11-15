@@ -1,7 +1,9 @@
+@import 'variables';
+
 .saved-shops {
   width: 85%;
   height: 850px;
-  background: #efefef;
+  background: $primary-light;
   margin: auto;
   border-radius: 10px;
 }

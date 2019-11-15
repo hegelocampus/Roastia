@@ -1,41 +1,44 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import "normalize.css";
-import "./index.scss";
-import App from "./components/App";
-import * as serviceWorker from "./serviceWorker";
-import { ApolloClient } from "apollo-client";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import 'normalize.css';
+import './index.scss';
+import App from './components/App';
+import * as serviceWorker from './serviceWorker';
+import { ApolloClient } from 'apollo-client';
 import { ApolloLink } from 'apollo-link';
 import { HttpLink } from 'apollo-link-http';
-import { InMemoryCache } from "apollo-cache-inmemory";
-import { setContext } from "apollo-link-context"; //add apollo-link-client to client's package.json
-import { onError } from "apollo-link-error";
-import Mutations from "./graphql/mutations";
+import { InMemoryCache } from 'apollo-cache-inmemory';
+import { setContext } from 'apollo-link-context'; //add apollo-link-client to client's package.json
+import { onError } from 'apollo-link-error';
+import Mutations from './graphql/mutations';
 
 const { VERIFY_USER } = Mutations;
 
-const token = localStorage.getItem("auth-token");
+const token = localStorage.getItem('auth-token');
 
 const cache = new InMemoryCache({
-  dataIdFromObject: object => object._id || null
+  dataIdFromObject: object => object._id || null,
 });
 
-const http = (process.env.NODE_ENV === 'production' ? {
-  uri: 'https://roastia.herokuapp.com/graphql',
-  credentials: 'same-origin'
-} : {
-  uri: "http://localhost:5000/graphql"
-});
+const http =
+  process.env.NODE_ENV === 'production'
+    ? {
+        uri: 'https://roastia.herokuapp.com/graphql',
+        credentials: 'same-origin',
+      }
+    : {
+        uri: 'http://localhost:5000/graphql',
+      };
 
 const httpLink = new HttpLink(http);
 
 const authLink = setContext((_, { headers }) => {
-  const token = localStorage.getItem("auth-token");
+  const token = localStorage.getItem('auth-token');
   return {
     headers: {
       ...headers,
-      authorization: token ? token : ""
-    }
+      authorization: token ? token : '',
+    },
   };
 });
 
@@ -50,15 +53,15 @@ const client = new ApolloClient({
   cache,
   resolvers: {},
   onError: ({ networkError, graphQLErrors }) => {
-    console.log("networkError", networkError);
-    console.log("graphQLErrors", graphQLErrors);
-  }
+    console.log('networkError', networkError);
+    console.log('graphQLErrors', graphQLErrors);
+  },
 });
 
 cache.writeData({
   data: {
-    isLoggedIn: Boolean(token)
-  }
+    isLoggedIn: Boolean(token),
+  },
 });
 
 if (token) {
@@ -67,18 +70,17 @@ if (token) {
     .then(({ data }) => {
       cache.writeData({
         data: {
-          isLoggedIn: data.verifyUser.loggedIn
-        }
+          isLoggedIn: data.verifyUser.loggedIn,
+        },
       });
     });
 }
 
 const Root = () => <App client={client} />;
 
-ReactDOM.render(<Root />, document.getElementById("root"));
+ReactDOM.render(<Root />, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://bit.ly/CRA-PWA
 serviceWorker.unregister();
-

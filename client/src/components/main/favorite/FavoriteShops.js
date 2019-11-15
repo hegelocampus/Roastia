@@ -1,9 +1,9 @@
-import React from "react";
-import { Query } from "react-apollo";
-import { Link } from "react-router-dom";
-import Queries from "../../../graphql/queries";
+import React from 'react';
+import { Query } from 'react-apollo';
+import { Link } from 'react-router-dom';
+import Queries from '../../../graphql/queries';
 
-import "./FavoriteShops.scss";
+import './FavoriteShops.scss';
 
 const { FETCH_FAVORITE_SHOPS } = Queries;
 
@@ -11,7 +11,7 @@ const FavoriteShops = () => {
   return (
     <Query query={FETCH_FAVORITE_SHOPS}>
       {({ loading, error, data }) => {
-        if (loading) return "Loading...";
+        if (loading) return 'Loading...';
 
         if (data.fetchFavoriteShops.length === 0) {
           return (
