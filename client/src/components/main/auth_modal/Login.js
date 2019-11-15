@@ -9,6 +9,11 @@ const { LOGIN_USER } = Mutations;
 export default props => {
   const [loginUser, { error }] = useSession(LOGIN_USER);
 
+  const loginGuest= e => loginUser({ variables: {
+    email: 'example@example.com',
+    password: 'example'
+  }});
+
   return (
     <Formik
       initialValues={{
@@ -21,7 +26,7 @@ export default props => {
     >
       <Form className="login-form">
         <label htmlFor="email">Email</label>
-        <Field name="email" autoComplete="email" type="email" />
+        <Field name="email" autoComplete="username" type="email" />
         <label htmlFor="password">Password</label>
         <Field
           name="password"
@@ -30,6 +35,7 @@ export default props => {
         />
         <button type="submit">Login</button>
         <RenderErrors errors={ error } />
+        <button type="button" onClick={ loginGuest }>Guest Login</button>
       </Form>
     </Formik>
   );
