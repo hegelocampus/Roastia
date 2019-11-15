@@ -4,9 +4,10 @@ import "normalize.css";
 import "./index.css";
 import App from "./components/App";
 import * as serviceWorker from "./serviceWorker";
-import ApolloClient from "apollo-client";
+import { ApolloClient } from "apollo-client";
+import { ApolloLink, Observable } from 'apollo-link';
+import { HttpLink } from 'apollo-link-http';
 import { InMemoryCache } from "apollo-cache-inmemory";
-import { createHttpLink } from "apollo-link-http";
 import { setContext } from "apollo-link-context"; //add apollo-link-client to client's package.json
 import { onError } from "apollo-link-error";
 import Mutations from "./graphql/mutations";
@@ -19,9 +20,14 @@ const cache = new InMemoryCache({
   dataIdFromObject: object => object._id || null
 });
 
-const httpLink = createHttpLink({
+const http = (process.env.NODE_ENV === 'production' ? {
+  uri: 'https://roastia.herokuapp.com/graphql',
+  credentials: 'same-origin'
+} : {
   uri: "http://localhost:5000/graphql"
 });
+
+const httpLink = new HttpLink(http);
 
 const authLink = setContext((_, { headers }) => {
   const token = localStorage.getItem("auth-token");
@@ -40,12 +46,12 @@ const errorLink = onError(({ graphQLErrors }) => {
 });
 
 const client = new ApolloClient({
-  link: authLink.concat(httpLink, errorLink),
+  link: ApolloLink.from([authLink, httpLink, errorLink]),
   cache,
   resolvers: {},
   onError: ({ networkError, graphQLErrors }) => {
-    console.log("graphQLErrors", graphQLErrors);
     console.log("networkError", networkError);
+    console.log("graphQLErrors", graphQLErrors);
   }
 });
 
@@ -75,3 +81,4 @@ ReactDOM.render(<Root />, document.getElementById("root"));
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://bit.ly/CRA-PWA
 serviceWorker.unregister();
+
