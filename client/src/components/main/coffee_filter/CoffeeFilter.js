@@ -212,9 +212,9 @@ class CoffeeFilter extends React.Component {
               <div className="option">
                 <input
                   type="checkbox"
-                  name="washed/Wet"
+                  name="washed/wet"
                   onClick={this.updateProcess}
-                  checked={this.state.filter.processing === 'washed/Wet'}
+                  checked={this.state.filter.processing === 'washed/wet'}
                   onChange={() => {}}
                 />
                 <label>Washed</label>
