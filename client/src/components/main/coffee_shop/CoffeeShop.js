@@ -51,6 +51,7 @@ export default () => {
           <div className="shop-edit">
             <AuthLink
               content="Update shop information"
+              notice={true}
               to={{
                 pathname: `/shop/${shopId}/edit`,
                 state: {

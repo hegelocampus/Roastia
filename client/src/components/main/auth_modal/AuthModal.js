@@ -1,9 +1,9 @@
-import React, { useState, useRef } from "react";
-import { Link, useHistory, useLocation } from "react-router-dom";
-import Login from "./Login";
-import Register from "./Register";
-import useOnOutsideClick from "../../util/useOnOutsideClick";
-import "./AuthModal.scss";
+import React, { useState, useRef } from 'react';
+import { Link, useHistory, useLocation } from 'react-router-dom';
+import Login from './Login';
+import Register from './Register';
+import useOnOutsideClick from '../../util/useOnOutsideClick';
+import './AuthModal.scss';
 
 export default ({ background }) => {
   const history = useHistory();
@@ -11,6 +11,7 @@ export default ({ background }) => {
   const [formType, setFormType] = useState(
     location.pathname.match(/([^/]+)\/?$/)[0]
   );
+  const notice = location.state && location.state.notice;
 
   const modalContent = useRef(null);
   useOnOutsideClick(modalContent, e => {
@@ -25,28 +26,18 @@ export default ({ background }) => {
   };
 
   let headerContent, footer, form;
-  if (formType === "login") {
-    headerContent = (
-      <div className="welcome-message">
-        <img
-          src="https://roastia.s3.us-east-2.amazonaws.com/roastia+logo-01.png"
-          alt="logo"
-          className="roastia-logo"
-        />
-        <h3> Sign in </h3>
-        <h3> to save your favorite coffee shops</h3>
-      </div>
-    );
+  if (formType === 'login') {
+    headerContent = 'Sign in';
     form = <Login />;
     footer = (
       <span>
         Don't have an account?
         <Link
           replace
-          onClick={changeForm("signup")}
+          onClick={changeForm('signup')}
           to={{
-            pathname: "/signup",
-            state: { background: background }
+            pathname: '/signup',
+            state: { background: background },
           }}
         >
           Sign up
@@ -54,27 +45,17 @@ export default ({ background }) => {
       </span>
     );
   } else {
-    headerContent = (
-      <div className="welcome-message">
-        <img
-          src="https://roastia.s3.us-east-2.amazonaws.com/roastia+logo-01.png"
-          alt="logo"
-          className="roastia-logo"
-        />
-        <h3> Register </h3>
-        <h3> to save your favorite coffee shops</h3>
-      </div>
-    );
+    headerContent = 'Register';
     form = <Register />;
     footer = (
       <span>
         Already have an account?
         <Link
           replace
-          onClick={changeForm("login")}
+          onClick={changeForm('login')}
           to={{
-            pathname: "/login",
-            state: { background: background }
+            pathname: '/login',
+            state: { background: background },
           }}
         >
           Log In
@@ -88,7 +69,15 @@ export default ({ background }) => {
       <div className="modal-content" ref={modalContent}>
         <div className="modal-body">
           <div className="modal-header">
-            <h3 className="modal-header-title">{headerContent}</h3>
+            <div className="welcome-message">
+              <img
+                src="https://roastia.s3.us-east-2.amazonaws.com/roastia+logo-01.png"
+                alt="logo"
+                className="roastia-logo"
+              />
+              <h3 className="modal-header-title">{headerContent}</h3>
+              <h3>{notice || 'to save your favorite coffee shops'}</h3>
+            </div>
           </div>
           {form}
           <div className="modal-content-secondary">{footer}</div>

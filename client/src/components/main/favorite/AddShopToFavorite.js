@@ -18,6 +18,7 @@ const AddShopToFavorite = props => {
           return (
             <AuthLink
               to={`/shop/${props.shopId}`}
+              notice={true}
               content={
                 <img
                   src="https://we-camp-seeds.s3.us-east-2.amazonaws.com/unfavorite.png"
@@ -50,6 +51,7 @@ const AddShopToFavorite = props => {
                 return (
                   <AuthLink
                     to={`/shop/${props.shopId}`}
+                    notice={true}
                     content={
                       <img
                         src="https://we-camp-seeds.s3.us-east-2.amazonaws.com/favorite.png"
@@ -83,6 +85,7 @@ const AddShopToFavorite = props => {
               {addFavorite => {
                 return (
                   <AuthLink
+                    notice={true}
                     to={`/shop/${props.shopId}`}
                     content={
                       <img
