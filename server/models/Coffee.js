@@ -43,15 +43,17 @@ CoffeeSchema.statics.addCoffeeToShop = (coffeeId, coffeeShopId) => {
 
     return Coffee.findById(coffeeId).then(coffee => {
         return CoffeeShop.findById(coffeeShopId).then(shop => {
+            const coffeeIds = shop.coffees.map(coffee => coffee._id)
+            if (coffeeIds.includes(coffee._id)) {
+                throw new Error("This coffee has already been added to the shop!")
+            } 
             coffee.shops.push(shop);
             shop.coffees.push(coffee);
-
             return Promise.all([coffee.save(), shop.save()]).then(
-                ([coffee, shop]) => coffee
-            );
+            ([coffee, shop]) => coffee)
+
         });
     });
 };
-
 
 module.exports = mongoose.model('coffee', CoffeeSchema)
