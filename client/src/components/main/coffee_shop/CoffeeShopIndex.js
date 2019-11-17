@@ -17,12 +17,12 @@ export default ({ coffeeShops }) => {
     if (loading) return <p>Loading ...</p>;
     if (error) return <p> No shops found </p>
   }
-  
+
   return (
     <div className="shops-index-div">
       <ul>
-        {coffeeShops.map(shop => (
-          <CoffeeShopPanel key={shop.id} shop={shop} />
+        {coffeeShops.map((shop, i) => (
+          <CoffeeShopPanel key={shop.id + i} shop={shop} />
         ))}
       </ul>
     </div>
