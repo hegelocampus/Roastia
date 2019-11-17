@@ -8,38 +8,35 @@ import { ApolloClient } from 'apollo-client';
 import { ApolloLink } from 'apollo-link';
 import { HttpLink } from 'apollo-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
-import { setContext } from 'apollo-link-context'; //add apollo-link-client to client's package.json
 import { onError } from 'apollo-link-error';
-import Mutations from './graphql/mutations';
 
+import Mutations from './graphql/mutations';
 const { VERIFY_USER } = Mutations;
 
-const token = localStorage.getItem('auth-token');
-
 const cache = new InMemoryCache({
-  dataIdFromObject: object => object._id || null,
+  dataIdFromObject: object => object.id || object._id ||null,
 });
 
-const http =
+const httpLink =
   process.env.NODE_ENV === 'production'
-    ? {
+    ? new HttpLink({
         uri: 'https://roastia.herokuapp.com/graphql',
         credentials: 'same-origin',
-      }
-    : {
+      })
+    : new HttpLink({
         uri: 'http://localhost:5000/graphql',
-      };
+      });
 
-const httpLink = new HttpLink(http);
 
-const authLink = setContext((_, { headers }) => {
-  const token = localStorage.getItem('auth-token');
-  return {
+const token = localStorage.getItem('auth-token');
+const authLink = new ApolloLink((operation, forward) => {
+  operation.setContext(({ headers }) => ({
     headers: {
-      ...headers,
       authorization: token ? token : '',
-    },
-  };
+      ...headers,
+    }
+  }));
+  return forward(operation)
 });
 
 const errorLink = onError(({ graphQLErrors }) => {
@@ -49,13 +46,10 @@ const errorLink = onError(({ graphQLErrors }) => {
 });
 
 const client = new ApolloClient({
-  link: ApolloLink.from([authLink, httpLink, errorLink]),
-  cache,
+  link: ApolloLink.from([authLink, httpLink]),
+  cache: cache,
   resolvers: {},
-  onError: ({ networkError, graphQLErrors }) => {
-    console.log('networkError', networkError);
-    console.log('graphQLErrors', graphQLErrors);
-  },
+  onError: errorLink
 });
 
 cache.writeData({
@@ -84,3 +78,4 @@ ReactDOM.render(<Root />, document.getElementById('root'));
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://bit.ly/CRA-PWA
 serviceWorker.unregister();
+
