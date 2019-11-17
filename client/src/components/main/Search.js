@@ -70,6 +70,7 @@ class Search extends Component {
                   coffee.origin.toLowerCase().includes(value.toLowerCase())
               );
           });
+          const uniqueCoffees = [...new Set(coffees)]
           const suggestions = [
             {
               title: 'Coffee Shops',
@@ -77,7 +78,7 @@ class Search extends Component {
             },
             {
               title: 'Coffee',
-              shopSuggestions: coffees,
+              shopSuggestions: Array.from(uniqueCoffees),
             },
           ];
           this.setState({ suggestions: suggestions });
@@ -119,7 +120,6 @@ class Search extends Component {
             className="search-bar-container"
             onSubmit={e => this._executeSearch(e)}
           >
-            {/* <div className="home-search"> */}
             <div>
               <Autosuggest
                 getSuggestionValue={getSuggestionValue}
