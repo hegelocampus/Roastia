@@ -82,13 +82,13 @@ const mutation = new GraphQLObjectType({
             }
         },
         removeCoffeeFromShop: {
-            type: CoffeeShopType,
+            type: CoffeeType,
             args: {
                 coffeeShopId: { type: GraphQLID },
                 coffeeId: { type: GraphQLID }
             },
             resolve(parentValue, { coffeeShopId, coffeeId }) {
-                return CoffeeShop.removeCoffeeFromShop(coffeeShopId, coffeeId);
+                return Coffee.removeCoffeeFromShop(coffeeShopId, coffeeId);
             }
         },
         addCoffee: {

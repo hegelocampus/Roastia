@@ -1,17 +1,21 @@
 import React from "react";
-import { useParams, Link } from "react-router-dom";
+import AuthLink from '../../util/AuthLink';
+import { useParams, useLocation } from "react-router-dom";
 import { useQuery } from "@apollo/react-hooks";
+import useRemoveShopFromShop from './useRemoveShopFromCoffee';
 import AddShopToCoffee from './AddShopToCoffeeSearch';
-import CoffeeShopIndex from '../coffee_shop/CoffeeShopIndex';
+import CoffeeShopPanel from '../coffee_shop/CoffeeShopPanel';
 
 import Queries from "../../../graphql/queries";
 const { FETCH_COFFEE } = Queries;
 
 export default () => {
+  const location = useLocation();
   const { coffeeId } = useParams();
   const { data, error, loading } = useQuery(FETCH_COFFEE, {
     variables: { id: coffeeId }
   });
+  const removeRelation = useRemoveShopFromShop(coffeeId);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error</p>;
@@ -19,7 +23,6 @@ export default () => {
   const {
     coffee: { id, name, origin, processing, roasting, flavor, price, shops = [] }
   } = data;
-  console.log(shops);
 
   return (
     <div className="coffee-detail">
@@ -53,7 +56,25 @@ export default () => {
         </ul>
         <section className="coffee-detail-shop-index">
           <h5>Coffee shops who serve this coffee:</h5>
-          <CoffeeShopIndex coffeeShops={ shops } />
+          <ul>
+            {shops.map((shop, i) => (
+              <React.Fragment key={shop.id + i}>
+                <CoffeeShopPanel shop={shop} />
+                <AuthLink
+                  to={{
+                    pathname: '/relation/remove',
+                    state: {
+                      background: location,
+                      shopId: shop.id,
+                      coffeeId: id,
+                    }
+                  }}
+                  notice={true}
+                  content="Remove shop from this coffee"
+                />
+              </React.Fragment>
+            ))}
+          </ul>
           <AddShopToCoffee coffeeId={ id } />
         </section>
       </div>

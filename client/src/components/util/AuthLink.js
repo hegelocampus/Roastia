@@ -21,9 +21,7 @@ export default ({ to, content, notice, ...rest }) => {
         pathname: '/signup',
         state: {
           background: location,
-          notice: notice
-            ? 'You must sign in before performing that action'
-            : null,
+          notice: notice ? 'You must sign in before performing that action' : null,
         },
       }}
     >

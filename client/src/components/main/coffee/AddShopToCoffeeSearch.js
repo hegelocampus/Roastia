@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import useAddShopToCoffee from './useAddShopToCoffee';
 import useDebouncedSearch from '../../util/useDebouncedSearch';
 //import './search.scss';
