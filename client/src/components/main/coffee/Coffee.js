@@ -1,12 +1,15 @@
 import React from "react";
-import { useParams, Link } from "react-router-dom";
+import AuthLink from '../../util/AuthLink';
+import { useParams, useLocation } from "react-router-dom";
 import { useQuery } from "@apollo/react-hooks";
 import AddShopToCoffee from './AddShopToCoffeeSearch';
+import CoffeeShopPanel from '../coffee_shop/CoffeeShopPanel';
 
 import Queries from "../../../graphql/queries";
 const { FETCH_COFFEE } = Queries;
 
 export default () => {
+  const location = useLocation();
   const { coffeeId } = useParams();
   const { data, error, loading } = useQuery(FETCH_COFFEE, {
     variables: { id: coffeeId }
@@ -14,9 +17,11 @@ export default () => {
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error</p>;
+
   const {
     coffee: { id, name, origin, processing, roasting, flavor, price, shops = [] }
   } = data;
+
   return (
     <div className="coffee-detail">
       <img src="nope" alt={`${name} coffee bag`} />
@@ -47,21 +52,30 @@ export default () => {
             <span>{price}</span>
           </li>
         </ul>
-        <section>
+        <section className="coffee-detail-shop-index">
           <h5>Coffee shops who serve this coffee:</h5>
-          <ul className="coffee-detail-coffeeshop-ul">
+          <ul>
             {shops.map((shop, i) => (
-              <li className="shop-li" key={shop.id + i}>
-                <Link to={`/shop/${shop.id}`}>
-                  <h6>{shop.name}</h6>
-                  <span>{`${shop.address.city}, ${shop.address.state} ${shop.address.zip}`}</span>
-                </Link>
-              </li>
+              <React.Fragment key={shop.id + i}>
+                <CoffeeShopPanel shop={shop} />
+                <AuthLink
+                  to={{
+                    pathname: '/relation/remove',
+                    state: {
+                      background: location,
+                      shopId: shop.id,
+                      coffeeId: id,
+                    }
+                  }}
+                  notice={true}
+                  content="Remove shop from this coffee"
+                />
+              </React.Fragment>
             ))}
           </ul>
+          <AddShopToCoffee coffeeId={ id } />
         </section>
       </div>
-      <AddShopToCoffee coffeeId={ id } />
     </div>
   );
 };

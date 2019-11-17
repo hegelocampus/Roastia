@@ -11,6 +11,7 @@ import FavoriteShops from './favorite/FavoriteShops';
 import CoffeeForm from './coffee/CoffeeForm';
 import CoffeeShopForm from './coffee_shop/CoffeeShopForm';
 import ShopFormModal from './form_modals/ShopFormModal';
+import RelationModal from './form_modals/RelationModal';
 import './MainContainer.scss';
 
 export default () => {
@@ -39,6 +40,7 @@ export default () => {
           <AuthRoute
             path={['/login', '/signup']}
             routeType="auth"
+            notice={notice}
             component={Modal}
             background={background}
           />
@@ -54,8 +56,14 @@ export default () => {
             component={CoffeeForm}
             background={background}
           />
+          <Route
+            exact
+            path={['/relation/add', '/relation/remove']}
+            component={RelationModal}
+            background={background}
+          />
         </Switch>
       )}
     </React.Fragment>
   );
-};
+}

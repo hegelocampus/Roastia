@@ -59,15 +59,15 @@ const CoffeeShopSchema = new Schema({
     {
     type: Schema.Types.ObjectId,
     ref: "users"
-    }  
+    }
   ]
 });
 
 CoffeeShopSchema.index(
   { 'name': 'text',
-   'address.state': 'text', 
-   'address.city': 'text', 
-   'address.zip': 'text', 
+   'address.state': 'text',
+   'address.city': 'text',
+   'address.zip': 'text',
    'type': 'text' },
   {
     weights: {
@@ -75,7 +75,7 @@ CoffeeShopSchema.index(
     'address.state': 3,
     'address.city': 5,
     'address.zip': 4,
-    type: 2  
+    type: 2
     }
   }
 );
@@ -106,3 +106,4 @@ CoffeeShopSchema.statics.removeCoffeeFromShop = (coffeeShopId, coffeeId) => {
 
 
 module.exports = mongoose.model("coffeeShops", CoffeeShopSchema);
+

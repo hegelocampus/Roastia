@@ -180,27 +180,22 @@ export default {
       }
     }
   `,
-  REMOVE_COFFEE_TO_SHOP: gql`
-    mutation RemoveCoffeeToShop(
+  REMOVE_COFFEE_FROM_SHOP: gql`
+    mutation RemoveCoffeeFromShop(
       $coffeeId: ID!
       $coffeeShopId: ID!
     ) {
-      removeCoffeeToShop(
+      removeCoffeeFromShop(
         coffeeId: $coffeeId
         coffeeShopId: $coffeeShopId
       ) {
         id
+        name
         __typename
         shops {
           id
           name
           __typename
-          address {
-            city
-            state
-            street
-            zip
-          }
         }
       }
     }
