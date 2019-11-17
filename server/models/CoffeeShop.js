@@ -93,7 +93,7 @@ CoffeeShopSchema.statics.removeCoffeeFromShop = (coffeeShopId, coffeeId) => {
   return CoffeeShop.findById(coffeeShopId).then(coffeeShop => {
     return Coffee.findById(coffeeId).then(coffee => {
       coffeeShop.coffees.pull(coffee);
-      coffee.coffeeShops.pull(coffeeShop);
+      coffee.shops.pull(coffeeShop);
 
       return Promise.all([coffeeShop.save(), coffee.save()]).then(
         ([coffeeShop, coffee]) => coffeeShop

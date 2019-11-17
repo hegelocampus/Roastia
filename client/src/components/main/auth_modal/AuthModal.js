@@ -1,9 +1,9 @@
-import React, { useState, useRef } from "react";
-import { Link, useHistory, useLocation } from "react-router-dom";
-import Login from "./Login";
-import Register from "./Register";
-import useOnOutsideClick from "../../util/useOnOutsideClick";
-import "./AuthModal.scss";
+import React, { useState, useRef } from 'react';
+import { Link, useHistory, useLocation } from 'react-router-dom';
+import Login from './Login';
+import Register from './Register';
+import useOnOutsideClick from '../../util/useOnOutsideClick';
+import './AuthModal.scss';
 
 export default ({ background }) => {
   const history = useHistory();
@@ -26,18 +26,18 @@ export default ({ background }) => {
   };
 
   let headerContent, footer, form;
-  if (formType === "login") {
-    headerContent = "Sign in";
+  if (formType === 'login') {
+    headerContent = 'Sign in';
     form = <Login />;
     footer = (
       <span>
         Don't have an account?
         <Link
           replace
-          onClick={changeForm("signup")}
+          onClick={changeForm('signup')}
           to={{
-            pathname: "/signup",
-            state: { background: background }
+            pathname: '/signup',
+            state: { background: background },
           }}
         >
           Sign up
@@ -45,17 +45,17 @@ export default ({ background }) => {
       </span>
     );
   } else {
-    headerContent = "Register";
+    headerContent = 'Register';
     form = <Register />;
     footer = (
       <span>
         Already have an account?
         <Link
           replace
-          onClick={changeForm("login")}
+          onClick={changeForm('login')}
           to={{
-            pathname: "/login",
-            state: { background: background }
+            pathname: '/login',
+            state: { background: background },
           }}
         >
           Log In
@@ -75,8 +75,8 @@ export default ({ background }) => {
                 alt="logo"
                 className="roastia-logo"
               />
-            <h3 className="modal-header-title">{headerContent}</h3>
-            <h3>{notice || "to save your favorite coffee shops" }</h3>
+              <h3 className="modal-header-title">{headerContent}</h3>
+              <h3>{notice || 'to save your favorite coffee shops'}</h3>
             </div>
           </div>
           {form}
