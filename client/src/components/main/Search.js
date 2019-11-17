@@ -176,6 +176,7 @@ class Search extends Component {
     this.props.history.push({
       pathname: './shops',
       state: { coffeeShops: coffeeShops },
+      search: `?filter=${filter}`
     });
   };
 }
