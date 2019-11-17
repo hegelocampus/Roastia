@@ -1,6 +1,6 @@
 @import 'variables';
 
-html, body, #root {
+html, #root {
   min-height: 100%;
   min-width: 100%;
   margin: 0 0 0 0;
@@ -21,7 +21,6 @@ code {
 }
 
 #root {
-  position: relative;
   background: $background-light;
 }
 

@@ -133,6 +133,11 @@ section {
 body {
   line-height: 1;
   font-family: "Open Sans";
+  position: relative;
+  min-height: 100vh;
+  min-width: 100%;
+  margin: 0 0 0 0;
+  padding: 0 0 0 0;
 }
 ol,
 ul {
