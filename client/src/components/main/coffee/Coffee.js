@@ -2,7 +2,6 @@ import React from "react";
 import AuthLink from '../../util/AuthLink';
 import { useParams, useLocation } from "react-router-dom";
 import { useQuery } from "@apollo/react-hooks";
-import useRemoveShopFromShop from './useRemoveShopFromCoffee';
 import AddShopToCoffee from './AddShopToCoffeeSearch';
 import CoffeeShopPanel from '../coffee_shop/CoffeeShopPanel';
 
@@ -15,7 +14,6 @@ export default () => {
   const { data, error, loading } = useQuery(FETCH_COFFEE, {
     variables: { id: coffeeId }
   });
-  const removeRelation = useRemoveShopFromShop(coffeeId);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error</p>;
