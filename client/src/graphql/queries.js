@@ -17,6 +17,7 @@ export default {
         founded
         type
         baristaSatisfaction
+        __typename
         address {
           city
           state
@@ -28,6 +29,7 @@ export default {
           name
           origin
           processing
+          __typename
         }
         users {
           _id
@@ -41,6 +43,7 @@ export default {
         id
         type
         name
+        __typename
         address {
           city
           state
@@ -59,6 +62,7 @@ export default {
         url
         imageURL
         founded
+        __typename
         address {
           street
           city
@@ -74,6 +78,7 @@ export default {
           roasting
           flavor
           processing
+          __typename
         }
       }
     }
@@ -88,9 +93,11 @@ export default {
         roasting
         flavor
         price
+        __typename
         shops {
           id
           name
+          __typename
           address {
             city
             state
@@ -109,6 +116,7 @@ export default {
         url
         imageURL
         founded
+        __typename
         address {
           street
           city
@@ -138,6 +146,7 @@ export default {
         name
         origin
         price
+        __typename
       }
     }
   `,

@@ -69,6 +69,7 @@ export default {
         founded
         type
         baristaSatisfaction
+        __typename
         address {
           city
           state
@@ -80,6 +81,7 @@ export default {
           name
           origin
           processing
+          __typename
         }
         users {
           _id
@@ -115,6 +117,7 @@ export default {
         founded
         type
         baristaSatisfaction
+        __typename
         address {
           city
           state
@@ -142,6 +145,7 @@ export default {
         price: $price
       ) {
         id
+        __typename
         name
         origin
         processing
@@ -151,4 +155,55 @@ export default {
       }
     }
   `,
+  ADD_COFFEE_TO_SHOP: gql`
+    mutation AddCoffeeToShop(
+      $coffeeId: ID!
+      $coffeeShopId: ID!
+    ) {
+      addCoffeeToShop(
+        coffeeId: $coffeeId
+        coffeeShopId: $coffeeShopId
+      ) {
+        id
+        __typename
+        shops {
+          id
+          name
+          __typename
+          address {
+            city
+            state
+            street
+            zip
+          }
+        }
+      }
+    }
+  `,
+  REMOVE_COFFEE_TO_SHOP: gql`
+    mutation RemoveCoffeeToShop(
+      $coffeeId: ID!
+      $coffeeShopId: ID!
+    ) {
+      removeCoffeeToShop(
+        coffeeId: $coffeeId
+        coffeeShopId: $coffeeShopId
+      ) {
+        id
+        __typename
+        shops {
+          id
+          name
+          __typename
+          address {
+            city
+            state
+            street
+            zip
+          }
+        }
+      }
+    }
+  `,
 };
+

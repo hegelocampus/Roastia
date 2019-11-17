@@ -1,6 +1,7 @@
 import React from "react";
 import { useParams, Link } from "react-router-dom";
 import { useQuery } from "@apollo/react-hooks";
+import AddShopToCoffee from './AddShopToCoffeeSearch';
 
 import Queries from "../../../graphql/queries";
 const { FETCH_COFFEE } = Queries;
@@ -14,7 +15,7 @@ export default () => {
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error</p>;
   const {
-    coffee: { name, origin, processing, roasting, flavor, price, shops = [] }
+    coffee: { id, name, origin, processing, roasting, flavor, price, shops = [] }
   } = data;
   return (
     <div className="coffee-detail">
@@ -49,8 +50,8 @@ export default () => {
         <section>
           <h5>Coffee shops who serve this coffee:</h5>
           <ul className="coffee-detail-coffeeshop-ul">
-            {shops.map(shop => (
-              <li className="shop-li" key={shop.id}>
+            {shops.map((shop, i) => (
+              <li className="shop-li" key={shop.id + i}>
                 <Link to={`/shop/${shop.id}`}>
                   <h6>{shop.name}</h6>
                   <span>{`${shop.address.city}, ${shop.address.state} ${shop.address.zip}`}</span>
@@ -60,6 +61,8 @@ export default () => {
           </ul>
         </section>
       </div>
+      <AddShopToCoffee coffeeId={ id } />
     </div>
   );
 };
+

@@ -1,5 +1,5 @@
-import React from 'react';
-import { useMutation, useQuery } from '@apollo/react-hooks';
+import React, { useState } from 'react';
+import { useMutation, useLazyQuery } from '@apollo/react-hooks';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { useHistory, useParams } from 'react-router-dom';
 import RenderErrors from '../../util/RenderErrors';
@@ -12,15 +12,18 @@ const { FETCH_SHOP } = Queries;
 const { ADD_SHOP, UPDATE_SHOP } = Mutations;
 
 export default ({ formType, shop }) => {
+  const [shp, setShp] = useState(shop || null);
+  const history = useHistory();
   const { shopId } = useParams();
+  const [getShop, { loading, data}] = useLazyQuery(FETCH_SHOP);
 
   let mutation;
   if (shopId) {
     mutation = UPDATE_SHOP;
-    shop = shop || useQuery(FETCH_SHOP).then(data => data['coffeeShop']);
+    shop = shop || getShop()
   } else {
     mutation = ADD_SHOP;
-    shop = {
+    setShp({
       name: '',
       founded: '',
       baristaSatisfaction: '',
@@ -34,14 +37,11 @@ export default ({ formType, shop }) => {
         state: '',
         zip: '',
       },
-    };
+    });
   }
 
-  const history = useHistory();
   const [createShop, { error }] = useMutation(mutation, {
     onCompleted: ({ updateCoffeeShop, newCoffeeShop }) => {
-      console.log(updateCoffeeShop);
-      console.log(newCoffeeShop);
       history.push(
         `/shop/${newCoffeeShop ? newCoffeeShop.id : updateCoffeeShop.id}`
       );
@@ -51,14 +51,18 @@ export default ({ formType, shop }) => {
     },
   });
 
+  if (loading) return <p>Loading...</p>;
+  if (data && data.coffeeShop) {
+    setShp(data.coffeeShop);
+  }
+
   return (
     <div className="shop-form-container">
       <Formik
-        initialValues={shop}
+        initialValues={shp}
         validationSchema={ShopSchema}
         onSubmit={values =>
           ShopSchema.validate(values).then(val => {
-            console.log(val);
             createShop({ variables: val });
           })
         }
@@ -115,3 +119,4 @@ export default ({ formType, shop }) => {
     </div>
   );
 };
+

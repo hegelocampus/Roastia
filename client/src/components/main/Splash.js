@@ -55,11 +55,11 @@ export default () => (
         />
       </a>
       <div>
-        <a target="_blank" href="/icons/set/coffee">
+        <a target="blank" href="/icons/set/coffee">
           Above icons
         </a>{' '}
         by:
-        <a target="_blank" href="https://icons8.com">
+        <a target="blank" href="https://icons8.com">
           {' '}
           Icons8
         </a>
