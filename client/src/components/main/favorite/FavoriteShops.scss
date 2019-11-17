@@ -17,9 +17,11 @@
 }
 
 .saved-shops-container {
-  padding: 35px;
-  margin: auto;
-  display: flex;
+    padding: 35px;
+    margin: auto;
+    display: flex;
+    max-width: 660px;
+    flex-wrap: wrap;
 }
 
 .shop-item {
@@ -30,7 +32,7 @@
   list-style: none;
   border-radius: 10px;
   height: 350px;
-  margin-right: 30px;
+  margin: 0 30px 30px 0;
   box-shadow: 1px 2px 5px gray;
 }
 
