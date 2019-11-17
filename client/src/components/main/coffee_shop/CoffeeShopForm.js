@@ -93,11 +93,11 @@ export default ({ formType, shop }) => {
           <Field name="imageURL" type="url" placeholder="Cafe Image URL" />
           <ErrorMessage name="imageURL" />
           <label htmlFor="type">Cafe type:</label>
-          <Field name="type" as="select">
-            <option value="roaster">Roaster</option>
+          <Field name="type" as="select" placeholder="Roaster">
+            <option value="" disabled>Roaster</option>
             <option value="coffee bar">Coffee Bar</option>
-            <option value="coffee bar">Espresso Bar</option>
-            <option value="brewer">Coffee Stand</option>
+            <option value="espresso bar">Espresso Bar</option>
+            <option value="coffee stand">Coffee Stand</option>
           </Field>
           <ErrorMessage name="type" />
           <Field

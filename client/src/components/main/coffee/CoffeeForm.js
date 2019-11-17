@@ -40,7 +40,7 @@ export default props => {
           <Field name="origin" type="text" placeholder='Origin or "Blend"' />
           <ErrorMessage name="origin" />
           <Field name="processing" as="select" placeholder="Processing Method">
-            <option value="Processing Method" disabled>
+            <option value="" disabled>
               Processing Method
             </option>
             <option value="unknown">Unknown/Blend</option>
@@ -50,7 +50,7 @@ export default props => {
           </Field>
           <ErrorMessage name="processing" />
           <Field name="roasting" as="select" placeholder="Roast">
-            <option value="Roast" disabled>
+            <option value="" disabled>
               Roast
             </option>
             <option value="unknown">Unknown/Blend</option>
