@@ -97,7 +97,16 @@ export default {
         shops {
           id
           name
+          imageURL
           __typename
+          coffees {
+            id
+            name
+            origin
+            flavor
+            processing
+            __typename
+          }
           address {
             city
             state
