@@ -10,6 +10,7 @@ import Modal from './auth_modal/AuthModal';
 import FavoriteShops from './favorite/FavoriteShops';
 import CoffeeForm from './coffee/CoffeeForm';
 import CoffeeShopForm from './coffee_shop/CoffeeShopForm';
+import CoffeeFormModal  from './form_modals/CoffeeFormModal';
 import ShopFormModal from './form_modals/ShopFormModal';
 import RelationModal from './form_modals/RelationModal';
 import './MainContainer.scss';
@@ -30,8 +31,8 @@ export default () => {
           <Route path="/coffee/:coffeeId/edit" component={CoffeeForm} />
           <Route path="/coffee/:coffeeId" component={Coffee} />
           <Route path="/shop/:shopId" component={CoffeeShop} />
-          <Route path="/new/shop" component={CoffeeShopForm} />
-          <Route path="/new/coffee" component={CoffeeForm} />
+          <AuthRoute path="/new/shop" component={CoffeeShopForm} />
+          <AuthRoute path="/new/coffee" component={CoffeeForm} />
           <Route exact path="/" component={Splash} />
         </Switch>
       </main>
@@ -53,10 +54,10 @@ export default () => {
           <AuthRoute
             exact
             path={['/coffee/:coffeeId/edit', '/new/coffee']}
-            component={CoffeeForm}
+            component={CoffeeFormModal}
             background={background}
           />
-          <Route
+          <AuthRoute
             exact
             path={['/relation/add', '/relation/remove']}
             component={RelationModal}
