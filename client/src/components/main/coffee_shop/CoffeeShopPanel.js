@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import "./CoffeeShopIndex.scss";
 import { BeanIcon, OriginIcon, FlavorIcon } from '../../util/icons';
 
-export default ({ shop }) => {
+export default ({ shop, extraContent }) => {
   const randomCoffee = () => shop.coffees[Math.floor(Math.random() * shop.coffees.length)];
   return (
     <li key={shop.id} className="shops-index-item">
@@ -50,6 +50,7 @@ export default ({ shop }) => {
           </div>
         </div>
       </Link>
+      {extraContent ? extraContent : null}
     </li>
   );
 };

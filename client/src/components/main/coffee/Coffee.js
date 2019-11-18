@@ -4,6 +4,7 @@ import { useParams, useLocation } from "react-router-dom";
 import { useQuery } from "@apollo/react-hooks";
 import AddShopToCoffee from './AddShopToCoffeeSearch';
 import CoffeeShopPanel from '../coffee_shop/CoffeeShopPanel';
+import './Coffee.scss';
 
 import Queries from "../../../graphql/queries";
 const { FETCH_COFFEE } = Queries;
@@ -24,7 +25,6 @@ export default () => {
 
   return (
     <div className="coffee-detail">
-      <img src="nope" alt={`${name} coffee bag`} />
       <div className="coffee-main-info">
         <h1>{name}</h1>
         <h4>{origin}</h4>
@@ -40,7 +40,7 @@ export default () => {
             <span>{roasting}</span>
           </li>
           <li>
-            <s>Processing Method:</s>
+            <s>Process:</s>
             <span>{processing}</span>
           </li>
           <li>
@@ -57,8 +57,11 @@ export default () => {
           <ul>
             {shops.map((shop, i) => (
               <React.Fragment key={shop.id + i}>
-                <CoffeeShopPanel shop={shop} />
-                <AuthLink
+                <CoffeeShopPanel
+                  shop={shop}
+                  extraContent={(
+                  <AuthLink
+                  className="remove-shop-link"
                   to={{
                     pathname: '/relation/remove',
                     state: {
@@ -68,8 +71,9 @@ export default () => {
                     }
                   }}
                   notice={true}
-                  content="Remove shop from this coffee"
-                />
+                  content="Remove shop"
+                />)}
+              />
               </React.Fragment>
             ))}
           </ul>
