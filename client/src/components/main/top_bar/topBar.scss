@@ -1,5 +1,49 @@
 @import 'variables';
 
+.dropdown {
+  background: $background-light;
+  cursor: pointer;
+  button {
+    border-radius: $border-radius;
+    background: #faefe4;
+    display: flex;
+    align-items: center;
+    font-weight: 600;
+    cursor: pointer;
+    border: 1px solid $primary-dark;
+    padding: 5px 15px;
+  }
+
+  button:hover {
+    background: $background
+  }
+
+  div {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    background: white;
+    z-index: 500;
+    width: 200px;
+    border-radius: $border-radius;
+    a {
+      text-decoration: none;
+      padding: 10px;
+      color: black;
+    }
+    a:hover {
+      background: rgb(227, 226, 226);
+    }
+  }
+}
+
+
+
+.forms-dropdown {
+  display: flex;
+  align-items: center;
+}
+
 .login-signup {
   a {
     display: block;
@@ -54,6 +98,12 @@
 
 .logout {
   display: flex;
+}
+
+.plus {
+  height: 12px;
+  width: 12px;
+  padding-right: 5px;
 }
 
 .roastia-logo {
