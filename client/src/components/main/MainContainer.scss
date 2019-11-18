@@ -1,6 +1,10 @@
 @import 'variables';
 
 .main-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   min-height: 100%;
+  width: 100%;
   background-color: $background-light;
 }

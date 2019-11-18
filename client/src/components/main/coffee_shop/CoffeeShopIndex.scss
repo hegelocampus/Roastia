@@ -44,9 +44,12 @@
 }
 
 .shops-index-item {
+  display: flex;
+  flex-direction: column;
   margin: 15px 0;
-  padding: 10px;
+  padding: 10px 10px 10px 10px;
   position: relative;
+  max-width: 100%;
   top: 0;
   transition: top ease 0.5s;
   transition: ease-out 0.5s;
@@ -71,7 +74,8 @@
 
 .shop-panel-image {
   height: 200px;
-  width: 550px;
+  width: 100%;
   object-fit: cover;
   border-radius: 5px;
 }
+

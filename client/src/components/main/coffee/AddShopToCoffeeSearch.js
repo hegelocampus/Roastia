@@ -8,7 +8,7 @@ export default ({ coffeeId }) => {
   const { filter, setFilter, search} = useDebouncedSearch()
 
   return (
-    <form className="search-bar-container" onSubmit={ e => e.preventDefault() }>
+    <form className="cafe-search-bar-container" onSubmit={ e => e.preventDefault() }>
       <label>Add a cafe
         <input
           placeholder="Enter a city, state, or name..."
@@ -16,30 +16,30 @@ export default ({ coffeeId }) => {
           value={filter}
           onChange={e => setFilter(e.target.value)}
         />
-        {search.loading && <div>...</div>}
-        {search.error && <div>Error: {search.error.message}</div>}
-        {search.result && (
-          <ul>
-            {search.result.map((shop, i) => (
-            <li
-              className="form-search"
-              key={shop.id + i}
-              onClick={e => {
-                e.preventDefault();
-                addRelation(shop);
-              }}
-            >
-              <div className="suggestion">
-                <span>{shop.name}</span>
-                <span>
-                  {`${shop.address.city}, ${shop.address.state} ${shop.address.zip}`}
-                </span>
-              </div>
-            </li>
-            ))}
-          </ul>
-        )}
       </label>
+      {search.loading && <div className="search-loading">Searching...</div>}
+      {search.error && <div>Error: {search.error.message}</div>}
+      {search.result && (
+        <ul>
+          {search.result.map((shop, i) => (
+          <li
+            className="form-search"
+            key={shop.id + i}
+            onClick={e => {
+              e.preventDefault();
+              addRelation(shop);
+            }}
+          >
+            <div className="suggestion">
+              <span>{shop.name}</span>
+              <span>
+                {`${shop.address.city}, ${shop.address.state} ${shop.address.zip}`}
+              </span>
+            </div>
+          </li>
+          ))}
+        </ul>
+      )}
     </form>
   );
 }

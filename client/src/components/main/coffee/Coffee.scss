@@ -1,0 +1,132 @@
+@import 'variables';
+
+.coffee-detail {
+  margin: auto;
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+}
+
+.coffee {
+  display: flex;
+  flex-direction: column;
+  height:60%;
+  position: relative;
+}
+
+.coffee > img {
+  margin: 0 auto;
+  width: 75%;
+  height: 35%;
+  border-radius: 10px;
+  box-shadow: 1px 2px 5px gray;
+  position: relative;
+}
+
+.coffee-main-info {
+  width: 70%;
+  margin: 0 0 0 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 0;
+
+}
+
+.coffee-main-info {
+  margin: 0;
+  padding: 20px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  h1 {
+    font-size: 30px;
+    margin-bottom: 10px;
+    font-weight: bold;
+    margin-top: 20px;
+  }
+}
+
+.coffee-main-info h3 {
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.coffee-extra-info {
+  width: 100%;
+  margin:0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+  s {
+    font-weight: 700;
+    text-decoration: none;
+    padding-right: 10px;
+  }
+}
+
+.coffee-detail-shop-index {
+  padding: 20px 0;
+  ul {
+    padding-bottom: 10px;
+  }
+}
+
+.shops-index-item {
+  max-width: 100%;
+  background: $primary-light;
+  padding:20px;
+  border-radius: 10px;
+  margin-bottom: 30px;
+  .shop-panel-image {
+    width: 100%;
+  }
+}
+
+.cafe-search-bar-container {
+  label {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    font-weight: 700;
+    input {
+      width: 300px;
+      margin-left: 5px;
+      padding: 5px;
+    }
+  }
+}
+
+.form-search {
+  margin-top: 5px;
+  border-bottom: 1px solid $primary-light;
+  .suggestion {
+    &:hover {
+      font-weight: 700;
+      cursor: pointer;
+    }
+  }
+}
+
+.remove-shop-link {
+  font-weight: 600;
+  font-size: 14px;
+  align-self: flex-end;
+  padding: 0;
+  margin-bottom: 5px;
+  border-bottom: 1px solid black;
+  color: $secondary;
+  &:hover {
+    color: $secondary-dark;
+    border-bottom: 1px solid $secondary-dark;
+  }
+}
+
+.search-loading {
+  margin-top: 5px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
