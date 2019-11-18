@@ -12,18 +12,18 @@ const { FETCH_SHOP } = Queries;
 const { ADD_SHOP, UPDATE_SHOP } = Mutations;
 
 export default ({ formType, shop }) => {
-  const [shp, setShp] = useState(shop || null);
   const history = useHistory();
   const { shopId } = useParams();
   const [getShop, { loading, data}] = useLazyQuery(FETCH_SHOP);
 
   let mutation;
+  let shp, setShp;
   if (shopId) {
     mutation = UPDATE_SHOP;
-    shop = shop || getShop()
+     [shp, setShp] = useState(shop || getShop({variable: shopId }));
   } else {
     mutation = ADD_SHOP;
-    setShp({
+    [shp, setShp] = useState({
       name: '',
       founded: '',
       baristaSatisfaction: '',
