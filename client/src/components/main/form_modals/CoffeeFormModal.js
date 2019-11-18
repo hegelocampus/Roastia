@@ -8,7 +8,7 @@ export default ({ background }) => {
   const history = useHistory();
   const location = useLocation();
   const formType = location.pathname.match(/([^/]+)\/?$/)[0];
-  const coffee = location.state.shop;
+  const coffee = location.state.coffee || null;
 
   const modalContent = useRef(null);
   useOnOutsideClick(modalContent, e => {
@@ -20,7 +20,7 @@ export default ({ background }) => {
     <div className="modal-screen">
       <div className="modal-content" ref={modalContent}>
         <div className="modal-body">
-          <CoffeeForm shop={shop} formType={formType} />
+          <CoffeeForm coffee={coffee} formType={formType} />
         </div>
       </div>
     </div>
