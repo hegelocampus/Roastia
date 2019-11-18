@@ -2,6 +2,7 @@ import React from 'react';
 import Nav from './Nav';
 import { Link, useLocation } from 'react-router-dom';
 import AuthLink from '../../util/AuthLink';
+import AddDropDown from './AddDropDown';
 import './topBar.scss';
 
 export default () => {
@@ -16,8 +17,8 @@ export default () => {
             className="roastia-logo"
           />
         </Link>
-        <div>
-          <AuthLink
+        <div className="forms-dropdown">
+          {/* <AuthLink
             content='Add Shop'
             to={{
               pathname: '/new/shop',
@@ -34,7 +35,8 @@ export default () => {
                 background: location
               }
             }}
-          />
+          /> */}
+          <AddDropDown location={location}/>
           <Nav />
         </div>
       </nav>

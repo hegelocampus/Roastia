@@ -6,6 +6,9 @@
 
 .coffee-filter-section {
   display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
 .coffee-filter-section span {
@@ -13,11 +16,18 @@
   font-weight: bold;
   font-size: 15px;
   margin-bottom: 15px;
+  margin-top: 15px;
 }
 
 .coffee-filter-options {
   font-size: 15px;
   display: flex;
+  flex-wrap: wrap;
+}
+
+.option {
+  display: flex;
+  margin-bottom: 10px
 }
 
 .option input {
