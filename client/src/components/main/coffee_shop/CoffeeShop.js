@@ -71,7 +71,7 @@ export default () => {
           <ul>
             <li>Founded in {founded}</li>
             <li>{type}</li>
-            <li>{url}</li>
+            <li><a href={ url }>{url}</a></li>
             <li>Barista Satisfaction: {baristaSatisfaction}</li>
           </ul>
         </div>
