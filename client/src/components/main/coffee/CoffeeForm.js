@@ -34,7 +34,7 @@ export default props => {
         onSubmit={values => create({ variables: values })}
       >
         <Form className="coffee-form">
-          <h1>Add a New Coffee Shop</h1>
+          <h1>Add a New Coffee</h1>
           <Field name="name" type="text" placeholder="Coffee Name" />
           <ErrorMessage name="name" />
           <Field name="origin" type="text" placeholder='Origin or "Blend"' />
