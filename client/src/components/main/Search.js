@@ -41,10 +41,14 @@ class Search extends Component {
     };
   }
 
-  onChange = (event, { newValue }) => {
-    this.setState({
-      filter: newValue,
-    });
+  onChange = (event, { newValue, method }) => {
+    if (method === 'click') {
+      this._executeSearch();
+    } else {
+      this.setState({
+        filter: newValue,
+      });
+    }
   };
 
   onSuggestionsFetchRequested = ({ value }) => {
@@ -96,7 +100,7 @@ class Search extends Component {
 
   renderSectionTitle = section => {
     return (
-      section.shopSuggestions.length > 1 && <strong>{section.title}</strong>
+      section.shopSuggestions.length > 0 && <strong>{section.title}</strong>
     );
   };
 
@@ -165,7 +169,7 @@ class Search extends Component {
   }
 
   _executeSearch = async e => {
-    e.preventDefault();
+    if (e) e.preventDefault();
     const { filter } = this.state;
     const result = await this.props.client.query({
       query: SEARCH_SHOPS,
