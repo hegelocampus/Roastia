@@ -35,7 +35,7 @@ export default props => {
                 <div className="login-signup">
                   <AuthLink
                     className="nav-auth-anchor"
-                    content="Sign up or Log in"
+                    content="Log in"
                   />
                   {/*
                   <Link
