@@ -1,32 +1,36 @@
-import React, { Component } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import AuthLink from '../../util/AuthLink';
 import { AddIcon } from '../../util/icons';
+import useOnOutsideClick from '../../util/useOnOutsideClick';
 
-class AddDropDown extends Component {
-  constructor(props) {
-    super(props)
-    this.state = { open: false }
-    this.toggle = this.toggle.bind(this);
-  }
+export default props => {
+  const location = useLocation();
+  const [isOpen, setOpen] = useState(false);
 
-  toggle() {
-    this.setState({ open: !this.state.open })
-  }
+  useEffect(() => setOpen(false),
+    [location]
+  );
 
-  render () {
-    return (
-    <div className="dropdown">
-      <button onClick={this.toggle}>
+  const modalContent = useRef(null);
+  useOnOutsideClick(modalContent, e => {
+    e.stopPropagation();
+    setOpen(false)
+  });
+
+  return (
+    <div className="dropdown" ref={modalContent}>
+      <button onClick={() => setOpen(!isOpen)}>
         <AddIcon className="add-icon" />
         <p>Add</p>
       </button>
-      {this.state.open && <div>
+      {isOpen && <div>
         <AuthLink
           content='Add Shop'
           to={{
             pathname: '/new/shop',
             state: {
-              background: this.props.location
+              background: location
             }
           }}
         />
@@ -35,14 +39,12 @@ class AddDropDown extends Component {
           to={{
             pathname: '/new/coffee',
             state: {
-              background: this.props.location
+              background: location
             }
           }}
         />
       </div>}
     </div>
-    )
-  }
+  )
 }
 
-export default AddDropDown;
