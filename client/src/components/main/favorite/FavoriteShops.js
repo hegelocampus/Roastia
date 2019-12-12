@@ -11,7 +11,9 @@ const FavoriteShops = () => {
   return (
     <Query query={FETCH_FAVORITE_SHOPS}>
       {({ loading, error, data }) => {
+
         if (loading) return 'Loading...';
+        if (error) return 'Error';
 
         if (data.fetchFavoriteShops.length === 0) {
           return (
@@ -33,7 +35,7 @@ const FavoriteShops = () => {
             <div className="saved-shops-container">
               {data.fetchFavoriteShops.map(shop => (
                 <div key={shop.id} className="shop-item">
-                  <img src={shop.imageURL} alt="shop-image" />
+                  <img src={shop.imageURL} alt="shop" />
                   <div className="shop-item-detail">
                     <li className="shop-item-name">{shop.name}</li>
                     <div className="shop-item-address">
