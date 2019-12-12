@@ -1,7 +1,8 @@
 .cofee-filter-container {
   display: flex;
+  width: 25%;
   flex-direction: column;
-  padding: 15px;
+  padding: 0 0 0 15px;
 }
 
 .coffee-filter-section {
@@ -9,6 +10,7 @@
   flex-wrap: wrap;
   flex-direction: column;
   align-items: flex-start;
+  margin-bottom: 15px;
 }
 
 .coffee-filter-section span {
@@ -16,12 +18,14 @@
   font-weight: bold;
   font-size: 15px;
   margin-bottom: 15px;
-  margin-top: 15px;
 }
 
 .coffee-filter-options {
+  width: 100%;
   font-size: 15px;
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  justify-content: space-between;
   flex-wrap: wrap;
 }
 
@@ -44,7 +48,7 @@
   background: white;
   border-radius: 10px;
   margin-right: 25px;
-  margin-top: 25px;
+  margin-bottom: 25px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -56,11 +60,9 @@
   height: 130px;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
-  
 }
 
 .filtered-coffee-container {
-  padding-left: 20px;
   display: flex;
   flex-wrap: wrap;
 }
