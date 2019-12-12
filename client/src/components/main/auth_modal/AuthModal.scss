@@ -22,6 +22,15 @@
   padding-bottom: 30px;
 }
 
+.auth-modal-content {
+  font-size: 16px;
+  span > a {
+    display: inline-block;
+    margin-left: 5px;
+    height: 30px;
+  }
+}
+
 .auth-modal-body {
   margin: auto;
   height: 80%;

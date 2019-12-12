@@ -18,7 +18,7 @@ export default ({ to, content, notice, ...rest }) => {
   ) : (
     <Link
       to={{
-        pathname: '/signup',
+        pathname: '/login',
         state: {
           background: location,
           notice: notice ? 'You must sign in before performing that action' : null,
