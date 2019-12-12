@@ -1,8 +1,7 @@
 @import 'variables';
 
 .coffee-form-container {
-  background-color: $background-light;
-  width: 90%;
+  width: 100%;
   min-height: 100%;
   margin: auto;
 }
@@ -10,26 +9,33 @@
 .coffee-form {
   width: 100%;
   display: flex;
+  align-items: stretch;
   flex-direction: column;
+  h1 {
+    padding: 18px 0 15px 0;
+    font-size: 20px;
+  }
   label, input, button {
-    font-size: 16px;
     margin-top: 5px;
   }
   input,
   select,
   button {
-    margin-top: 15px;
-    margin-bottom: 15px;
+    width: 100%;
+    font-size: 16px;
+    margin-top: 20px;
     height: 46px;
     background-color: darken(#ffffff, 10%);
+    border: none;
     border-radius: 3px;
   }
   button {
-    margin-top: 5px;
+    margin-top: 20px;
     background-color: darken(#ffffff, 20%);
     font-weight: 600;
     &:hover {
       cursor: pointer;
+      background-color: darken(#ffffff, 30%);
     }
   }
 }

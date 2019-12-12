@@ -2,8 +2,9 @@ import React from 'react';
 import { useMutation } from '@apollo/react-hooks';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { useHistory } from 'react-router-dom';
-import RenderErrors from '../../util/RenderErrors';
 import { CoffeeSchema } from './CoffeeSchema.js';
+import RenderErrors from '../../util/RenderErrors';
+import FormErrorMessage from '../../util/FormErrorMessage';
 import './CoffeeForm.scss';
 
 import Mutations from '../../../graphql/mutations';
@@ -36,9 +37,9 @@ export default props => {
         <Form className="coffee-form">
           <h1>Add a New Coffee</h1>
           <Field name="name" type="text" placeholder="Coffee Name" />
-          <ErrorMessage name="name" />
+          <FormErrorMessage name="name" />
           <Field name="origin" type="text" placeholder='Origin or "Blend"' />
-          <ErrorMessage name="origin" />
+          <FormErrorMessage name="origin" />
           <Field name="processing" as="select" placeholder="Processing Method">
             <option value="" disabled>
               Processing Method
@@ -48,7 +49,7 @@ export default props => {
             <option value="honey">Honey/Semi-washed</option>
             <option value="natural">Natural/Dry</option>
           </Field>
-          <ErrorMessage name="processing" />
+          <FormErrorMessage name="processing" />
           <Field name="roasting" as="select" placeholder="Roast">
             <option value="" disabled>
               Roast
@@ -60,9 +61,9 @@ export default props => {
             <option value="medium-dark">Medium-dark</option>
             <option value="dark">Dark</option>
           </Field>
-          <ErrorMessage name="roasting" />
+          <FormErrorMessage name="roasting" />
           <Field name="price" type="number" placeholder="Price" />
-          <ErrorMessage name="price" />
+          <FormErrorMessage name="price" />
           <button type="submit">Submit</button>
           <RenderErrors errors={error} />
         </Form>

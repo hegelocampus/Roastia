@@ -2,6 +2,7 @@ import React, { useRef } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import CoffeeForm from '../coffee/CoffeeForm';
 import useOnOutsideClick from '../../util/useOnOutsideClick';
+import usePreventScrollWhenOpen from '../../util/usePreventScrollWhenOpen';
 import './CoffeeFormModal.scss';
 
 export default ({ background }) => {
@@ -9,6 +10,8 @@ export default ({ background }) => {
   const location = useLocation();
   const formType = location.pathname.match(/([^/]+)\/?$/)[0];
   const coffee = location.state.coffee || null;
+
+  usePreventScrollWhenOpen();
 
   const modalContent = useRef(null);
   useOnOutsideClick(modalContent, e => {

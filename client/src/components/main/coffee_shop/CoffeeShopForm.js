@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { useMutation, useLazyQuery } from '@apollo/react-hooks';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { Formik, Form, Field } from 'formik';
 import { useHistory, useParams } from 'react-router-dom';
 import RenderErrors from '../../util/RenderErrors';
-import { ShopSchema } from './CoffeeShopSchema.js';
+import { ShopSchema } from './CoffeeShopSchema';
+import FormErrorMessage from '../../util/FormErrorMessage';
 import './CoffeeShopForm.scss';
 
 import Queries from '../../../graphql/queries';
@@ -73,45 +74,44 @@ export default ({ formType, shop }) => {
             {formType === 'edit' ? 'Edit Coffee Shop' : 'Add New Coffee Shop'}
           </h1>
           <Field name="name" type="text" placeholder="Cafe Name" />
-          <ErrorMessage name="name" />
+          <FormErrorMessage name="name" />
           <Field
             name="description"
             as="textarea"
             placeholder="Write a brief description of the cafe"
           />
-          <ErrorMessage name="description" />
+          <FormErrorMessage name="description" />
           <Field name="founded" type="text" placeholder="Year Founded" />
-          <ErrorMessage name="founded" />
+          <FormErrorMessage name="founded" />
           <Field
             name="baristaSatisfaction"
             type="number"
             placeholder="Barista Satisfaction Rating"
           />
-          <ErrorMessage name="baristaSatisfaction" />
+          <FormErrorMessage name="baristaSatisfaction" />
           <Field name="url" type="url" placeholder="Cafe URL" />
-          <ErrorMessage name="url" />
+          <FormErrorMessage name="url" />
           <Field name="imageURL" type="url" placeholder="Cafe Image URL" />
-          <ErrorMessage name="imageURL" />
-          <label htmlFor="type">Cafe type:</label>
-          <Field name="type" as="select" placeholder="Roaster">
-            <option value="" disabled>Roaster</option>
+          <FormErrorMessage name="imageURL" />
+          <Field name="type" as="select" placeholder="Cafe Type">
+            <option value="" disabled>Cafe Type</option>
             <option value="coffee bar">Coffee Bar</option>
             <option value="espresso bar">Espresso Bar</option>
             <option value="coffee stand">Coffee Stand</option>
           </Field>
-          <ErrorMessage name="type" />
+          <FormErrorMessage name="type" />
           <Field
             name="address.street"
             type="text"
             placeholder="Street Address"
           />
-          <ErrorMessage name="address.street" />
+          <FormErrorMessage name="address.street" />
           <Field name="address.city" type="text" placeholder="City" />
-          <ErrorMessage name="address.city" />
+          <FormErrorMessage name="address.city" />
           <Field name="address.state" type="text" placeholder="State" />
-          <ErrorMessage name="address.state" />
+          <FormErrorMessage name="address.state" />
           <Field name="address.zip" type="text" placeholder="ZIP" />
-          <ErrorMessage name="address.zip" />
+          <FormErrorMessage name="address.zip" />
           <button type="submit">Submit</button>
           <RenderErrors errors={error} />
         </Form>

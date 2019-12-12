@@ -3,6 +3,7 @@ import { Link, useHistory, useLocation } from 'react-router-dom';
 import Login from './Login';
 import Register from './Register';
 import useOnOutsideClick from '../../util/useOnOutsideClick';
+import usePreventScrollWhenOpen from '../../util/usePreventScrollWhenOpen';
 import './AuthModal.scss';
 
 export default ({ background }) => {
@@ -13,16 +14,7 @@ export default ({ background }) => {
   );
   const notice = location.state && location.state.notice;
 
-  useLayoutEffect(() => {
-    document.body.style.position = 'fixed';
-    document.body.style.top = `-${window.scrollY}px`;
-    return () => {
-      const scrollY = document.body.style.top;
-      document.body.style.position = '';
-      document.body.style.top = '';
-      window.scrollTo(0, parseInt(scrollY || '0') * -1);
-    }
-  });
+  usePreventScrollWhenOpen();
 
   const modalContent = useRef(null);
   useOnOutsideClick(modalContent, e => {

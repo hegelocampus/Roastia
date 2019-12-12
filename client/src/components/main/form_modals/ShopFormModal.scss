@@ -15,18 +15,20 @@
 }
 
 .shop-modal-content {
-  background-color: $background-light;
+  background-color: #ffffff;
   margin: auto;
+  overflow: auto;
   margin-top: 35px;
   display: block;
   position: relative;
-  width: 70%;
+  width: 85%;
   height: auto;
+  max-height: 90%;
 }
 
 .shop-modal-body {
   margin: auto;
-  width: 85%;
+  width: 80%;
 }
 
 .shop-modal-header {

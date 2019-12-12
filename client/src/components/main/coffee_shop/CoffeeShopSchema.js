@@ -11,8 +11,12 @@ const ShopSchema = object({
   baristaSatisfaction: number().required(
     "Barista satisfaction score is required (it's OK to guess)"
   ),
-  url: string().required(),
-  imageURL: string().required(),
+  url: string()
+    .required()
+    .label('Cafe URL'),
+  imageURL: string()
+    .required()
+    .label('Image URL'),
   address: object({
     street: string().required('Please enter a street address'),
     city: string().required('Please enter a city'),
