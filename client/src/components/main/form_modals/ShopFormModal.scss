@@ -1,6 +1,6 @@
 @import 'variables';
 
-.modal-screen {
+.shop-modal-screen {
   position: absolute;
   display: block;
   top: 0;
@@ -14,7 +14,7 @@
   z-index: 1000;
 }
 
-.modal-content {
+.shop-modal-content {
   background-color: $background-light;
   margin: auto;
   margin-top: 35px;
@@ -24,12 +24,12 @@
   height: auto;
 }
 
-.modal-body {
+.shop-modal-body {
   margin: auto;
   width: 85%;
 }
 
-.modal-header {
+.shop-modal-header {
   font-size: 20px;
   padding: 8px 0 10px 0;
 }

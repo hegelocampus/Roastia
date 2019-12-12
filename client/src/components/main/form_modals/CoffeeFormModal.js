@@ -17,9 +17,9 @@ export default ({ background }) => {
   });
 
   return (
-    <div className="modal-screen">
-      <div className="modal-content" ref={modalContent}>
-        <div className="modal-body">
+    <div className="coffee-modal-screen">
+      <div className="coffee-modal-content" ref={modalContent}>
+        <div className="coffee-modal-body">
           <CoffeeForm coffee={coffee} formType={formType} />
         </div>
       </div>

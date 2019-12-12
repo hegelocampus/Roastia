@@ -1,6 +1,6 @@
 @import 'variables';
 
-.modal-screen {
+.coffee-modal-screen {
   position: absolute;
   display: block;
   top: 0;
@@ -14,22 +14,22 @@
   z-index: 1000;
 }
 
-.modal-content {
+.coffee-modal-content {
   background-color: $background-light;
   margin: auto;
   margin-top: 35px;
   display: block;
   position: relative;
-  width: 70%;
-  height: auto;
+  width: 85%;
+  height: 85%;
 }
 
-.modal-body {
+.coffee-modal-body {
   margin: auto;
   width: 85%;
 }
 
-.modal-header {
+.coffee-modal-header {
   font-size: 20px;
   padding: 8px 0 10px 0;
 }
