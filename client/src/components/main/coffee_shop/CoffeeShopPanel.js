@@ -23,7 +23,7 @@ export default ({ shop, extraContent }) => {
             </span>
           </div>
           <div className="panel-coffee">
-            <span id="panel-coffee">COFFEE</span>
+            <span class="panel-coffee-subtitle">COFFEE</span>
             <div className="panel-processing">
               <BeanIcon />
               <p>
