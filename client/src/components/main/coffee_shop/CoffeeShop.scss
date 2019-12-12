@@ -100,7 +100,7 @@
 
 .coffee-shop-details {
   width: 80%;
-  margin: 0 0 0 30px;
+  margin: 0 0 0 20px;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
@@ -114,17 +114,28 @@
 }
 
 .coffee-shop-details li {
-  margin-left: 40px;
+
   font-size: 16px;
-  list-style-image: url("https://we-camp-seeds.s3.us-east-2.amazonaws.com/coffee-shop.png");
+  list-style: none;
+  margin-bottom: 10px;
+ 
 }
 
+.coffee-shop-details img {
+  width: 30px;
+  height: 30px;
+  box-shadow: none;
+  margin-right: 10px;
+}
+
+
 .coffee-section-container {
-  width: 80%;
+  width: 90%;
   height: auto;
   background: $primary-light;
   padding: 0 20px 20px 20px;
   margin-left: 20px;
   margin-bottom: 30px;
+  border-radius: 5px;
 }
 

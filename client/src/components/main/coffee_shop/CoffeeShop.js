@@ -69,10 +69,22 @@ export default () => {
         <div className="coffee-shop-details">
           <h1>Coffee Shop details for {name}</h1>
           <ul>
-            <li>Founded in {founded}</li>
-            <li>{type}</li>
-            <li><a href={ url }>{url}</a></li>
-            <li>Barista Satisfaction: {baristaSatisfaction}</li>
+            <li>
+              <img src="https://we-camp-seeds.s3.us-east-2.amazonaws.com/Coffee+bar+year.png" />
+              Founded in {founded}
+            </li>
+            <li>
+              <img src="https://we-camp-seeds.s3.us-east-2.amazonaws.com/Coffee+bar+type.png" />
+              {type}
+            </li>
+            <li>
+              <img src="https://we-camp-seeds.s3.us-east-2.amazonaws.com/Coffee+website.png" />
+              <a href={url}>{url}</a>
+            </li>
+            <li>
+              <img src="https://we-camp-seeds.s3.us-east-2.amazonaws.com/Coffee+satisfaction.png" />
+              Barista Satisfaction: {baristaSatisfaction}
+            </li>
           </ul>
         </div>
       </div>
