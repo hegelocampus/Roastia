@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useLayoutEffect } from 'react';
 import { Link, useHistory, useLocation } from 'react-router-dom';
 import Login from './Login';
 import Register from './Register';
@@ -12,6 +12,17 @@ export default ({ background }) => {
     location.pathname.match(/([^/]+)\/?$/)[0]
   );
   const notice = location.state && location.state.notice;
+
+  useLayoutEffect(() => {
+    document.body.style.position = 'fixed';
+    document.body.style.top = `-${window.scrollY}px`;
+    return () => {
+      const scrollY = document.body.style.top;
+      document.body.style.position = '';
+      document.body.style.top = '';
+      window.scrollTo(0, parseInt(scrollY || '0') * -1);
+    }
+  });
 
   const modalContent = useRef(null);
   useOnOutsideClick(modalContent, e => {
@@ -65,10 +76,10 @@ export default ({ background }) => {
   }
 
   return (
-    <div className="modal-screen">
-      <div className="modal-content" ref={modalContent}>
-        <div className="modal-body">
-          <div className="modal-header">
+    <div className="auth-modal-screen">
+      <div className="auth-modal-content" ref={modalContent}>
+        <div className="auth-modal-body">
+          <div className="auth-modal-header">
             <div className="welcome-message">
               <img
                 src="https://roastia.s3.us-east-2.amazonaws.com/roastia+logo-01.png"
