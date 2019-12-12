@@ -1,4 +1,4 @@
-.modal-screen {
+.auth-modal-screen {
   position: absolute;
   display: block;
   top: 0;
@@ -9,25 +9,26 @@
   z-index: 1000;
 }
 
-.modal-content {
+.auth-modal-content {
   background-color: #ffffff;
   margin: auto;
+  overflow: auto;
   margin-top: 35px;
   display: block;
   position: relative;
-  width: 20%;
-  height: auto;
+  width: 85%;
+  height: 85%;
   padding-top: 20px;
   padding-bottom: 30px;
-  border-radius: 3%;
 }
 
-.modal-body {
+.auth-modal-body {
   margin: auto;
+  height: 80%;
   width: 85%;
 }
 
-.modal-header {
+.auth-modal-header {
   font-size: 20px;
   padding: 8px 0 10px 0;
 }
@@ -37,19 +38,19 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  label {
+  label, input, button {
+    font-size: 16px;
     margin-top: 5px;
   }
   input,
   button {
-    margin-top: 10px;
-    margin-bottom: 3px;
-    height: 26px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    height: 46px;
     background-color: darken(#ffffff, 10%);
-    border-radius: 5px;
+    border-radius: 3px;
   }
   button {
-    margin-bottom: 30px;
     margin-top: 5px;
     background-color: darken(#ffffff, 20%);
     font-weight: 600;
