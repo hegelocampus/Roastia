@@ -1,6 +1,6 @@
 import React from 'react';
 import Search from './Search';
-import { CoffeeToGoIcon, CoffeeShopIcon, CoffeeFilterIcon } from '../util/icons';
+import { CoffeeToGoIcon, CoffeeShopIcon, CoffeeFilterIcon, GitHubIcon } from '../util/icons';
 import './splash.scss';
 
 export default () => (
@@ -21,7 +21,7 @@ export default () => (
           </div>
           <p>
             <strong>Search</strong> for coffee shops by location, name or coffee
-            name and origin. Our curated list of shops feature coffee with a 
+            name and origin. Our curated list of shops feature coffee with a
             variety of origins, roasts and processing methods.
           </p>
         </div>
@@ -31,7 +31,7 @@ export default () => (
           </div>
           <p>
             <strong>Filter</strong> coffees by the processing, roast, origin and
-            flavors you care about on each shop's page. That way you can easily 
+            flavors you care about on each shop's page. That way you can easily
             narrow in on the perfect shop and brew.
           </p>
         </div>
@@ -41,19 +41,62 @@ export default () => (
           </div>
           <p>
             <strong>Save</strong> your favorite shops so you'll know where to
-            try next. Every time you log in, you'll be able to access shops you've 
-            flagged so you can see if they've released any new coffee.
+            try next. Every time you log in, you'll be able to access shops
+            you've flagged so you can see if they've released any new coffee.
           </p>
         </div>
       </div>
     </section>
     <footer className="splash-footer">
-      <a href="https://github.com/hegelocampus/Roastia">
-        <img
-          src="https://roastia.s3.us-east-2.amazonaws.com/GitHub-Mark-64px.png"
-          alt="git"
-        />
-      </a>
+      <h3>GITHUB AND TEAM</h3>
+      <div className="about-team">
+        <GitHubIcon />
+        <div className="about-team-member tooltip-long">
+          <a
+            id="linkedin"
+            href="https://www.linkedin.com/in/long-mcfarlin-7bb60994/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <img
+              className="about-team-member-img"
+              alt="long"
+              src="https://roastia.s3.us-east-2.amazonaws.com/long.jpeg"
+            ></img>
+          </a>
+          <span className="long">Long McFarlin</span>
+        </div>
+        <div className="about-team-member tooltip-bee">
+          <a
+            id="linkedin"
+            href="https://www.linkedin.com/in/bee-ellis-2b126b185/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <img
+              className="about-team-member-img"
+              alt="bee"
+              src="https://roastia.s3.us-east-2.amazonaws.com/bee.jpeg"
+            ></img>
+          </a>
+          <span className="bee">Bee Ellis</span>
+        </div>
+        <div className="about-team-member tooltip-john">
+          <a
+            href="https://www.linkedin.com/in/johnmsteen/"
+            target="_blank"
+            id="linkedin"
+            rel="noopener noreferrer"
+          >
+            <img
+              className="about-team-member-img"
+              alt="john"
+              src="https://roastia.s3.us-east-2.amazonaws.com/john.jpeg"
+            ></img>
+          </a>
+          <span className="john">John Steen</span>
+        </div>
+      </div>
     </footer>
   </React.Fragment>
 );
