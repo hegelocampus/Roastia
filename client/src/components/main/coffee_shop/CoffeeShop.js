@@ -70,19 +70,19 @@ export default () => {
           <h1>Coffee Shop details for {name}</h1>
           <ul>
             <li>
-              <img src="https://we-camp-seeds.s3.us-east-2.amazonaws.com/Coffee+bar+year.png" />
+              <img src="https://we-camp-seeds.s3.us-east-2.amazonaws.com/Coffee+bar+year.png" alt="found-year" />
               Founded in {founded}
             </li>
             <li>
-              <img src="https://we-camp-seeds.s3.us-east-2.amazonaws.com/Coffee+bar+type.png" />
+              <img src="https://we-camp-seeds.s3.us-east-2.amazonaws.com/Coffee+bar+type.png" alt="shop-type" />
               {type}
             </li>
             <li>
-              <img src="https://we-camp-seeds.s3.us-east-2.amazonaws.com/Coffee+website.png" />
+              <img src="https://we-camp-seeds.s3.us-east-2.amazonaws.com/Coffee+website.png" alt="shop-website" />
               <a href={url}>{url}</a>
             </li>
             <li>
-              <img src="https://we-camp-seeds.s3.us-east-2.amazonaws.com/Coffee+satisfaction.png" />
+              <img src="https://we-camp-seeds.s3.us-east-2.amazonaws.com/Coffee+satisfaction.png" alt="shop-score" />
               Barista Satisfaction: {baristaSatisfaction}
             </li>
           </ul>
