@@ -1,5 +1,6 @@
 import React from 'react';
 import Search from './Search';
+import { CoffeeToGoIcon, CoffeeShopIcon, CoffeeFilterIcon } from '../util/icons';
 import './splash.scss';
 
 export default () => (
@@ -15,34 +16,33 @@ export default () => (
       </div>
       <div className="app-intro">
         <div>
-          <img
-            src="https://roastia.s3.us-east-2.amazonaws.com/icons8-shop-100.png"
-            alt="search-for-shops"
-          />
+          <div className="inner-icon">
+            <CoffeeShopIcon />
+          </div>
           <p>
             <strong>Search</strong> for coffee shops by location, name or coffee
-            origin
+            name and origin. Our curated list of shops feature coffee with a 
+            variety of origins, roasts and processing methods.
           </p>
         </div>
         <div>
-          <img
-            id="filter"
-            src="https://roastia.s3.us-east-2.amazonaws.com/icons8-filter-64.png"
-            alt="filter-coffees"
-          />
+          <div className="inner-icon">
+            <CoffeeFilterIcon />
+          </div>
           <p>
             <strong>Filter</strong> coffees by the processing, roast, origin and
-            flavors you care about
+            flavors you care about on each shop's page. That way you can easily 
+            narrow in on the perfect shop and brew.
           </p>
         </div>
         <div>
-          <img
-            src="https://roastia.s3.us-east-2.amazonaws.com/icons8-coffee-to-go-50.png"
-            alt="save-favorites"
-          />
+          <div className="inner-icon">
+            <CoffeeToGoIcon />
+          </div>
           <p>
             <strong>Save</strong> your favorite shops so you'll know where to
-            try next
+            try next. Every time you log in, you'll be able to access shops you've 
+            flagged so you can see if they've released any new coffee.
           </p>
         </div>
       </div>
@@ -54,16 +54,6 @@ export default () => (
           alt="git"
         />
       </a>
-      <div>
-        <a target="blank" href="/icons/set/coffee">
-          Above icons
-        </a>{' '}
-        by:
-        <a target="blank" href="https://icons8.com">
-          {' '}
-          Icons8
-        </a>
-      </div>
     </footer>
   </React.Fragment>
 );
