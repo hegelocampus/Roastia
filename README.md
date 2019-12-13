@@ -67,7 +67,7 @@ Link: [Roastia](https://roastia.herokuapp.com)
   ```
   
 
-## Functionality and MVPs  
+## Functionality  
   1. Coffee shops  
     * Users can search for coffee shops based on zip code, street, state and name, as well as by coffee name and origin.  
     * Coffee  
