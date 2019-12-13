@@ -1,6 +1,6 @@
 @import 'variables';
 
-.modal-screen {
+.shop-modal-screen {
   position: absolute;
   display: block;
   top: 0;
@@ -14,46 +14,25 @@
   z-index: 1000;
 }
 
-.modal-content {
-  background-color: $background-light;
+.shop-modal-content {
+  background-color: #ffffff;
   margin: auto;
+  overflow: auto;
   margin-top: 35px;
   display: block;
   position: relative;
-  width: 70%;
-  height: auto;
-}
-
-.modal-body {
-  margin: auto;
   width: 85%;
+  height: auto;
+  max-height: 90%;
 }
 
-.modal-header {
+.shop-modal-body {
+  margin: auto;
+  width: 80%;
+}
+
+.shop-modal-header {
   font-size: 20px;
   padding: 8px 0 10px 0;
-}
-
-.login-form, .signup-form {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  label {
-    margin-top: 5px;
-  }
-  input, button {
-    margin-top: 10px;
-    margin-bottom: 3px;
-    height: 26px;
-    background-color: darken(#ffffff, 10%);
-  }
-  button {
-    margin-top: 5px;
-    background-color: darken(#ffffff, 20%);
-    font-weight: 600;
-    &:hover {
-      cursor: pointer;
-    }
-  }
 }
 

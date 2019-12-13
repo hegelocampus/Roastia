@@ -1,10 +1,19 @@
+.panel-coffee-subtitle {
+  font-weight: 600;
+  font-size: 13px;
+  color: #515151;
+  margin-bottom: 10px;
+}
+
 .panel-coffee {
   font-size: 14px;
+  margin-top: 15px;
 }
 
 .panel-processing {
   svg {
     fill: brown;
+    margin-right: 5px;
   }
 }
 
@@ -33,7 +42,8 @@
 .panel-detail {
   display: flex;
   align-items: flex-start;
-  justify-content: space-between;
+  flex-direction: column;
+  width: 45%;
 }
 
 .shops-index-div {
@@ -41,6 +51,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 60%;
+  max-width: 800px
 }
 
 .shops-index-item {
@@ -56,6 +68,8 @@
   a {
     color: black;
     text-decoration: none;
+    display: flex;
+    justify-content: space-evenly;
   }
   h4 {
     margin: 5px 0;
@@ -66,15 +80,9 @@
   }
 }
 
-.shops-index-item:hover {
-  background: rgb(242, 242, 242);
-  border-radius: 4px;
-  top: -5px;
-}
-
 .shop-panel-image {
   height: 200px;
-  width: 100%;
+  width: 45%;
   object-fit: cover;
   border-radius: 5px;
 }

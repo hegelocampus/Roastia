@@ -23,11 +23,12 @@ export default ({ shop, extraContent }) => {
             </span>
           </div>
           <div className="panel-coffee">
+            <span class="panel-coffee-subtitle">COFFEE</span>
             <div className="panel-processing">
               <BeanIcon />
               <p>
                 {shop.coffees && shop.coffees.length >= 1
-                  ? randomCoffee().processing
+                  ? "Processing: " + randomCoffee().processing
                   : "This shop has no coffee!"}
               </p>
             </div>
@@ -35,7 +36,7 @@ export default ({ shop, extraContent }) => {
               <OriginIcon />
               <p>
                 {shop.coffees && shop.coffees.length >= 1
-                  ? randomCoffee().origin
+                  ? "Origin: " + randomCoffee().origin
                   : "No origin listed"}
               </p>
             </div>
@@ -43,7 +44,7 @@ export default ({ shop, extraContent }) => {
               <FlavorIcon />
               <p>
                 {shop.coffees && shop.coffees.length >= 1
-                  ? randomCoffee().flavor.slice(0, 2).join(", ")
+                  ? "Flavors: " + randomCoffee().flavor.slice(0, 2).join(", ")
                   : "No flavors listed"}
               </p>
             </div>

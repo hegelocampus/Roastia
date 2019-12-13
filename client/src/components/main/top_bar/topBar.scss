@@ -10,12 +10,13 @@
     align-items: center;
     font-weight: 600;
     cursor: pointer;
-    border: 1px solid $primary-dark;
+    //border: 1px solid $primary-dark;
     padding: 5px 15px;
+    margin: 5px;
   }
 
   button:hover {
-    background: $background
+    background: #eae9e9;
   }
 
   div {
@@ -111,6 +112,9 @@
 }
 
 .top-bar-container {
+  font-family: $header-font;
+  line-height: 18px;
+  font-size: 14px;
   width: 100%;
   background-color: $background-light;
   nav {
