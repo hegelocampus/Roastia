@@ -1,6 +1,6 @@
 .cofee-filter-container {
   display: flex;
-  width: 25%;
+  width: fit-content;
   flex-direction: column;
   padding: 0 0 0 15px;
 }
@@ -31,7 +31,8 @@
 
 .option {
   display: flex;
-  margin-bottom: 10px
+  margin-bottom: 10px;
+  white-space: nowrap;
 }
 
 .option input {
@@ -65,6 +66,7 @@
 .filtered-coffee-container {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
 }
 
 .coffee-detail {
