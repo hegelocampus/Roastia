@@ -20,8 +20,7 @@ const CoffeeSchema = new Schema({
     },
     flavor: [
         {
-        type: String,
-        required: true
+        type: String
         }
     ],
     price: {
