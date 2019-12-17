@@ -135,14 +135,14 @@ const RootQueryType = new GraphQLObjectType({
                 let filters = {}
 
                 if (processing) {
-                  filters.processing = processing
+                  filters.processing = { '$regex': processing, '$options': 'i' };
                 }
                 if (roasting) {
-                  filters.roasting = roasting
+                  filters.roasting = { '$regex': roasting, '$options': 'i' };
                 }
                 if (flavor && flavor.length !== 0) {
                   const filterStr = flavor.map(flavor => `.*${flavor}.*`)
-                  const flavorFilter = filterStr.map(str => new RegExp(str))
+                  const flavorFilter = filterStr.map(str => new RegExp(str, "i"))
 
                   filters.flavor = { $in: flavorFilter };
                 }
