@@ -2,7 +2,6 @@ import './CoffeeShop.scss';
 import React from 'react';
 import { useParams, useLocation } from 'react-router-dom';
 import { useQuery } from '@apollo/react-hooks';
-import CoffeeIndex from '../coffee/CoffeeIndex';
 import AuthLink from '../../util/AuthLink';
 
 import Queries from '../../../graphql/queries';
