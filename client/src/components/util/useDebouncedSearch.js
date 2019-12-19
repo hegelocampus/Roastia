@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'; // eslint-disable-line no-unused-vars
 import DebouncePromise from 'awesome-debounce-promise';
 import { useApolloClient } from '@apollo/react-hooks';
 import { useAsync } from 'react-async-hook';
@@ -8,7 +8,6 @@ const { SEARCH_SHOPS } = Queries;
 
 export default props => {
   const client = useApolloClient();
-  const [suggestions, setSuggestions] = useState([]);
   const [filter, setFilter] = useState('');
 
   const [debouncedQuery] = useState(
@@ -29,12 +28,6 @@ export default props => {
       150
     )
   )
-
-  const changeQuery = e => {
-    e.preventDefault();
-    setFilter(e.target.value);
-    return debouncedQuery(e.target.value);
-  };
 
   const search = useAsync(debouncedQuery, [filter]);
 

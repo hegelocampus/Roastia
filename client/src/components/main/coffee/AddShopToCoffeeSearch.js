@@ -5,7 +5,7 @@ import useDebouncedSearch from '../../util/useDebouncedSearch';
 
 export default ({ coffeeId }) => {
   const addRelation = useAddShopToCoffee(coffeeId);
-  const { filter, setFilter, search} = useDebouncedSearch()
+  const { filter, setFilter, search} = useDebouncedSearch();
 
   return (
     <form className="cafe-search-bar-container" onSubmit={ e => e.preventDefault() }>
