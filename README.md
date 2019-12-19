@@ -4,7 +4,7 @@ Link: [Roastia](https://roastia.herokuapp.com)
 
 ![Home Page](https://roastia.s3.us-east-2.amazonaws.com/Animated+GIF-downsized_large.gif)
 
-## Background and Overview 
+## Background and Overview
   Craft coffee shops have experienced high growth over the recent decade,
   and as such, demand has increased for fair-trade, ethically-sourced,
   craft coffee across the country.
@@ -12,8 +12,8 @@ Link: [Roastia](https://roastia.herokuapp.com)
   Roastia allows indie coffee enthusiasts to find craft coffee shops
   by location, name, origin and coffee attributes. They can then filter a shop's coffee by desired taste qualities.
 
-## Technologies  
-### Backend:  
+## Technologies
+### Backend:
   * MongoDB — NoSQL database
   * Mongoose — Object Data Modeling (ODM)
   * Express.js — Server framework
@@ -28,8 +28,8 @@ Link: [Roastia](https://roastia.herokuapp.com)
   * React Autosuggest — Provides realtime text suggestions for user search input
 
 
-## Technical Challenges  
-  ## Partial-text Search  
+## Technical Challenges
+  ### Partial-text Search
   MongoDB does not directly support partial-word matching as it does with full-text
   search.
 
@@ -65,9 +65,48 @@ Link: [Roastia](https://roastia.herokuapp.com)
         }
     }
   ```
-  
 
-## Functionality  
+  ### Debouncing Search in React
+  We knew that we needed to add debouncing to the searches because without debouncing the server would process the desired filter parameters for each individual inputted character, this results in a significant amount of unproductive strain on the servers. But, because of React's event pooling which foils any traditional debouncing methods, optimizing code through the use of debouncing was a substantial challenge.  
+  We overcame this challenge through the use of the packages [awesome-debounce-promise](https://github.com/slorber/awesome-debounce-promise) and [react-async-hook](https://github.com/slorber/react-async-hook). Through these we were able to engineer the following hook, that handled both the debouncing of the request callbacks and actual construction of the requests.
+  ```javascript
+export default props => {
+  const client = useApolloClient();
+  const [filter, setFilter] = useState('');
+
+  const [debouncedQuery] = useState(
+    () => DebouncePromise((value) => {
+      if (value.length < 1) {
+        return [];
+      } else {
+        return client.query({
+          query: SEARCH_SHOPS,
+          variables: { filter: value },
+        }).then(({ data: { searchShops }}) => {
+          return searchShops;
+        }, e => {
+          return [];
+        })
+      }
+    },
+      150
+    )
+  )
+
+  const search = useAsync(debouncedQuery, [filter]);
+
+  return {
+    filter,
+    setFilter,
+    search
+  }
+}
+  ```
+  Then when it came time to actually implement the debounced query all we had to do was insert the following line of code into the desired component:
+```javascript
+const { filter, setFilter, search} = useDebouncedSearch();
+```
+## Functionality
   1. Coffee shops  
     * Users can search for coffee shops based on zip code, street, state and name, as well as by coffee name and origin.  
     * Coffee  
