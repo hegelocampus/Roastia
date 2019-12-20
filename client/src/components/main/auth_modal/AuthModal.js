@@ -1,4 +1,4 @@
-import React, { useState, useRef, useLayoutEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import { Link, useHistory, useLocation } from 'react-router-dom';
 import Login from './Login';
 import Register from './Register';
