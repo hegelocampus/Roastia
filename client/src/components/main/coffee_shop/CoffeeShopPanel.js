@@ -11,7 +11,7 @@ export default ({ shop, extraContent }) => {
         <img
           className="shop-panel-image"
           src={shop.imageURL}
-          alt="shop image"
+          alt={`profile for ${ shop.name }`}
         />
         <div className="panel-detail">
           <div className="panel-shop">
