@@ -51,7 +51,7 @@ CoffeeSchema.statics.addCoffeeToShop = (coffeeId, coffeeShopId) => {
       coffee.shops.push(shop);
       shop.coffees.push(coffee);
       return Promise.all([coffee.save(), shop.save()]).then(
-        ([coffee, shop]) => coffee
+        ([coffee, shop]) => { coffee, shop }
       );
     });
   });
