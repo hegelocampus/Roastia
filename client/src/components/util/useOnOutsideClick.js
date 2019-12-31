@@ -12,6 +12,8 @@ export default (ref, action) => {
     return () => {
       document.removeEventListener("click", handleClickOutside);
     };
-  });
+  },
+    []
+  );
 }
 
