@@ -71,6 +71,16 @@ const mutation = new GraphQLObjectType({
                 return AuthService.verifyUser(args);
             }
         },
+        addShopToCoffee: {
+            type: CoffeeType,
+            args: {
+                coffeeId: { type: GraphQLID },
+                coffeeShopId: { type: GraphQLID },
+            },
+            resolve(parentValue, args) {
+                return Coffee.addCoffeeToShop(args.coffeeId, args.coffeeShopId)
+            }
+        },
         addCoffeeToShop: {
             type: CoffeeType,
             args: {

@@ -53,6 +53,17 @@ export default {
       }
     }
   `,
+  SEARCH_COFFEES: gql`
+    query searchCoffees($filter: String!) {
+      searchCoffees(filter: $filter) {
+        id
+        name
+        origin
+        price
+        __typename
+      }
+    }
+  `,
   SEARCH_SHOPS: gql`
     query searchShops($filter: String!) {
       searchShops(filter: $filter) {

@@ -1,6 +1,6 @@
 import React from 'react';
 import useAddShopToCoffee from './useAddShopToCoffee';
-import useDebouncedSearch from '../../util/useDebouncedSearch';
+import useDebouncedSearch from '../../util/useDebouncedShopSearch';
 //import './search.scss';
 
 export default ({ coffeeId }) => {

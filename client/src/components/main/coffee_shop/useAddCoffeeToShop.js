@@ -2,38 +2,40 @@ import { useMutation } from '@apollo/react-hooks';
 
 import Queries from '../../../graphql/queries';
 import Mutations from '../../../graphql/mutations';
-const { FETCH_COFFEE } = Queries;
+const { FETCH_SHOP } = Queries;
 const { ADD_COFFEE_TO_SHOP } = Mutations;
 
 export default (shop) => {
   const [addCoffeeToShop] = useMutation(ADD_COFFEE_TO_SHOP);
-  return (coffee) => {
+  return (coffeeId) => {
+    console.log(`coffee: ${coffeeId}`,`shop: ${shop.id}`);
     addCoffeeToShop({
-      variables: { coffeeShopId: shopId, coffeeId: coffee.id },
+      variables: { coffeeShopId: shop.id, coffeeId: coffeeId },
       optimisticResponse: {
         __typename: "Mutation",
         addCoffeeToShop: {
           id: coffeeId,
-          name: coffee.name,
           __typename: "Coffee",
           shops: [{
             id: shop.id,
-            name: shop.name,
-            address: shop.address,
             __typename: "CoffeeShop"
           }]
         }
       },
-      update: (proxy, { data } }) => {
-        const data = proxy.readQuery({
-          query: FETCH_COFFEE,
+      update: (proxy, { data }) => {
+        const oldData = proxy.readQuery({
+          query: FETCH_SHOP,
           variables: {
-            id: coffeeId,
+            id: shop.id,
+            name: shop.name,
+            __typename: "CoffeeShop"
           },
         });
+        console.log(oldData);
+        console.log(data);
         proxy.writeQuery({ query: FETCH_SHOP, data: {
           ...data,
-          coffees: [...data.shop.coffees, data.addCoffeeToShop.shops]
+          coffees: [...oldData.coffeeShop.coffees, data.addCoffeeToShop]
         }});
       }
     });
