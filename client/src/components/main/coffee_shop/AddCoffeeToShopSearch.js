@@ -28,7 +28,7 @@ export default ({ shop }) => {
             key={coffee.id + i}
             onClick={e => {
               e.preventDefault();
-              addRelation(coffee.id);
+              addRelation(coffee);
             }}
           >
             <div className="suggestion">

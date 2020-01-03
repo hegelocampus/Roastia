@@ -59,21 +59,20 @@ export default () => {
               <React.Fragment key={shop.id + i}>
                 <CoffeeShopPanel
                   shop={shop}
-                  extraContent={(
-                  <AuthLink
-                  className="remove-shop-link"
-                  to={{
-                    pathname: '/relation/remove',
-                    state: {
-                      background: location,
-                      shopId: shop.id,
-                      coffeeId: id,
-                    }
-                  }}
-                  notice={true}
-                  content="Remove shop"
-                />)}
-              />
+                  extraContent={<AuthLink
+                    className="remove-shop-link"
+                    to={{
+                      pathname: '/relation/remove',
+                      state: {
+                        background: location,
+                        shopId: shop.id,
+                        coffeeId: id,
+                      }
+                    }}
+                    notice={true}
+                    content="Remove shop"
+                  />}
+                />
               </React.Fragment>
             ))}
           </ul>

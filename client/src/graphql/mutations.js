@@ -166,16 +166,16 @@ export default {
       ) {
         id
         __typename
-        shops {
+        name
+        origin
+        processing
+        roasting
+        flavor
+        price
+        coffees {
           id
           name
           __typename
-          address {
-            city
-            state
-            street
-            zip
-          }
         }
       }
     }
