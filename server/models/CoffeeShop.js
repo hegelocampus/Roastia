@@ -133,5 +133,5 @@ CoffeeShopSchema.statics.removeCoffeeFromShop = (coffeeShopId, coffeeId) => {
 
 
 
-module.exports = mongoose.model("coffeeShops", CoffeeShopSchema);
+module.exports = mongoose.model("coffeeShop", CoffeeShopSchema);
 
