@@ -29,17 +29,6 @@ $background-image: 'https://roastia.s3.us-east-2.amazonaws.com/roastia-home.jpeg
   };
 }
 
-#filter-icon {
-  @media only screen and (max-width: 1200px) {
-    height: 80px;
-  }
-  @media only screen and (min-width: 1201px) and (max-width: 1500px) {
-    width: 100px;
-    height: 100px;
-  }
-  height: 110px; 
-}
-
 .git-icon {
   svg {
     height: 50px;
@@ -67,19 +56,6 @@ $background-image: 'https://roastia.s3.us-east-2.amazonaws.com/roastia-home.jpeg
   }
   height: 175px;
   margin-bottom: 25px;
-}
-
-.splash-icons {
-  @media only screen and (max-width: 1200px) {
-    height: 120px;
-    width: 120px;
-  }
-  @media only screen and (min-width: 1201px) and (max-width: 1500px) {
-    width: 140px;
-    height: 140px;
-  }
-  width: 175px;
-  height: 175px;
 }
 
 .splash-footer {
@@ -211,7 +187,7 @@ $background-image: 'https://roastia.s3.us-east-2.amazonaws.com/roastia-home.jpeg
     z-index: 1;
     top: 110%;
     left: 50%;
-    margin-left: -67px; 
+    margin-left: -67px;
   }
   &:hover .long {
     visibility: visible;
@@ -258,7 +234,7 @@ $background-image: 'https://roastia.s3.us-east-2.amazonaws.com/roastia-home.jpeg
     margin-left: -67px;
   }
   &:hover .bee {
-    visibility: visible;  
+    visibility: visible;
   }
 }
 
