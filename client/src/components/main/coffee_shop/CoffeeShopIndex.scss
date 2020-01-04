@@ -40,7 +40,7 @@
     list-style: none;
     display: flex;
     align-items: stretch;
-    flex-direction: column;
+    flex-wrap: wrap;
     justify-content: flex-start;
   }
 }
