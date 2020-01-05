@@ -1,58 +1,95 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import styled from 'styled-components';
 import "./CoffeeShopIndex.scss";
-import { BeanIcon, OriginIcon, FlavorIcon } from '../../util/icons';
 
-export default ({ shop, extraContent }) => {
-  const randomCoffee = () => shop.coffees[Math.floor(Math.random() * shop.coffees.length)];
+import toTitleCase from '../../util/toTitleCase';
+import ShopPanelCoffees from './ShopPanelCoffees';
+
+const ShopIndexItem = styled.li`
+  display: flex;
+  flex-direction: column;
+  margin: 15px 0;
+  padding: 10px 10px 10px 10px;
+  position: relative;
+  width: 100%;
+  top: 0;
+  transition: top ease 0.5s;
+  transition: ease-out 0.5s;
+  @media only screen and (max-width: 1200px) {
+    max-width: 100%;
+  }
+  h4 {
+    margin: 5px 0;
+  }
+`;
+
+const ShopLink = styled(Link)`
+  color: black;
+  text-decoration: none;
+  display: flex;
+  justify-content: flex-start;
+  @media only screen and (max-width: 1200px) {
+    flex-direction: column;
+  }
+`;
+
+const PanelDetail = styled.div`
+  font-size: 14px;
+  display: flex;
+  align-items: stretch;
+  flex-direction: column;
+  width: 45%;
+  p {
+    line-height: 1.1em;
+  }
+  @media only screen and (max-width: 1200px) {
+    width: 100%;
+  }
+`;
+
+const PanelHeader = styled.div`
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: stretch;
+`;
+
+const ShopPanelImage = styled.img`
+  display: border-box;
+  margin-right: 10px;
+  height: 200px;
+  width: 280px;
+  object-fit: cover;
+  border-radius: 5px;
+  @media only screen and (max-width: 1200px) {
+    width: 100%;
+  }
+`;
+
+export default ({ shop: { id, imageURL, name, type, address, coffees }, extraContent }) => {
+  const shopType = toTitleCase(type);
+
   return (
-    <li key={shop.id} className="shops-index-item">
-      <Link to={`/shop/${shop.id}`}>
-        <img
-          className="shop-panel-image"
-          src={shop.imageURL}
-          alt={`profile for ${ shop.name }`}
+    <ShopIndexItem >
+      <ShopLink to={`/shop/${id}`}>
+        <ShopPanelImage
+          src={imageURL}
+          alt={`profile of ${ name }`}
         />
-        <div className="panel-detail">
-          <div className="panel-shop">
-            <h4>{shop.name}</h4>
-            <span>{shop.type}</span>
-            <br />
+        <PanelDetail>
+          <PanelHeader>
+            <h4>{name}</h4>
+            <span>{shopType}</span>
             <span>
-              {`${shop.address.city}, ${shop.address.state} ${shop.address.zip}`}
+              {`${address.city}, ${address.state} ${address.zip}`}
             </span>
-          </div>
-          <div className="panel-coffee">
-            <span className="panel-coffee-subtitle">COFFEE</span>
-            <div className="panel-processing">
-              <BeanIcon />
-              <p>
-                {shop.coffees && shop.coffees.length >= 1
-                  ? "Processing: " + randomCoffee().processing
-                  : "This shop has no coffee!"}
-              </p>
-            </div>
-            <div className="panel-origin">
-              <OriginIcon />
-              <p>
-                {shop.coffees && shop.coffees.length >= 1
-                  ? "Origin: " + randomCoffee().origin
-                  : "No origin listed"}
-              </p>
-            </div>
-            <div className="panel-flavors">
-              <FlavorIcon />
-              <p>
-                {shop.coffees && shop.coffees.length >= 1
-                  ? "Flavors: " + randomCoffee().flavor.slice(0, 2).join(", ")
-                  : "No flavors listed"}
-              </p>
-            </div>
-          </div>
-        </div>
-      </Link>
+          </PanelHeader>
+          <ShopPanelCoffees coffees={coffees} />
+        </PanelDetail>
+      </ShopLink>
       {extraContent ? extraContent : null}
-    </li>
+    </ShopIndexItem>
   );
 };
 
