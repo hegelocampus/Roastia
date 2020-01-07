@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styled from 'styled-components';
-import "./CoffeeShopIndex.scss";
 
 import toTitleCase from '../../util/toTitleCase';
 import ShopPanelCoffees from './ShopPanelCoffees';
