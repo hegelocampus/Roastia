@@ -1,5 +1,4 @@
 import React from "react";
-import "./CoffeeShopIndex.scss";
 import styled from 'styled-components';
 import { useQuery } from '@apollo/react-hooks';
 import { useLocation } from "react-router-dom";
