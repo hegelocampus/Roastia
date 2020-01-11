@@ -1,7 +1,9 @@
 import React from 'react';
 import { Switch, Route, useLocation } from 'react-router-dom';
+import styled from 'styled-components';
+
 import TopBar from './top_bar/TopBar';
-import Splash from './Splash';
+import Splash from './splash/Splash';
 import CoffeeShop from './coffee_shop/CoffeeShop';
 import CoffeeShopIndex from './coffee_shop/CoffeeShopIndex';
 import Coffee from './coffee/Coffee';
@@ -10,10 +12,12 @@ import Modal from './auth_modal/AuthModal';
 import FavoriteShops from './favorite/FavoriteShops';
 import CoffeeForm from './coffee/CoffeeForm';
 import CoffeeShopForm from './coffee_shop/CoffeeShopForm';
-import CoffeeFormModal  from './form_modals/CoffeeFormModal';
-import ShopFormModal from './form_modals/ShopFormModal';
-import RelationModal from './form_modals/RelationModal';
-import './MainContainer.scss';
+
+const MainContainer = styled.main`
+  min-height: 100%;
+  width: 100%;
+  background-color: #faefe4;
+`;
 
 export default () => {
   const location = useLocation();
@@ -23,7 +27,7 @@ export default () => {
   return (
     <React.Fragment>
       <TopBar />
-      <main className="main-container">
+      <MainContainer>
         <Switch location={background || location}>
           <AuthRoute exact path="/favorites" component={FavoriteShops} />
           <Route path="/shops" component={CoffeeShopIndex} />
@@ -35,36 +39,9 @@ export default () => {
           <AuthRoute path="/new/coffee" component={CoffeeForm} />
           <Route exact path="/" component={Splash} />
         </Switch>
-      </main>
-      {background && (
-        <Switch>
-          <AuthRoute
-            path={['/login', '/signup']}
-            routeType="auth"
-            notice={notice}
-            component={Modal}
-            background={background}
-          />
-          <AuthRoute
-            exact
-            path={['/shop/:shopId/edit', '/new/shop']}
-            component={ShopFormModal}
-            background={background}
-          />
-          <AuthRoute
-            exact
-            path={['/coffee/:coffeeId/edit', '/new/coffee']}
-            component={CoffeeFormModal}
-            background={background}
-          />
-          <AuthRoute
-            exact
-            path={['/relation/add', '/relation/remove']}
-            component={RelationModal}
-            background={background}
-          />
-        </Switch>
-      )}
+      </MainContainer>
+      {<ModalSwitch background={background} notice={notice} />}
     </React.Fragment>
   );
 }
+

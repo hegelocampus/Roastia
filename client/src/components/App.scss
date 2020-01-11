@@ -1,7 +1,5 @@
 @import-normalize;
 @import "variables.scss";
-@import "./variables.scss";
-@import "./main/splash.scss";
 @import "./main/top_bar/topBar.scss";
 
 @font-face {
@@ -151,3 +149,4 @@ input {
   border-width: 0;
   border: none;
 }
+

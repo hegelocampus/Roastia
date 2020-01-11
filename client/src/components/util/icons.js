@@ -33,6 +33,22 @@ const FilterIcon = styled.svg`
   }
 `;
 
+const GitIcon = styled.a`
+  svg {
+    height: 50px;
+    width: 50px;
+    fill: #7e7e7e;
+    cursor: pointer;
+    @media only screen and (min-width: 1500px) {
+      height: 75px;
+      width: 75px;
+    }
+  }
+  svg:hover {
+    fill: #545454;
+  }
+`
+
 export const BeanIcon = props => (
   <SmallIcon viewBox="0 0 256 256" fillColor="brown">
     <g>
@@ -248,7 +264,7 @@ export const CoffeeFilterIcon = props => (
 )
 
 export const GitHubIcon = () => (
-  <a
+  <GitIcon
     href="https://github.com/hegelocampus/Roastia"
     target="_blank"
     rel="noopener noreferrer"
@@ -261,7 +277,7 @@ export const GitHubIcon = () => (
         transform="translate(-148.87 -136.89)"
       />
     </svg>
-  </a>
+  </GitIcon>
 );
 
 export const CoffeeCupIcon = () => (
