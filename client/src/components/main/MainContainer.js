@@ -1,7 +1,9 @@
 import React from 'react';
 import { Switch, Route, useLocation } from 'react-router-dom';
+import styled from 'styled-components';
+
 import TopBar from './top_bar/TopBar';
-import Splash from './Splash';
+import Splash from './splash/Splash';
 import CoffeeShop from './coffee_shop/CoffeeShop';
 import CoffeeShopIndex from './coffee_shop/CoffeeShopIndex';
 import Coffee from './coffee/Coffee';
@@ -10,7 +12,11 @@ import ModalSwitch from './ModalSwitch';
 import FavoriteShops from './favorite/FavoriteShops';
 import CoffeeForm from './coffee/CoffeeForm';
 import CoffeeShopForm from './coffee_shop/CoffeeShopForm';
-import './MainContainer.scss';
+const MainContainer = styled.main`
+  min-height: 100%;
+  width: 100%;
+  background-color: #faefe4;
+`;
 
 export default () => {
   const location = useLocation();
@@ -20,7 +26,7 @@ export default () => {
   return (
     <React.Fragment>
       <TopBar />
-      <main className="main-container">
+      <MainContainer>
         <Switch location={background || location}>
           <AuthRoute exact path="/favorites" component={FavoriteShops} />
           <Route path="/shops" component={CoffeeShopIndex} />
@@ -32,7 +38,7 @@ export default () => {
           <AuthRoute path="/new/coffee" component={CoffeeForm} />
           <Route exact path="/" component={Splash} />
         </Switch>
-      </main>
+      </MainContainer>
       {<ModalSwitch background={background} notice={notice} />}
     </React.Fragment>
   );
