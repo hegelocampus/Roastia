@@ -8,6 +8,8 @@ const Suggestion = styled.div`
   max-width: 100%;
   padding: 10px 20px;
   div {
+    height: 100%;
+    width: 100%;
     display: flex;
     justify-content: space-between;
   }
@@ -15,11 +17,12 @@ const Suggestion = styled.div`
 
 export default ({ suggestion: { id, founded, name, address, origin } }) => {
   const history = useHistory();
+  const dest = (founded ? `/shop/${id}` : `/coffee/${id}`);
 
   return (
     <Suggestion onClick={ e => {
       e.stopPropagation();
-      history.push(`/shop/${id}`);
+      history.push(dest);
     }} >
       {founded && (
         <div>
