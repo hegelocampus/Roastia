@@ -1,15 +1,5 @@
 @import 'variables';
 
-// .home-search {
-//   line-height: 2;
-//   width: 360px;
-//   font-size: 15px;
-//   border-bottom-left-radius: 4px;
-//   border-top-left-radius: 4px;
-//   padding: 0 10px;
-//   background: white;
-// }
-
 .react-autosuggest__container {
   position: relative;
 }
@@ -60,7 +50,6 @@
 
 .react-autosuggest__suggestion {
   cursor: pointer;
-  padding: 10px 20px;
 }
 
 .react-autosuggest__suggestion--highlighted {
@@ -108,7 +97,3 @@
   }
 }
 
-.suggestion {
-  display: flex;
-  justify-content: space-between;
-}
