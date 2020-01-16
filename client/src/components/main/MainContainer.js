@@ -6,13 +6,10 @@ import CoffeeShop from './coffee_shop/CoffeeShop';
 import CoffeeShopIndex from './coffee_shop/CoffeeShopIndex';
 import Coffee from './coffee/Coffee';
 import AuthRoute from '../util/route_util';
-import Modal from './auth_modal/AuthModal';
+import ModalSwitch from './ModalSwitch';
 import FavoriteShops from './favorite/FavoriteShops';
 import CoffeeForm from './coffee/CoffeeForm';
 import CoffeeShopForm from './coffee_shop/CoffeeShopForm';
-import CoffeeFormModal  from './form_modals/CoffeeFormModal';
-import ShopFormModal from './form_modals/ShopFormModal';
-import RelationModal from './form_modals/RelationModal';
 import './MainContainer.scss';
 
 export default () => {
@@ -36,35 +33,8 @@ export default () => {
           <Route exact path="/" component={Splash} />
         </Switch>
       </main>
-      {background && (
-        <Switch>
-          <AuthRoute
-            path={['/login', '/signup']}
-            routeType="auth"
-            notice={notice}
-            component={Modal}
-            background={background}
-          />
-          <AuthRoute
-            exact
-            path={['/shop/:shopId/edit', '/new/shop']}
-            component={ShopFormModal}
-            background={background}
-          />
-          <AuthRoute
-            exact
-            path={['/coffee/:coffeeId/edit', '/new/coffee']}
-            component={CoffeeFormModal}
-            background={background}
-          />
-          <AuthRoute
-            exact
-            path={['/relation/add', '/relation/remove']}
-            component={RelationModal}
-            background={background}
-          />
-        </Switch>
-      )}
+      {<ModalSwitch background={background} notice={notice} />}
     </React.Fragment>
   );
 }
+
