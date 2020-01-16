@@ -67,7 +67,7 @@ const ShopPanelImage = styled.img`
 `;
 
 export default ({ shop: { id, imageURL, name, type, address, coffees }, extraContent }) => {
-  const shopType = toTitleCase(type);
+  const shopType = type ? toTitleCase(type) : "";
 
   return (
     <ShopIndexItem >

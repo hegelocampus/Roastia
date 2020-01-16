@@ -8,11 +8,10 @@ import CoffeeShop from './coffee_shop/CoffeeShop';
 import CoffeeShopIndex from './coffee_shop/CoffeeShopIndex';
 import Coffee from './coffee/Coffee';
 import AuthRoute from '../util/route_util';
-import Modal from './auth_modal/AuthModal';
+import ModalSwitch from './ModalSwitch';
 import FavoriteShops from './favorite/FavoriteShops';
 import CoffeeForm from './coffee/CoffeeForm';
 import CoffeeShopForm from './coffee_shop/CoffeeShopForm';
-
 const MainContainer = styled.main`
   min-height: 100%;
   width: 100%;
