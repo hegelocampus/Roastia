@@ -90,7 +90,7 @@
     "start": "SASS_PATH='node_modules:src/sass' node scripts/start.js",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js",
-    "cypress:open": "npm run cypress open"
+    "cypress:open": "cypress open"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -119,6 +119,8 @@
     ]
   },
   "devDependencies": {
+    "apollo-server": "^2.9.16",
+    "apollo-server-testing": "^2.9.16",
     "cypress": "^3.8.3"
   }
 }
