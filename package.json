@@ -8,7 +8,8 @@
     "server:debug": "nodemon --ignore client --inspect ./bin/www",
     "frontend-install": "npm install --prefix client",
     "frontend": "npm start --prefix client",
-    "dev": "concurrently \"npm run server:debug\" \"npm run frontend\""
+    "dev": "concurrently \"npm run server:debug\" \"npm run frontend\"",
+    "test": "concurrently -k \"npm run server\" \"npm run frontend \" \"npx cypress run --record false\""
   },
   "dependencies": {
     "@types/graphql": "^14.5.0",
@@ -30,6 +31,7 @@
     "yup": "^0.27.0"
   },
   "devDependencies": {
+    "cypress": "^3.8.3",
     "eslint": "^6.6.0",
     "eslint-plugin-cypress": "^2.8.1",
     "eslint-plugin-import": "^2.18.2",

@@ -88,9 +88,7 @@
   },
   "scripts": {
     "start": "SASS_PATH='node_modules:src/sass' node scripts/start.js",
-    "build": "node scripts/build.js",
-    "test": "node scripts/test.js",
-    "cypress:open": "cypress open"
+    "build": "node scripts/build.js"
   },
   "eslintConfig": {
     "extends": "react-app"
