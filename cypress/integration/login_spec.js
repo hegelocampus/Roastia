@@ -23,11 +23,11 @@ describe('Login form spec', () => {
 
 });
 
+/*
 describe('User logged in spec', () => {
   before(() => {
     let user;
     cy.wrap(login({ email, password })).then(newUser => user = newUser);
-
   });
 
   beforeEach(() => {
@@ -49,4 +49,5 @@ describe('User logged in spec', () => {
     cy.contains('Add New Coffee Shop');
   });
 });
+*/
 
