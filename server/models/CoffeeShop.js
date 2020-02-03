@@ -80,11 +80,39 @@ CoffeeShopSchema.index(
   }
 );
 
-CoffeeShopSchema.statics.findCoffees = function (coffeeShopId) {
-  return this.findById(coffeeShopId)
+CoffeeShopSchema.statics.findCoffees = (coffeeShopId) => {
+  const CoffeeShop = mongoose.model("coffeeShop");
+
+  return CoffeeShop.findById(coffeeShopId)
     .populate("coffees")
     .then(coffeeShop => coffeeShop.coffees);
 };
+
+CoffeeShopSchema.statics.addCoffee = ({ coffeeId, coffeeShopId }) => {
+  const Coffee = mongoose.model("coffee");
+  const CoffeeShop = mongoose.model("coffeeShop");
+  console.log('shopId:', coffeeShopId);
+
+  return Coffee.findById(coffeeId).then(coffee => {
+    return CoffeeShop.findById(coffeeShopId)
+      .populate("shops")
+      .then(shop => {
+        console.log('shop:', shop);
+        const coffeeIds = shop.coffees.map(coffee => coffee._id);
+
+        if (coffeeIds.includes(coffee._id)) {
+          throw new Error("This coffee has already been added to the shop!")
+        }
+
+        coffee.shops.push(shop);
+        shop.coffees.push(coffee);
+        return Promise.all([coffee.save(), shop.save()]).then(
+          ([coffee, shop]) => shop
+        );
+      });
+  });
+};
+
 
 CoffeeShopSchema.statics.removeCoffeeFromShop = (coffeeShopId, coffeeId) => {
   const CoffeeShop = mongoose.model("coffeeShops");
@@ -105,5 +133,5 @@ CoffeeShopSchema.statics.removeCoffeeFromShop = (coffeeShopId, coffeeId) => {
 
 
 
-module.exports = mongoose.model("coffeeShops", CoffeeShopSchema);
+module.exports = mongoose.model("coffeeShop", CoffeeShopSchema);
 

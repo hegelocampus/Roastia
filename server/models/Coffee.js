@@ -36,9 +36,9 @@ const CoffeeSchema = new Schema({
 
 })
 
-CoffeeSchema.statics.addCoffeeToShop = (coffeeId, coffeeShopId) => {
+CoffeeSchema.statics.addShop = ({coffeeId, coffeeShopId}) => {
   const Coffee = mongoose.model("coffee");
-  const CoffeeShop = mongoose.model("coffeeShops");
+  const CoffeeShop = mongoose.model("coffeeShop");
 
   return Coffee.findById(coffeeId).then(coffee => {
     return CoffeeShop.findById(coffeeShopId).then(shop => {

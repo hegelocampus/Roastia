@@ -99,6 +99,20 @@ const RootQueryType = new GraphQLObjectType({
           return coffeeShops;
         }
       },
+      searchCoffees: {
+        type: new GraphQLList(require("./coffee_type")),
+        args: { filter: { type: GraphQLString } },
+        async resolve(_, { filter }) {
+          const coffees = await Coffee.find({
+            "$or": [
+              { "name": { '$regex': filter, '$options': 'i' } },
+              { "roasting": { '$regex': filter, '$options': 'i' } },
+              { "origin": { '$regex': filter, '$options': 'i' } }
+            ]
+          })
+          return coffees;
+        }
+      },
       fetchFavoriteShops: {
           type: new GraphQLList(require("./coffee_shop_type").CoffeeShopType),
           async resolve(parentValue, args, ctx) {
@@ -130,36 +144,35 @@ const RootQueryType = new GraphQLObjectType({
             filter: { type: FilterInputType }
           },
           resolve(_, { coffeeIds, filter }) {
+            function buildFilters({ processing, roasting, flavor, price }) {
+              let filters = {}
 
-              function buildFilters({ processing, roasting, flavor, price }) {
-                let filters = {}
-
-                if (processing) {
-                  filters.processing = { '$regex': processing, '$options': 'i' };
-                }
-                if (roasting) {
-                  filters.roasting = { '$regex': roasting, '$options': 'i' };
-                }
-                if (flavor && flavor.length !== 0) {
-                  const filterStr = flavor.map(flavor => `.*${flavor}.*`)
-                  const flavorFilter = filterStr.map(str => new RegExp(str, "i"))
-
-                  filters.flavor = { $in: flavorFilter };
-                }
-                if (price && price.length !== 0) {
-                  filters.price = { $gt: price[0], $lt: price[1] };
-                }
-                const coffeeIdList = coffeeIds.map(id => new mongoose.Types.ObjectId(id))
-                filters._id = { $in: coffeeIdList }  
-          
-                let updatedFilter = [filters];
-                return updatedFilter;
+              if (processing) {
+                filters.processing = { '$regex': processing, '$options': 'i' };
               }
+              if (roasting) {
+                filters.roasting = { '$regex': roasting, '$options': 'i' };
+              }
+              if (flavor && flavor.length !== 0) {
+                const filterStr = flavor.map(flavor => `.*${flavor}.*`)
+                const flavorFilter = filterStr.map(str => new RegExp(str, "i"))
 
-              let query = { $and: buildFilters(filter) }
-              return Coffee.find(query);
+                filters.flavor = { $in: flavorFilter };
+              }
+              if (price && price.length !== 0) {
+                filters.price = { $gt: price[0], $lt: price[1] };
+              }
+              const coffeeIdList = coffeeIds.map(id => new mongoose.Types.ObjectId(id))
+              filters._id = { $in: coffeeIdList }
+
+              let updatedFilter = [filters];
+              return updatedFilter;
             }
+
+            let query = { $and: buildFilters(filter) }
+            return Coffee.find(query);
           }
+      }
       })
 });
 
