@@ -8,7 +8,7 @@
     "server:debug": "nodemon --ignore client --inspect ./bin/www",
     "frontend-install": "npm install --prefix client",
     "frontend": "npm start --prefix client",
-    "dev": "concurrently \"npm:server:debug\" \"npm:frontend\"",
+    "dev": "concurrently --names \"Server,React\" \"npm:server:debug\" \"npm:frontend\"",
     "test": "concurrently -ks first \"npm:server\" \"BROWSER=none npm run frontend \" \"npx cypress run --record false\""
   },
   "dependencies": {
