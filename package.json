@@ -8,8 +8,9 @@
     "server:debug": "nodemon --ignore client --inspect ./bin/www",
     "frontend-install": "npm install --prefix client",
     "frontend": "npm start --prefix client",
-    "dev": "concurrently \"npm run server:debug\" \"npm run frontend\"",
-    "test": "concurrently -k \"npm run server\" \"npm run frontend \" \"npx cypress run --record false\""
+    "dev": "concurrently --names \"Server,React\" \"npm:server:debug\" \"npm:frontend\"",
+    "test": "concurrently -ks first \"npm:server:production >/dev/null\" \"BROWSER=none npm run frontend >/dev/null\" \"npx cypress run\"",
+    "test:loud": "concurrently --names \"Server,React,Test\" -ks first \"npm:server:production\" \"BROWSER=none npm run frontend \" \"npx cypress run\""
   },
   "dependencies": {
     "@types/graphql": "^14.5.0",
