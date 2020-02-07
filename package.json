@@ -1,44 +1,60 @@
 {
   "name": "craftcoffeefinder",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
-    "server": "nodemon ./bin/www --ignore client",
-    "server:production": "node ./bin/www",
-    "server:debug": "nodemon --ignore client --inspect ./bin/www",
-    "frontend-install": "npm install --prefix client",
-    "frontend": "npm start --prefix client",
-    "dev": "concurrently --names \"Server,React\" \"npm:server:debug\" \"npm:frontend\"",
-    "test": "concurrently -ks first \"npm:server:production >/dev/null\" \"BROWSER=none npm run frontend >/dev/null\" \"npx cypress run\"",
-    "test:loud": "concurrently --names \"Server,React,Test\" -ks first \"npm:server:production\" \"BROWSER=none npm run frontend \" \"npx cypress run\""
+    "server": "wsrun -p server -c start",
+    "server:production": "wsrun -p server -c start:production",
+    "server:debug": "wsrun -p server -c start:debug",
+    "client": "wsrun -p client -c start",
+    "client:build": "wsrun -p client -c build",
+    "dev": "concurrently -k \"yarn run server:debug\" \"yarn run client\"",
+    "test": "concurrently -k \"npm run server\" \"npm run client\" \"npx cypress run\""
   },
+  "license": "MIT",
+  "homepage": "https://roastia.herokuapp.com/",
   "dependencies": {
-    "@types/graphql": "^14.5.0",
-    "bcryptjs": "^2.4.3",
-    "concurrently": "^5.0.0",
-    "cookie-parser": "~1.4.4",
-    "cors": "^2.8.5",
-    "debug": "~2.6.9",
-    "express": "~4.16.1",
-    "express-graphql": "^0.9.0",
-    "graphql": "^14.5.8",
-    "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.7.8",
-    "morgan": "~1.9.1",
-    "nodemon": "^1.19.4",
-    "passport": "^0.4.0",
-    "type-graphql": "^0.17.5",
-    "validator": "^12.0.0",
-    "yup": "^0.27.0"
+    "client": "file:packages/client",
+    "server": "file:packages/server"
   },
   "devDependencies": {
+    "@babel/core": "7.6.0",
+    "@babel/plugin-transform-react-jsx": "^7.7.0",
+    "@babel/preset-react": "^7.7.0",
+    "@typescript-eslint/eslint-plugin": "^2.2.0",
+    "@typescript-eslint/parser": "^2.2.0",
+    "babel-eslint": "10.0.3",
+    "babel-loader": "8.0.6",
+    "babel-plugin-named-asset-import": "^0.3.4",
+    "babel-plugin-styled-components": "^1.10.6",
+    "babel-preset-jest": "^24.9.0",
+    "babel-preset-react-app": "^9.0.2",
     "cypress": "^3.8.3",
     "eslint": "^6.6.0",
+    "eslint-config-react-app": "^5.0.2",
+    "eslint-loader": "3.0.2",
     "eslint-plugin-cypress": "^2.8.1",
+    "eslint-plugin-flowtype": "3.13.0",
     "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-jsx-a11y": "6.2.3",
+    "eslint-plugin-react": "7.14.3",
+    "eslint-plugin-react-hooks": "^1.6.1",
     "husky": "^3.0.9",
+    "jest": "24.9.0",
+    "jest-environment-jsdom-fourteen": "0.1.0",
+    "jest-resolve": "24.9.0",
+    "jest-watch-typeahead": "0.4.0",
+    "lerna": "^3.20.2",
     "lint-staged": "^9.4.2",
-    "prettier": "^1.18.2"
+    "prettier": "^1.18.2",
+    "webpack": "4.41.0",
+    "webpack-dev-server": "3.2.1",
+    "wsrun": "^5.2.0"
+  },
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ]
   },
   "lint-staged": {
     "client/src/**/*.{js,jsx,ts,tsx,json,md}": [
@@ -50,5 +66,13 @@
     "hooks": {
       "pre-commit": "lint-staged"
     }
+  },
+  "babel": {
+    "presets": [
+      "react-app"
+    ],
+    "plugins": [
+      "babel-plugin-styled-components"
+    ]
   }
 }
