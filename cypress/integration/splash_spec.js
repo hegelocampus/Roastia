@@ -7,12 +7,6 @@ describe('Splash test', () => {
     cy.contains("Discover a coffee shop where you'll love to code");
   });
 
-  it('Renders search bar which accepts input', () => {
-    cy.get('.react-autosuggest__input')
-      .type('Seattle')
-      .should('have.value', 'Seattle');
-  });
-
   it('Renders a link to the login form', () => {
     cy.contains('Log in').click();
 
