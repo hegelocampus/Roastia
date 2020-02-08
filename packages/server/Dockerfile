@@ -5,7 +5,7 @@ ENV NODE_ENV=production
 
 RUN apk add yarn
 
-COPY packages/server/package.json ./
+COPY package.json ./
 
 RUN yarn --prod --silent
 

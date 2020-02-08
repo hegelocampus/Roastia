@@ -7,7 +7,7 @@ ENV PATH /usr/src/app/react_app/node_modules/.bin:$PATH
 
 RUN apk add yarn
 
-COPY packages/client/package.json ./
+COPY package.json ./
 
 RUN yarn --prod --silent
 
