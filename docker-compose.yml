@@ -1,13 +1,23 @@
 version: '3'
 services:
-  web:
-    container_name: roastia
-    image: hegelocampus/roastia
+  client:
+    container_name: client
+    image: hegelocampus/roastia-client
     build:
-      context: .
-      dockerfile: Dockerfile
+      context: packages/client/.
+      dockerfile: packages/client/Dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/usr/src/app/client
+  server:
+    container_name: server
+    image: hegelocampus/roastia-server
+    build:
+      context: packages/server/.
+      dockerfile: packages/server/Dockerfile
     ports:
       - "5000:5000"
     volumes:
-      - .:/usr/src/app
+      - .:/usr/src/app/server
 

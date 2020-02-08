@@ -16,7 +16,8 @@
   "homepage": "https://roastia.herokuapp.com/",
   "dependencies": {
     "client": "file:packages/client",
-    "server": "file:packages/server"
+    "server": "file:packages/server",
+    "wsrun": "^5.2.0"
   },
   "devDependencies": {
     "@babel/core": "7.6.0",
@@ -50,8 +51,7 @@
     "lint-staged": "^9.4.2",
     "prettier": "^1.18.2",
     "webpack": "4.41.0",
-    "webpack-dev-server": "3.2.1",
-    "wsrun": "^5.2.0"
+    "webpack-dev-server": "3.2.1"
   },
   "workspaces": {
     "packages": [
