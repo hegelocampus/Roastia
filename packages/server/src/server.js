@@ -52,7 +52,7 @@ const context = process.env.NODE_ENV === 'production' ? 'build' : 'public';
 
 app.use(express.static(path.join(__dirname, `../client/${context}`)));
 app.get('/*', (req, res) => {
-  res.sendFile(path.join(__dirname, '..', 'client', context, 'index.html'));
+  res.sendFile(path.join(__dirname, `../'client/${context}/index.html`));
 })
 
 app.use(function (req, res, next) {

@@ -1,6 +1,0 @@
-build:
-  docker:
-    web: packages/client/Dockerfile
-    server: packages/server/Dockerfile
-  config:
-    NODE_ENV: production

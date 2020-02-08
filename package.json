@@ -3,8 +3,9 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
+    "build": "wsrun -p client --exclude-missing -c build",
     "server": "wsrun -p server -c start",
-    "server:production": "wsrun -p server -c start:production",
+    "server:production": "wsrun --report -p server -c start:production",
     "server:debug": "wsrun -p server -c start:debug",
     "client": "wsrun -p client -c start",
     "client:build": "wsrun -p client -c build",
