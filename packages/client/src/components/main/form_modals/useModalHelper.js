@@ -16,6 +16,6 @@ export default () => {
     history.goBack();
   });
 
-  return { history, location, modalContent, formType };
+  return { location, modalContent, formType };
 }
 

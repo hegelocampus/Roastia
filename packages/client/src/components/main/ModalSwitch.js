@@ -2,8 +2,7 @@ import React from 'react';
 import { Switch } from 'react-router-dom';
 import AuthRoute from '../util/route_util';
 import AuthModal from './auth_modal/AuthModal';
-import ShopFormModal from './form_modals/ShopFormModal';
-import RelationModal from './form_modals/RelationModal';
+import Modal from './form_modals/Modal';
 
 export default ({ background, notice }) => {
   if (!background) return null;
@@ -19,21 +18,22 @@ export default ({ background, notice }) => {
       <AuthRoute
         exact
         path={['/shop/:shopId/edit', '/new/shop']}
-        component={ShopFormModal}
-        type={'shop'}
+        component={Modal}
+        modalType={'shop'}
         background={background}
       />
       <AuthRoute
         exact
         path={['/coffee/:coffeeId/edit', '/new/coffee']}
-        component={ShopFormModal}
-        type={'coffee'}
+        component={Modal}
+        modalType={'coffee'}
         background={background}
       />
       <AuthRoute
         exact
         path={['/relation/add', '/relation/remove']}
-        component={RelationModal}
+        component={Modal}
+        modalType={'relation'}
         background={background}
       />
     </Switch>

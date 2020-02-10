@@ -1,44 +1,38 @@
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
-import { Query } from "react-apollo";
+import { useQuery } from "@apollo/react-hooks";
 import Queries from "../../graphql/queries";
 
 const { IS_LOGGED_IN } = Queries;
 
-const AuthRoute = ({
+export default ({
   component: Component,
   path,
   exact,
   routeType,
   ...rest
-}) => (
-  <Query query={IS_LOGGED_IN}>
-    {({ data }) => {
-      if (routeType === "auth") {
-        return (
-          <Route
-            path={path}
-            render={props =>
-              !data.isLoggedIn ? <Component {...rest} /> : <Redirect to="/" />
-            }
-          />
-        );
-      } else {
-        return (
-          <Route
-            {...rest}
-            render={props =>
-              data.isLoggedIn ? (
-                <Component {...props} />
-              ) : (
-                <Redirect to="/signup" />
-              )
-            }
-          />
-        );
-      }
-    }}
-  </Query>
-);
+}) => {
+  const { loading, error, data } = useQuery(IS_LOGGED_IN);
 
-export default AuthRoute;
+  if (loading || error) {
+    return null;
+  }
+
+  return (routeType === "auth") ? (
+    <Route
+      {...rest}
+      path={path}
+      render={props =>
+        !data.isLoggedIn ? <Component {...rest} /> : <Redirect to="/" />
+      }
+    />
+  ) : (
+    <Route
+      {...rest}
+      render={props =>
+        data.isLoggedIn ? <Component {...rest} /> : <Redirect to="/signup" />
+      }
+    />
+  );
+};
+

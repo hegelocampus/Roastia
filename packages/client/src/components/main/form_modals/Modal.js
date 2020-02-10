@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import CoffeeForm from '../coffee/CoffeeForm';
 import CoffeeShopForm from '../coffee_shop/CoffeeShopForm';
 import useModalHelper from './useModalHelper';
+import RemoveRelationForm from '../coffee/RemoveRelationForm';
 import './ShopFormModal.scss';
 
 const ModalScreen = styled.div`
@@ -21,13 +22,13 @@ const ModalScreen = styled.div`
 const ModalContent = styled.div`
   background-color: #ffffff;
   margin: auto;
-  overflow: auto;
   margin-top: 35px;
+  padding: 10px 10px 30px 10px;
   display: block;
   position: relative;
   width: 85%;
   height: auto;
-  max-height: 90%;
+  overflow: auto;
   div {
     margin: auto;
     width: 80%;
@@ -35,17 +36,33 @@ const ModalContent = styled.div`
 `
 
 export default ({ background, modalType }) => {
-  const { history, location, modalContent, formType } = useModalHelper();
+  const { location, modalContent, formType } = useModalHelper();
 
   return (
     <ModalScreen>
       <ModalContent ref={modalContent}>
         <div>
-          {modalType === 'shop' ? (
-            <CoffeeShopForm shop={location.state.shop || null} formType={formType} />
-          ) : (
-            <CoffeeForm coffee={location.state.coffee || null} formType={formType} />
-          )}
+          {{
+            'shop': (
+              <CoffeeShopForm
+                shop={location.state.shop || null}
+                formType={formType}
+              />
+            ),
+            'coffee': (
+              <CoffeeForm
+                coffee={location.state.coffee || null}
+                formType={formType}
+              />
+            ),
+            'relation': (
+              <RemoveRelationForm
+                shopId={location.state.shopId || null}
+                coffeeId={location.state.coffeeId || null}
+                formType={formType}
+              />
+            )
+          }[modalType]}
         </div>
       </ModalContent >
     </ModalScreen>
