@@ -8,6 +8,7 @@ const { FETCH_COFFEE } = Queries;
 const { REMOVE_COFFEE_FROM_SHOP } = Mutations;
 
 export default ({ coffeeId, shopId }) => {
+  // This shouldn't be able to happen, but just in case
   if (!(coffeeId && shopId)) {
     return <Redirect to="/" />;
   }

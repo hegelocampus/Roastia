@@ -6,7 +6,7 @@ import RenderErrors from '../../util/RenderErrors';
 import Mutations from '../../../graphql/mutations';
 const { LOGIN_USER } = Mutations;
 
-export default props => {
+export default () => {
   const [loginUser, { error }] = useSession(LOGIN_USER);
 
   const loginGuest = e =>
