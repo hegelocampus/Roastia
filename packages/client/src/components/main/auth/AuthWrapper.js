@@ -1,28 +1,20 @@
 import React, { useState } from 'react';
-import { Link, useLocation, useHistory } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import Login from './Login';
 import Register from './Register';
 import './AuthModal.scss';
 
 export default ({ background }) => {
-  const location = useLocation();
-  const history = useHistory();
+  const { pathname, state }= useLocation();
   const [formType, setFormType] = useState(
-    location.pathname.match(/([^/]+)\/?$/)[0]
+    pathname.match(/([^/]+)\/?$/)[0]
   );
-  const notice = location.state && location.state.notice;
+  const notice = state && state.notice;
 
   const changeForm = type => e => {
-    setFormType(type)
-    history.replace({
-      pathname: `/${type}`,
-      state: {
-        background
-      }
-    });
+    setFormType(type);
   };
 
-  console.log(formType);
   let headerContent, footer, form;
   if (formType === 'login') {
     headerContent = 'Sign in';
@@ -36,7 +28,7 @@ export default ({ background }) => {
           to={{
             pathname: '/signup',
             state: {
-              background: location,
+              background,
             },
           }}
         >
@@ -52,11 +44,11 @@ export default ({ background }) => {
         Already have an account?
         <Link
           replace
-          onClick={changeForm('signup')}
+          onClick={changeForm('login')}
           to={{
             pathname: '/login',
             state: {
-              background: location,
+              background,
             },
           }}
         >
@@ -69,7 +61,7 @@ export default ({ background }) => {
   }
 
   return (
-    <div className="auth-modal-body">
+    <React.Fragment>
       <div className="auth-modal-header">
         <div className="welcome-message">
           <img
@@ -83,6 +75,6 @@ export default ({ background }) => {
       </div>
       {form}
       <div className="modal-content-secondary">{footer}</div>
-    </div>
+    </React.Fragment>
   );
 };

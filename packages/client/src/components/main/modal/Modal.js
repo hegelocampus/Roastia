@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import CoffeeForm from '../coffee/CoffeeForm';
 import CoffeeShopForm from '../coffee_shop/CoffeeShopForm';
 import useModalHelper from './useModalHelper';
-import AuthWrapper from '../auth_modal/AuthWrapper.js';
+import AuthWrapper from '../auth/AuthWrapper.js';
 import RemoveRelationForm from '../coffee/RemoveRelationForm';
 
 const ModalScreen = styled.div`
@@ -35,7 +35,7 @@ const ModalContent = styled.div`
   }
 `
 
-export default ({ modalType }) => {
+export default ({ modalType, background }) => {
   const { location, modalContent, formType } = useModalHelper();
 
   return (
@@ -63,7 +63,7 @@ export default ({ modalType }) => {
               />
             ),
             'auth': (
-              <AuthWrapper />
+              <AuthWrapper background={ background }/>
             )
           }[modalType]}
         </div>

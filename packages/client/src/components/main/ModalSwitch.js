@@ -1,7 +1,7 @@
 import React from 'react';
 import { Switch } from 'react-router-dom';
 import AuthRoute from '../util/route_util';
-import Modal from './form_modals/Modal';
+import Modal from './modal/Modal';
 
 export default ({ background, notice }) => {
   if (!background) return null;
