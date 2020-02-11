@@ -1,13 +1,18 @@
 import React from 'react'
 import { useHistory } from 'react-router-dom';
 import { useMutation } from '@apollo/react-hooks';
-
+import { Redirect } from 'react-router-dom';
 import Queries from '../../../graphql/queries';
 import Mutations from '../../../graphql/mutations';
 const { FETCH_COFFEE } = Queries;
 const { REMOVE_COFFEE_FROM_SHOP } = Mutations;
 
 export default ({ coffeeId, shopId }) => {
+  // This shouldn't be able to happen, but just in case
+  if (!(coffeeId && shopId)) {
+    return <Redirect to="/" />;
+  }
+
   const history = useHistory();
   const [removeCoffeeFromShop] = useMutation(REMOVE_COFFEE_FROM_SHOP, {
     variables: { coffeeShopId: shopId, coffeeId: coffeeId },
@@ -39,8 +44,8 @@ export default ({ coffeeId, shopId }) => {
   return (
     <React.Fragment>
       <h1>Are you sure you want to remove this shop from the coffee?</h1>
-      <button onClick={ () => {
-        removeCoffeeFromShop();
+      <button onClick={ async () => {
+        await removeCoffeeFromShop();
         history.goBack();
       }}>
         Confirm
