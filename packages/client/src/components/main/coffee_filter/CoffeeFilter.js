@@ -10,37 +10,42 @@ const FLAVORS = ['floral', 'fruit', 'chocolate', 'nuts', 'spice', 'roast', 'suga
 const PROCESSES = ['unknown', 'honey', 'washed', 'dry'];
 const ROASTS = ['unknown', 'light', 'medium-light', 'medium', 'medium-dark', 'dark'];
 const PRICES = [
+  ['Any', [0, 100]],
   ['Under $10', [0, 10]],
   ['$10 - $20', [10, 20]],
   ['$20 - $30', [20, 30]],
 ];
 
-export default ({ coffees }) => {
-  const [fetchedCoffees, setCoffees] = useState(coffees);
+export default ({ shopId, allCoffees = [] }) => {
+  const [coffees, setCoffees] = useState(allCoffees);
   const [filter, setFilter] = useState({
     processing: '',
     roasting: '',
-    price: new Set(),
+    price: [0, 100],
     flavor: new Set()
   });
 
   const { error, data, refetch } = useQuery(FETCH_SHOP_COFFEES, {
     variables: {
-      coffeeIds: coffees.map(coffee => coffee.id),
+      shopId,
       filter: {
         ...filter,
-        price: [...filter.price.values()],
-        flavor: [...filter.flavor.values()],
+        flavor: Array.from(filter.flavor) || []
       }
     },
   });
 
   useEffect(() => {
-    refetch({ filter }).then(res => {
+    refetch({
+      filter: {
+        ...filter,
+        flavor: Array.from(filter.flavor) || []
+      }
+    }).then(res => {
       setCoffees(res.data.fetchShopCoffees);
     });
   },
-    [filter, coffees]
+    [filter, coffees, refetch]
   );
 
   if (error) {
@@ -64,21 +69,11 @@ export default ({ coffees }) => {
     }
   };
 
-  const updatePrice = (e) => {
-    setFilter(oldFilter => {
-      let newPrice;
-      const str = e.target.name;
-      const parsed = str.split(',').map(Number);
-      if (JSON.stringify(oldFilter['price']) === JSON.stringify(parsed)) {
-        newPrice = [];
-      } else {
-        newPrice = parsed;
-      }
-      return {
-        ...oldFilter,
-        price: newPrice
-      };
-    });
+  const updatePrice = ({ target: { name, value }}) => {
+    setFilter(oldFilter => ({
+      ...oldFilter,
+      price: value.split(',').map(Number)
+    }));
   };
 
   const flavorInputs = FLAVORS.map((name, i) => (
@@ -91,6 +86,7 @@ export default ({ coffees }) => {
       <label>{name}</label>
     </div>
   ));
+
   const processInputs = PROCESSES.map((name, i) => (
     <div className="option" key={`${name}${i}`}>
       <input
@@ -101,22 +97,27 @@ export default ({ coffees }) => {
       <label>{name}</label>
     </div>
   ));
+
   const roastInputs = ROASTS.map((name, i) => (
     <div className="option" key={`${name}${i}`}>
       <input
         type="checkbox"
-        name={name}
+        name="roast"
+        value={name}
         onClick={updateAttribute('roasting')}
       />
       <label>{name}</label>
     </div>
   ));
+
   const priceInputs = PRICES.map(([string, value], i) => (
     <div className="option" key={`${string}${i}`}>
       <input
-        type="checkbox"
-        name={value}
-        onClick={updatePrice}
+        type="radio"
+        name="price"
+        value={value}
+        onChange={updatePrice}
+        checked={String(value) === String(filter.price)}
       />
       <label>{string}</label>
     </div>
@@ -150,7 +151,7 @@ export default ({ coffees }) => {
           </div>
         </div>
       </div>
-      <CoffeeIndex coffees={ fetchedCoffees } />
+      <CoffeeIndex coffees={ coffees } />
     </div>
   );
 }
