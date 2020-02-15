@@ -21,6 +21,10 @@ const User = mongoose.model('users');
 const Coffee = mongoose.model('coffee');
 const CoffeeShop = mongoose.model('coffeeShops');
 
+const mapToRegExp = (arr) => {
+  return arr.map(str => new RegExp(`.*${str}.*`, "i"));
+};
+
 const selectorInput = new GraphQLInputObjectType({
   name: 'Selectors',
   fields: {
@@ -121,32 +125,24 @@ const RootQueryType = new GraphQLObjectType({
       },
       resolve: async (
         _,
-        { shopId, filter: { processing, roasting, flavor, price } }
+        { shopId, filter }
       ) => {
-        let filters = { shops: { _id: shopId } };
+        let filters = {};
 
-        if (processing) {
-          filters.processing = new RegExp(processing, "i");
-        }
+        for (let [key, input] of Object.entries(filter)) {
+          if (input && input.length) {
+            filters[key] = (
+              key === 'price' ?
+              { $gt: input[0], $lt: input[1] }
+              : { $in: mapToRegExp(input) });
+          }
+        };
 
-        if (roasting) {
-          filters.roasting = new RegExp(roasting, "i");
-        }
-
-        if (flavor && flavor.length !== 0) {
-          const flavorFilter = flavor.map(str => new RegExp(`.*${str}.*`, "i"));
-
-          filters.flavor = { $in: flavorFilter };
-        }
-
-        if (price && price.length !== 0) {
-          filters.price = { $gt: price[0], $lt: price[1] };
-        }
-
-       let coffees = await Coffee.find()
-          .where({ $and: [filters] })
-          .exec((err, shop) => shop.coffees);
-        console.log(coffees);
+        let { coffees } = await CoffeeShop.findById(shopId)
+          .populate({
+            path: 'coffees',
+            match: { $and: [filters] },
+          });
         return coffees || [];
       },
     },
