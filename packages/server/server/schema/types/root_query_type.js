@@ -83,7 +83,8 @@ const RootQueryType = new GraphQLObjectType({
           const coffees = await Coffee.find({
             "$or": [
               { "origin": { '$regex': filter, '$options': 'i' } },
-              { "name": { '$regex': filter, '$options': 'i' } }
+              { "name": { '$regex': filter, '$options': 'i' } },
+              { "roasting": { '$regex': filter, '$options': 'i' } }
             ]
           })
 
@@ -150,8 +151,8 @@ const RootQueryType = new GraphQLObjectType({
                   filters.price = { $gt: price[0], $lt: price[1] };
                 }
                 const coffeeIdList = coffeeIds.map(id => new mongoose.Types.ObjectId(id))
-                filters._id = { $in: coffeeIdList }  
-          
+                filters._id = { $in: coffeeIdList }
+
                 let updatedFilter = [filters];
                 return updatedFilter;
               }
