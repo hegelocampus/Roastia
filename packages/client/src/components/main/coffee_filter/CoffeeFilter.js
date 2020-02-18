@@ -1,15 +1,30 @@
-import './CoffeeFilter.scss';
-import React, { useState, useEffect } from 'react';
-import { useQuery } from "@apollo/react-hooks";
-
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import { useQuery } from '@apollo/react-hooks';
 import InputSection from './InputSection';
 import CoffeeIndex from './CoffeeIndex';
+
 import Queries from '../../../graphql/queries';
 const { FETCH_SHOP_COFFEES } = Queries;
 
-const FLAVORS = ['floral', 'fruit', 'chocolate', 'nuts', 'spice', 'roast', 'sugar'];
+const FLAVORS = [
+  'floral',
+  'fruit',
+  'chocolate',
+  'nuts',
+  'spice',
+  'roast',
+  'sugar',
+];
 const PROCESSES = ['unknown', 'honey', 'washed', 'dry'];
-const ROASTS = ['unknown', 'light', 'medium-light', 'medium', 'medium-dark', 'dark'];
+const ROASTS = [
+  'unknown',
+  'light',
+  'medium-light',
+  'medium',
+  'medium-dark',
+  'dark',
+];
 const PRICES = [
   ['Any', [0, 100]],
   ['Under $10', [0, 10]],
@@ -17,91 +32,93 @@ const PRICES = [
   ['$20 - $30', [20, 30]],
 ];
 
-export default ({ shopId, allCoffees = [] }) => {
-  const [coffees, setCoffees] = useState(allCoffees);
+const IndexContainer = styled.div`
+  display: flex;
+  padding: 25px 20px 20px 20px;
+  box-shadow: 1px 2px 5px gray;
+  min-width: 100%;
+  background: #ccb6a0;
+  margin-bottom: 30px;
+  border-radius: 5px;
+  box-sizing: border-box;
+  transition: flex 0.3s 2s;
+`;
+
+const Filters = styled.div`
+  display: flex;
+  width: 38%;
+  flex-direction: column;
+  padding: 0 0 0 15px;
+`;
+
+export default ({ shopId }) => {
   const [filter, setFilter] = useState({
     price: [0, 100],
     roasting: new Set(),
     processing: new Set(),
-    flavor: new Set()
+    flavor: new Set(),
   });
 
-  const { error, data, refetch } = useQuery(FETCH_SHOP_COFFEES, {
+  const { data, loading } = useQuery(FETCH_SHOP_COFFEES, {
     variables: {
       shopId,
       filter: {
         ...filter,
         roasting: Array.from(filter.roasting),
         flavor: Array.from(filter.flavor),
-        processing: Array.from(filter.processing)
-      }
+        processing: Array.from(filter.processing),
+      },
     },
   });
 
-  useEffect(() => {
-    refetch().then(res => {
-      setCoffees(res.data.fetchShopCoffees);
+  const updateAttribute = type => ({ target: { name } }) => {
+    setFilter(oldFilter => {
+      let attributes = oldFilter[type];
+
+      if (attributes.has(name)) {
+        attributes.delete(name);
+      } else {
+        attributes.add(name);
+      }
+
+      return {
+        ...oldFilter,
+        [type]: attributes,
+      };
     });
-  },
-    [filter, refetch]
-  );
-
-  if (error) {
-    console.log(error);
-  }
-
-  const updateAttribute = (type) => {
-    return ({ target: { name }}) => {
-      setFilter(oldFilter => {
-        let attributes = oldFilter[type];
-        if (attributes.has(name)) {
-          attributes.delete(name);
-        } else {
-          attributes.add(name);
-        }
-        return {
-          ...oldFilter,
-          [type]: attributes
-        };
-      });
-    }
-  };
-
-  const updatePrice = ({ target: { name, value }}) => {
-    setFilter(oldFilter => ({
-      ...oldFilter,
-      price: value.split(',').map(Number)
-    }));
   };
 
   return (
-    <div>
-      <div className="cofee-filter-container">
+    <IndexContainer>
+      <Filters>
         <InputSection
-          values={ FLAVORS }
+          values={FLAVORS}
           title="Flavor"
           onClick={updateAttribute('flavor')}
         />
         <InputSection
-          values={ PROCESSES }
+          values={PROCESSES}
           title="Processing Method"
           onClick={updateAttribute('processing')}
         />
         <InputSection
-          values={ ROASTS }
-          title="Roast Level"
+          values={ROASTS}
+          title="Roast"
           onClick={updateAttribute('roasting')}
         />
-        <div className="coffee-filter-section">
-          <span>Price</span>
-          <div className="coffee-filter-options">
-            {PRICES.map(
-            ))}
-          </div>
-        </div>
-      </div>
-      <CoffeeIndex coffees={ coffees } />
-    </div>
+        <InputSection
+          values={PRICES}
+          title="Price"
+          filterPrice={filter.price}
+          onClick={({ target }) =>
+            setFilter(oldFilter => ({
+              ...oldFilter,
+              price: target.value.split(',').map(Number),
+            }))
+          }
+        />
+      </Filters>
+      <CoffeeIndex coffees={data && data.fetchShopCoffees} loading={loading} />
+    </IndexContainer>
   );
-}
-
+};

@@ -87,11 +87,7 @@ export default () => {
           </ul>
         </div>
       </div>
-      <section className="coffee-section-container">
-        <div className="coffee-section">
-          <CoffeeFilter allCoffees={coffees} shopId={shopId}/>
-        </div>
-      </section>
+      <CoffeeFilter allCoffees={coffees} shopId={shopId}/>
     </div>
   );
 };
