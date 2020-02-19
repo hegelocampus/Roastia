@@ -8,8 +8,9 @@
     "server:debug": "wsrun -p server -c start:debug",
     "client": "wsrun -p client -c start",
     "client:build": "wsrun -p client -c build",
-    "dev": "concurrently -k \"yarn run server:debug\" \"yarn run client\"",
-    "test": "concurrently -k \"npm run server\" \"npm run client\" \"npx cypress run\""
+    "dev": "concurrently --names \"Server,React\" \"yarn server:debug\" \"yarn client\"",
+    "test": "concurrently -ks first \"yarn server:production >/dev/null\" \"BROWSER=none yarn client >/dev/null\" \"yarn cypress run\"",
+    "test:loud": "concurrently --names \"Server,React,Test\" -ks first \"yarn server:production\" \"BROWSER=none yarn client\" \"yarn cypress run\""
   },
   "license": "MIT",
   "homepage": "https://roastia.herokuapp.com/",
@@ -30,6 +31,7 @@
     "babel-preset-jest": "^24.9.0",
     "babel-preset-react-app": "^9.0.2",
     "cypress": "^3.8.3",
+    "cypress-graphql-mock": "^0.5.0-alpha.4",
     "eslint": "^6.6.0",
     "eslint-config-react-app": "^5.0.2",
     "eslint-loader": "3.0.2",

@@ -1,4 +1,4 @@
-import { login } from '../../server/services/auth';
+//import { login } from '../../server/services/auth';
 
 const email = 'example@example.com';
 const password = 'example';
