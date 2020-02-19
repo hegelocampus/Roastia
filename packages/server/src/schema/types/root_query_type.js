@@ -76,6 +76,7 @@ const RootQueryType = new GraphQLObjectType({
           $or: [
             { origin: { $regex: filter, $options: 'i' } },
             { name: { $regex: filter, $options: 'i' } },
+            { roasting: { $regex: filter, $options: 'i' } }
           ],
         });
 
