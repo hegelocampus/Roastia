@@ -1,4 +1,4 @@
 const express = require('express');
-const app = require('./server/server');
+const app = require('./src/server');
 
 module.exports = app;
