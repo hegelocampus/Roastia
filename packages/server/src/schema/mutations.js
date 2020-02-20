@@ -130,11 +130,13 @@ const mutation = new GraphQLObjectType({
           args: {
             coffeeShopId: { type: GraphQLID }
           },
-          async resolve(parentValue, args, ctx) {
-            const validUser = await AuthService.verifyUser({ token: ctx.token });
-            if (validUser.loggedIn) {
-              const userId = validUser.id;
-              return User.addFavorite(userId, args.coffeeShopId);
+          async resolve(parentValue, { coffeeShopId }, { token }) {
+            const { id: userId, loggedIn } = await AuthService.verifyUser({ token });
+            if (loggedIn) {
+              const { user } = User.addFavorite(userId, coffeeShopId);
+              return user;
+            } else {
+              return -1;
             }
           }
         },
@@ -143,11 +145,11 @@ const mutation = new GraphQLObjectType({
           args: {
             coffeeShopId: { type: GraphQLID }
           },
-          async resolve(parentValue, args, ctx) {
-            const validUser = await AuthService.verifyUser({ token: ctx.token });
-            if (validUser.loggedIn) {
-              const userId = validUser.id;
-              return User.removeFavorite(userId, args.coffeeShopId);
+          async resolve(parentValue, { coffeeShopId }, { token }) {
+            const { id: userId, loggedIn }= await AuthService.verifyUser({ token });
+            if (loggedIn) {
+              const { user } = User.removeFavorite(userId, coffeeShopId);
+              return user;
             }
           }
         },

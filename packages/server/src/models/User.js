@@ -28,31 +28,42 @@ const UserSchema = new Schema({
   ],
 });
 
-UserSchema.statics.addFavorite = async function(userId, coffeeShopId) {
+const findUserAndShopById = async (userId, shopId) => {
+  const User = mongoose.model("users");
   const CoffeeShop = mongoose.model("coffeeShops");
 
-  user = await this.findById(userId);
-  shop = await CoffeeShop.findById(coffeeShopId);
+  const user = await User.findById(userId);
+  const shop = await CoffeeShop.findById(shopId);
+  return { user, shop };
+}
+
+const saveUserAndShop = async (user, shop) => {
+  try {
+    await user.save();
+    await shop.save();
+    return { user, shop };
+  } catch(e) {
+    console.error(e);
+    return -1;
+  }
+}
+
+UserSchema.statics.addFavorite = async function(userId, coffeeShopId) {
+  const { user, shop } = await findUserAndShopById(userId, coffeeShopId);
+
   user.favorites.push(shop);
   shop.users.push(user);
-  return Promise.all([user.save(), shop.save()]).then(
-      ([user, shop]) => user
-  );
+
+  return saveUserAndShop(user, shop);
 }
 
 UserSchema.statics.removeFavorite = async function(userId, coffeeShopId) {
-    const CoffeeShop = mongoose.model("coffeeShops");
+  const { user, shop } = await findUserAndShopById(userId, coffeeShopId);
 
-    return this.findById(userId).then(user => {
-        return CoffeeShop.findById(coffeeShopId).then(shop => {
-            user.favorites.pull(shop);
-            shop.users.pull(user);
+  user.favorites.pull(shop);
+  shop.users.pull(user);
 
-            return Promise.all([user.save(), shop.save()]).then(
-                ([user, shop]) => user
-            );
-        });
-    });
+  return saveUserAndShop(user, shop);
 };
 
 module.exports = mongoose.model("users", UserSchema);
