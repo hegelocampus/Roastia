@@ -1,4 +1,5 @@
 # Roastia
+[![Maintainability](https://api.codeclimate.com/v1/badges/a13d0eb540b67b8b909f/maintainability)](https://codeclimate.com/github/hegelocampus/Roastia/maintainability)
 
 Link: [Roastia](https://roastia.herokuapp.com)
 
