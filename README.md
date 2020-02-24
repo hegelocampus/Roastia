@@ -1,4 +1,5 @@
 # Roastia
+> [![Maintainability](https://api.codeclimate.com/v1/badges/a13d0eb540b67b8b909f/maintainability)](https://codeclimate.com/github/hegelocampus/Roastia/maintainability)
 
 Link: [Roastia](https://roastia.herokuapp.com)
 
@@ -14,18 +15,24 @@ Link: [Roastia](https://roastia.herokuapp.com)
 
 ## Technologies
 ### Backend:
-  * MongoDB — NoSQL database
-  * Mongoose — Object Data Modeling (ODM)
-  * Express.js — Server framework
-  * Node — Runtime environment
-  * GraphQL - API endpoints
-  * Docker — Containerization of app for easy deployment
+| Technology        | Use                             |
+| ----------------- | ------------------------------- |
+| MongoDB           | NoSQL database                  |
+| Mongoose          | Object Data Modeling (ODM)      |
+| Express.js        | Server framework                |
+| Node.js           | Runtime environment             |
+| GraphQL           | API endpoints                   |
+| Docker            | Containerization for deployment |
 
 ### Frontend:
-  * React.js — UI framework
-  * Apollo GraphQL — Frontend state management and GraphQL implementation
-  * SCSS — Consistent sitewide styling
-  * React Autosuggest — Provides realtime text suggestions for user search input
+| Technology        | Use                                         |
+| ----------------- | ------------------------------------------- |
+| React.js          | UI framework                                |
+| Apollo GraphQL    | State management and GraphQL implementation |
+| SCSS              | Consistent sitewide styling                 |
+| Styled Components | Modern atomized styling                     |
+| React Autosuggest | Realtime text suggestions for search input  |
+| Formik            | Simplifies forms and reduces broilerplate   |
 
 
 ## Technical Challenges
