@@ -12,7 +12,7 @@ const teamMembers = [
   {
     shortName: "bee",
     fullName: "Bee Ellis",
-    linkedIn: "https://www.linkedin.com/in/bee-ellis-2b126b185/"
+    linkedIn: "https://bellis.dev/"
   },
   {
     shortName: "john",
