@@ -1,30 +1,29 @@
 FROM node:13.8.0-alpine3.11 as build
-WORKDIR /usr/src/react_app
+WORKDIR /app/client
 
 RUN apk add yarn
 
-COPY packages/client/package.json yarn.lock ./
+COPY packages/client/package.json .
 
 ARG NODE_ENV=production
 RUN yarn --production --silent
-ENV PATH /usr/src/app/react_app/node_modules/.bin:$PATH
+ENV PATH /app/client/node_modules/.bin:$PATH
 
-COPY packages/client/. /usr/src/react_app/
+COPY packages/client /app/client/
 ENV SASS_PATH node_modules:src/sass
 RUN yarn run build --production
 
 FROM node:13.8.0-alpine3.11
-WORKDIR /roastia
+WORKDIR /app/server
+
+COPY --from=build /app/client/build/ ../client/build
 
 RUN apk add yarn
 
-COPY --from=build /usr/src/react_app/build /roastia/packages/client/build/
-
-COPY package.json yarn.lock /roastia/
-COPY packages/server /roastia/packages/server
-RUN yarn --production --silent
+ADD packages/server /app/server/
+RUN yarn --production
 
 EXPOSE 5000
 
-CMD ["yarn", "server:production"]
+CMD ["yarn", "start:production"]
 
