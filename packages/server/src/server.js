@@ -49,11 +49,10 @@ app.use(
 );
 
 const context = process.env.NODE_ENV === 'production' ? 'build' : 'public';
+const clientDir = path.join(__dirname, '..', '..', 'client', context);
 
-app.use(express.static(path.join(__dirname, `../client/${context}`)));
-app.get('/*', (req, res) => {
-  res.sendFile(path.join(__dirname, '..', 'client', context, 'index.html'));
-})
+app.use(express.static(clientDir));
+app.get('/', (req, res) => res.sendFile(path.join(clientDir, 'index.html')));
 
 app.use(function (req, res, next) {
   next(createError(404));

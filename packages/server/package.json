@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "nodemon ./bin/www --ignore client",
-    "start:production": "node ./bin/www",
+    "start:production": "NODE_ENV=production nodemon ./bin/www",
     "start:debug": "nodemon --inspect ./bin/www"
   },
   "dependencies": {

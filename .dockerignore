@@ -4,5 +4,5 @@ packages/*/node_modules
 .gitignore
 .dockerignore
 *Dockerfile*
-packages/*/config/keys_dev.js
+packages/server/config/keys_dev.js
 

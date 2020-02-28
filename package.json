@@ -3,8 +3,9 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
+    "build": "wsrun -p client --exclude-missing -c build",
     "server": "wsrun -p server -c start",
-    "server:production": "wsrun -p server -c start:production",
+    "server:production": "wsrun --report -p server -c start:production",
     "server:debug": "wsrun -p server -c start:debug",
     "client": "wsrun -p client -c start",
     "client:build": "wsrun -p client -c build",
@@ -16,7 +17,9 @@
   "homepage": "https://roastia.herokuapp.com/",
   "dependencies": {
     "client": "file:packages/client",
-    "server": "file:packages/server"
+    "server": "file:packages/server",
+    "lerna": "^3.20.2",
+    "wsrun": "^5.2.0"
   },
   "devDependencies": {
     "@babel/core": "7.6.0",
@@ -46,12 +49,10 @@
     "jest-environment-jsdom-fourteen": "0.1.0",
     "jest-resolve": "24.9.0",
     "jest-watch-typeahead": "0.4.0",
-    "lerna": "^3.20.2",
     "lint-staged": "^9.4.2",
     "prettier": "^1.18.2",
     "webpack": "4.41.0",
-    "webpack-dev-server": "3.2.1",
-    "wsrun": "^5.2.0"
+    "webpack-dev-server": "3.2.1"
   },
   "workspaces": {
     "packages": [
